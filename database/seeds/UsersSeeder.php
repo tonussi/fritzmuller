@@ -21,14 +21,14 @@ class UsersSeeder extends Seeder
             'email' => 'fulanodetal@example.com',
             'name' => 'Fulano de tal',
             'password' => bcrypt('senhasecreta'),
-            'is_admin' => true
+            // 'is_admin' => true
         ]);
 
         User::create([
             'email' => 'siclanodetal@example.com',
             'name' => 'Siclano de tal',
             'password' => bcrypt('senhasecreta'),
-            'is_admin' => false
+            // 'is_admin' => false
         ]);
     }
 
