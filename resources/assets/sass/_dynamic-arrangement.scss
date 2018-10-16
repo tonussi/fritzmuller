@@ -1,0 +1,27 @@
+.dynamic-arrangement {
+    height: 100%;
+
+    @media #{$mq-xxsmall} {
+        padding-top: 54px;
+    }
+
+    @media #{$mq-xsmall} {
+        padding-top: 54px;
+    }
+
+    @media #{$mq-medium} {
+        padding-top: 54px;
+    }
+
+    @media #{$mq-large} {
+        padding-top: 64px;
+    }
+
+    @media #{$mq-xlarge} {
+        padding-top: 64px;
+    }
+
+    @media #{$mq-xxlarge} {
+        padding-top: 64px;
+    }
+}

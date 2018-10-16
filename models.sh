@@ -1,0 +1,20 @@
+#!/bin/sh
+php artisan krlove:generate:model Article --table-name=articles
+php artisan krlove:generate:model ArticleSpecie --table-name=article_specie
+php artisan krlove:generate:model ArticleAuthor --table-name=article_author
+php artisan krlove:generate:model ArticleTag --table-name=article_tag
+php artisan krlove:generate:model Author --table-name=author
+php artisan krlove:generate:model Tag --table-name=tag
+php artisan krlove:generate:model Project --table-name=project
+php artisan krlove:generate:model Member --table-name=member
+php artisan krlove:generate:model Merchandise --table-name=merchandise
+php artisan krlove:generate:model SpeciesDetail --table-name=species_detail
+php artisan krlove:generate:model PopularName --table-name=popular_name
+php artisan krlove:generate:model TaxonomyRankFamily --table-name=taxonomy_rank_family
+php artisan krlove:generate:model TaxonomyRankGenus --table-name=taxonomy_rank_genus
+php artisan krlove:generate:model TaxonomyRankKingdom --table-name=taxonomy_rank_kingdom
+php artisan krlove:generate:model TaxonomyRankClass --table-name=taxonomy_rank_class
+php artisan krlove:generate:model TaxonomyRankOrder --table-name=taxonomy_rank_order
+php artisan krlove:generate:model TaxonomyRankPhylum --table-name=taxonomy_rank_phylum
+php artisan krlove:generate:model TaxonomyRankSpecie --table-name=taxonomy_rank_specie
+php artisan krlove:generate:model TaxonomyGroup --table-name=taxonomy_group

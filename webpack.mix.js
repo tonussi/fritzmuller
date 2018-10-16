@@ -5,8 +5,8 @@ const mix = require('laravel-mix')
 mix.config.vue.esModule = true
 
 mix
-  .js('resources/js/app.js', 'public/js')
-  .sass('resources/sass/app.scss', 'public/css')
+  .js('resources/assets/js/app.js', 'public/js')
+  .sass('resources/assets/sass/app.scss', 'public/css')
 
   .sourceMaps()
   .disableNotifications()
@@ -15,21 +15,31 @@ if (mix.inProduction()) {
   mix.version()
 
   mix.extract([
-    'vue',
-    'vform',
+    '@fortawesome/fontawesome-free',
+    '@tinymce/tinymce-vue',
     'axios',
-    'vuex',
-    'jquery',
-    'popper.js',
-    'vue-i18n',
-    'vue-meta',
-    'js-cookie',
     'bootstrap',
+    'jquery',
+    'js-cookie',
+    'jspdf',
+    'lodash',
+    'moment',
+    'popper.js',
+    'tinymce',
+    'vform',
+    'vue',
+    'vue-carousel',
+    'vue-html2canvas',
+    'vue-i18n',
+    'vue-material',
+    'vue-meta',
+    'vue-picture-input',
+    'vue-recaptcha',
     'vue-router',
-    'sweetalert2',
-    'vuex-router-sync',
-    '@fortawesome/fontawesome',
-    '@fortawesome/vue-fontawesome'
+    'vue-tinymce',
+    'vuetify',
+    'vuex',
+    'vuex-router-sync'
   ])
 }
 
@@ -40,7 +50,7 @@ mix.webpackConfig({
   resolve: {
     extensions: ['.js', '.json', '.vue'],
     alias: {
-      '~': path.join(__dirname, './resources/js')
+      '~': path.join(__dirname, './resources/assets/js')
     }
   },
   output: {

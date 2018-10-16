@@ -1,0 +1,22 @@
+<?php
+return [
+    'manage' => 'Administrar isso',
+    'article_title' => "Seus artigos",
+    'article_description' => "Administrar, Editar, os seus Artigos",
+    'running_title' => "As Atividades Rolando",
+    'running_description' => "Administrar, Editar, as suas Atividades Rolando",
+    'animal_title' => "Fauna: Animais",
+    'animal_description' => "Administrar, Editar, Fauna: Animais e seus Taxonomias",
+    'plant_title' => "Flora: Plantas",
+    'plant_description' => "Administrar, Editar, Flora: Plantas e suas Taxonomias",
+    'project_description' => "Administrar, ou editar os projetos atuais",
+    'member_description' => "Administrar, ou editr os membros de projetos",
+    'project_title' => "Atuais Projetos",
+    'member_title' => "Membros dos Projetos",
+    'articles_session' => 'Sessão dos Artigos',
+    'activities_session' => 'Sessão da Publicidade',
+    'species_session' => 'Sessão das Espécies',
+    'projects_session' => 'Sessão dos Projetos',
+    'members_session' => 'Sessão dos Membros',
+    'taxonomy_session' => 'Sessão das Taxonomias',
+];

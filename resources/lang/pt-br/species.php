@@ -1,0 +1,27 @@
+<?php
+return [
+    'readmore' => 'Saiba mais sobre esse animal',
+    'description' => 'Descrição desta espécie',
+    'created_at' => 'Esse animal foi criado em',
+    'updated_at' => 'Esse animal foi atualizado em',
+    'moreinfo' => 'Mais Informações desse animal',
+    'project_name' => 'Nome do animal',
+    'project_description' => 'Descrição do animal',
+    'figure_path' => 'Figure de Apresentação do animal',
+    'show' => 'Lista de animals',
+    'create' => 'Criar Novo Animal',
+    'editing' => 'Editando a Informação para essa Espécie',
+    'creating' => 'Criando a Informação para essa Espécie',
+    'popular_name' => 'Nome Popular',
+    'selecting_species_taxonomy' => 'Selecionando Espécie Para Este Animal',
+    'subspecies_selector' => 'Selecionador de Subespécies (Pode selecionar apenas uma)',
+    'new_specie_to_swap' => 'Nova Subespécie para Trocar',
+    'current_specie_associated' => 'Subespécie Atual Deste Animal',
+    'search_by_taxa_kingdom' => 'Procurar Pelo Rank Kingdom',
+    'search_by_taxa_phylum' => 'Procurar Pelo Rank Phylum',
+    'search_by_taxa_class' => 'Procurar Pelo Rank Class',
+    'search_by_taxa_order' => 'Procurar Pelo Rank Order',
+    'search_by_taxa_family' => 'Procurar Pelo Rank Family',
+    'search_by_taxa_genus' => 'Procurar Pelo Rank Genus',
+    'search_by_taxa_specie' => 'Procurar Pelo Rank Specie'
+];

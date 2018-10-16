@@ -1,0 +1,14 @@
+.fade-custom-transition .fade-enter-active,
+.fade-custom-transition .fade-leave-active,
+.fade-custom-transition .fade-leave-to {
+	transition: 0.3s ease-out;
+	position: absolute;
+	top: 0;
+	left: 0;
+}
+
+.fade-custom-transition .fade-enter,
+.fade-custom-transition .fade-leave,
+.fade-custom-transition .fade-leave-to {
+	opacity: 0;
+}
