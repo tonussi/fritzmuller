@@ -78,12 +78,11 @@ return [
     |
     */
 
-    'locale' => 'en',
+    'locale' => 'pt-br',
 
     'locales' => [
-        'en' => 'EN',
-        'zh-CN' => '中文',
-        'es' => 'ES',
+        'en' => 'Inglês EUA',
+        'pt-br' => 'Brasileiro',
     ],
 
     /*
@@ -97,7 +96,7 @@ return [
     |
     */
 
-    'fallback_locale' => 'en',
+    'fallback_locale' => 'pt-br',
 
     /*
     |--------------------------------------------------------------------------
