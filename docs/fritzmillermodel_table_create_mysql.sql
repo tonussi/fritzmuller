@@ -22,13 +22,13 @@ CREATE INDEX password_resets_email_index ON password_resets(email);
 CREATE TABLE oauth_providers (
   id integer NOT NULL AUTO_INCREMENT,
   user_id int(11) NOT NULL,
-  provider varchar(255) COLLATE utf8_unicode_ci NOT NULL,
-  provider_user_id varchar(255) COLLATE utf8_unicode_ci NOT NULL,
-  access_token varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
-  refresh_token varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  provider varchar(255) NOT NULL,
+  provider_user_id varchar(255) NOT NULL,
+  access_token varchar(255) DEFAULT NULL,
+  refresh_token varchar(255) DEFAULT NULL,
   created_at timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  updated_at timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
-) ENGINE=InnoDB
+  updated_at timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (id)) ENGINE = InnoDB;
 
 CREATE INDEX oauth_providers_index ON oauth_providers(provider_user_id);
 
