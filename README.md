@@ -1,31 +1,23 @@
-# Laravel-Vue SPA 
+# Fritz Muller App
 
-<a href="https://travis-ci.org/cretueusebiu/laravel-vue-spa"><img src="https://travis-ci.org/cretueusebiu/laravel-vue-spa.svg?branch=master" alt="Build Status"></a>
-<a href="https://packagist.org/packages/cretueusebiu/laravel-vue-spa"><img src="https://poser.pugx.org/cretueusebiu/laravel-vue-spa/d/total.svg" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/cretueusebiu/laravel-vue-spa"><img src="https://poser.pugx.org/cretueusebiu/laravel-vue-spa/v/stable.svg" alt="Latest Stable Version"></a>
-
-> A Laravel-Vue SPA starter project template.
-
-<p align="center">
-<img src="https://i.imgur.com/NHFTsGt.png">
-</p>
+> educational project
 
 ## Features
 
 - Laravel 5.7 
-- Vue + VueRouter + Vuex + VueI18n + ESlint
+- Vue + VueRouter + Vuex + VueI18n + Vuetify
 - Pages with dynamic import and custom layouts
 - Login, register and password reset
 - Authentication with JWT
-- Socialite integration
-- Bootstrap 4 + Font Awesome 5
 
 ## Installation
 
-- `composer create-project --prefer-dist cretueusebiu/laravel-vue-spa`
+- `composer create-project --prefer-dist tonussi/fritzmuller`
 - Edit `.env` and set your database connection details
 - (When installed via git clone or download, run `php artisan key:generate` and `php artisan jwt:secret`)
 - `php artisan migrate`
+- `$ composer config -g repos.packagist composer https://packagist.com.br`
+- `composer install`
 - `yarn` (Install [Yarn](https://yarnpkg.com/en/docs/install) if you don't have it.)
 
 ## Usage
@@ -34,16 +26,16 @@
 
 ```bash
 # build and watch
-npm run watch
+yarn run watch-poll
 
 # serve with hot reloading
-npm run hot
+yarn run hot
 ```
 
 #### Production
 
 ```bash
-npm run production
+yarn run production
 ```
 
 ## Changelog
