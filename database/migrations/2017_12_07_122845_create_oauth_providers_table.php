@@ -36,6 +36,6 @@ class CreateOauthProvidersTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('oauth_providers');
+        Schema::drop('oauth_providers');
     }
 }

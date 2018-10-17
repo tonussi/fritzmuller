@@ -4,16 +4,13 @@ const mix = require('laravel-mix')
 
 mix.config.vue.esModule = true
 
-mix.js('resources/assets/js/manifest.js', 'public/js')
-   .js('resources/assets/js/vendor.js', 'public/js')
-   .js('resources/assets/js/app.js', 'public/js')
+mix.js('resources/assets/js/app.js', 'public/js')
    .sass('resources/assets/sass/app.scss', 'public/css')
    .sourceMaps()
    .disableNotifications()
 
 if (mix.inProduction()) {
   mix.version()
-
   mix.extract([
     '@fortawesome/fontawesome-free',
     '@tinymce/tinymce-vue',
@@ -55,6 +52,6 @@ mix.webpackConfig({
   },
   output: {
     chunkFilename: 'js/[name].[chunkhash].js',
-    publicPath: mix.config.hmr ? '//localhost:8080' : '/'
+    publicPath: mix.config.hmr ? '//127.0.0.1/' : '/'
   }
 })

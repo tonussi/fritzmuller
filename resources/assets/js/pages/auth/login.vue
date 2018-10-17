@@ -41,10 +41,6 @@
               <div class="form-group row pt-5 pb-5">
                 <div class="col-md-9 ml-md-auto">
                   <vue-recaptcha
-                    ref="recaptcha"
-                    @verify="onCaptchaVerified"
-                    @expired="onCaptchaExpired"
-                    size="invisible"
                     sitekey="6LdgDBYTAAAAAN6RpxiDWiK8GML7LaUdNZHrQLWS"></vue-recaptcha>
                 </div>
               </div>
