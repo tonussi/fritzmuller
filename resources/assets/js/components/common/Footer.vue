@@ -17,8 +17,8 @@
 export default {
   data: () => ({
     availableLocales: [
-      { label: 'en', name: 'EUA English' },
-      { label: 'pt-br', name: 'Português Brasileiro' }
+      { label: 'en-US', name: 'English (United States)' },
+      { label: 'pt-BR', name: 'Português (Brasileiro)' }
     ],
     localizationState: ''
   }),
