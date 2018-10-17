@@ -21,6 +21,20 @@ CREATE TABLE public.password_resets (
 
 CREATE INDEX ON public.password_resets (email);
 
+CREATE TABLE public.oauth_providers (
+    id SERIAL NOT NULL,
+    user_id integer NOT NULL,
+    provider character varying (255) NOT NULL,
+    provider_user_id character varying (255) NOT NULL,
+    access_token character varying (255),
+    refresh_token character varying (255),
+    created_at timestamp(0) without time zone,
+    updated_at timestamp(0) without time zone,
+    PRIMARY KEY (id)
+);
+
+CREATE INDEX ON public.oauth_providers (provider_user_id);
+
 CREATE TABLE public.articles (
     id SERIAL NOT NULL,
     article_content text NOT NULL,
@@ -319,3 +333,8 @@ ALTER TABLE public.taxonomy_group
     UPDATE
         CASCADE ON DELETE CASCADE;
 
+ALTER TABLE public.oauth_providers
+    ADD CONSTRAINT FK_oauth_providers__user_id FOREIGN KEY (user_id) REFERENCES
+    public.users (id) MATCH SIMPLE ON
+    UPDATE
+        NO ACTION ON DELETE CASCADE;

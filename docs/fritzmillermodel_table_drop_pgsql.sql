@@ -17,5 +17,6 @@ DROP TABLE taxonomy_rank_order CASCADE;
 DROP TABLE taxonomy_rank_phylum CASCADE;
 DROP TABLE taxonomy_rank_specie CASCADE;
 DROP TABLE taxonomy_group CASCADE;
-DROP TABLE password_resets;
-DROP TABLE users;
+DROP TABLE users CASCADE;
+DROP TABLE password_resets CASCADE;
+DROP TABLE oauth_providers CASCADE;

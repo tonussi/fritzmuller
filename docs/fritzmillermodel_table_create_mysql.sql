@@ -19,6 +19,19 @@ CREATE TABLE password_resets (
 
 CREATE INDEX password_resets_email_index ON password_resets(email);
 
+CREATE TABLE oauth_providers (
+  id integer NOT NULL AUTO_INCREMENT,
+  user_id int(11) NOT NULL,
+  provider varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  provider_user_id varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  access_token varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  refresh_token varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  created_at timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  updated_at timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
+) ENGINE=InnoDB
+
+CREATE INDEX oauth_providers_index ON oauth_providers(provider_user_id);
+
 CREATE TABLE articles (
     id integer NOT NULL AUTO_INCREMENT,
     article_content text NOT NULL,
@@ -218,52 +231,20 @@ CREATE INDEX idx_taxonomy_group_genus_id ON taxonomy_group (genus_id);
 
 CREATE INDEX idx_taxonomy_group_specie_id ON taxonomy_group (specie_id);
 
-
-ALTER TABLE article_specie
-    ADD CONSTRAINT fk_article_specie__species_id FOREIGN KEY (species_id) REFERENCES species_detail (id);
-
-ALTER TABLE article_specie
-    ADD CONSTRAINT fk_article_specie__article_id FOREIGN KEY (article_id) REFERENCES articles (id);
-
-ALTER TABLE article_author
-    ADD CONSTRAINT fk_article_author__author_id FOREIGN KEY (author_id) REFERENCES author (id);
-
-ALTER TABLE article_author
-    ADD CONSTRAINT fk_article_author__article_id FOREIGN KEY (article_id) REFERENCES articles (id);
-
-ALTER TABLE article_tag
-    ADD CONSTRAINT fk_article_tag__tag_id FOREIGN KEY (tag_id) REFERENCES tag (id);
-
-ALTER TABLE article_tag
-    ADD CONSTRAINT fk_article_tag__article_id FOREIGN KEY (article_id) REFERENCES articles (id);
-
-ALTER TABLE member
-    ADD CONSTRAINT fk_member__project_id FOREIGN KEY (project_id) REFERENCES project (id);
-
-ALTER TABLE species_detail
-    ADD CONSTRAINT fk_species_detail__taxonomy_group_id FOREIGN KEY (taxonomy_group_id) REFERENCES taxonomy_group (id);
-
-ALTER TABLE popular_name
-    ADD CONSTRAINT fk_popular_name__species_detail_id FOREIGN KEY (species_detail_id) REFERENCES species_detail (id);
-
-ALTER TABLE taxonomy_group
-    ADD CONSTRAINT fk_taxonomy_group__kingdom_id FOREIGN KEY (kingdom_id) REFERENCES taxonomy_rank_kingdom (id);
-
-ALTER TABLE taxonomy_group
-    ADD CONSTRAINT fk_taxonomy_group__phylum_id FOREIGN KEY (phylum_id) REFERENCES taxonomy_rank_phylum (id);
-
-ALTER TABLE taxonomy_group
-    ADD CONSTRAINT fk_taxonomy_group__class_id FOREIGN KEY (class_id) REFERENCES taxonomy_rank_class (id);
-
-ALTER TABLE taxonomy_group
-    ADD CONSTRAINT fk_taxonomy_group__order_id FOREIGN KEY (order_id) REFERENCES taxonomy_rank_order (id);
-
-ALTER TABLE taxonomy_group
-    ADD CONSTRAINT fk_taxonomy_group__family_id FOREIGN KEY (family_id) REFERENCES taxonomy_rank_family (id);
-
-ALTER TABLE taxonomy_group
-    ADD CONSTRAINT fk_taxonomy_group__genus_id FOREIGN KEY (genus_id) REFERENCES taxonomy_rank_genus (id);
-
-ALTER TABLE taxonomy_group
-    ADD CONSTRAINT fk_taxonomy_group__specie_id FOREIGN KEY (specie_id) REFERENCES taxonomy_rank_specie (id);
-
+ALTER TABLE article_specie ADD CONSTRAINT fk_article_specie__species_id FOREIGN KEY (species_id) REFERENCES species_detail (id) ON DELETE CASCADE ON UPDATE CASCADE;
+ALTER TABLE article_specie ADD CONSTRAINT fk_article_specie__article_id FOREIGN KEY (article_id) REFERENCES articles (id) ON DELETE CASCADE ON UPDATE CASCADE;
+ALTER TABLE article_author ADD CONSTRAINT fk_article_author__author_id FOREIGN KEY (author_id) REFERENCES author (id) ON DELETE CASCADE ON UPDATE CASCADE;
+ALTER TABLE article_author ADD CONSTRAINT fk_article_author__article_id FOREIGN KEY (article_id) REFERENCES articles (id) ON DELETE CASCADE ON UPDATE CASCADE;
+ALTER TABLE article_tag ADD CONSTRAINT fk_article_tag__tag_id FOREIGN KEY (tag_id) REFERENCES tag (id) ON DELETE CASCADE ON UPDATE CASCADE;
+ALTER TABLE article_tag ADD CONSTRAINT fk_article_tag__article_id FOREIGN KEY (article_id) REFERENCES articles (id) ON DELETE CASCADE ON UPDATE CASCADE;
+ALTER TABLE member ADD CONSTRAINT fk_member__project_id FOREIGN KEY (project_id) REFERENCES project (id) ON DELETE CASCADE ON UPDATE CASCADE;
+ALTER TABLE species_detail ADD CONSTRAINT fk_species_detail__taxonomy_group_id FOREIGN KEY (taxonomy_group_id) REFERENCES taxonomy_group (id) ON DELETE CASCADE ON UPDATE CASCADE;
+ALTER TABLE popular_name ADD CONSTRAINT fk_popular_name__species_detail_id FOREIGN KEY (species_detail_id) REFERENCES species_detail (id) ON DELETE CASCADE ON UPDATE CASCADE;
+ALTER TABLE taxonomy_group ADD CONSTRAINT fk_taxonomy_group__kingdom_id FOREIGN KEY (kingdom_id) REFERENCES taxonomy_rank_kingdom (id) ON DELETE CASCADE ON UPDATE CASCADE;
+ALTER TABLE taxonomy_group ADD CONSTRAINT fk_taxonomy_group__phylum_id FOREIGN KEY (phylum_id) REFERENCES taxonomy_rank_phylum (id) ON DELETE CASCADE ON UPDATE CASCADE;
+ALTER TABLE taxonomy_group ADD CONSTRAINT fk_taxonomy_group__class_id FOREIGN KEY (class_id) REFERENCES taxonomy_rank_class (id) ON DELETE CASCADE ON UPDATE CASCADE;
+ALTER TABLE taxonomy_group ADD CONSTRAINT fk_taxonomy_group__order_id FOREIGN KEY (order_id) REFERENCES taxonomy_rank_order (id) ON DELETE CASCADE ON UPDATE CASCADE;
+ALTER TABLE taxonomy_group ADD CONSTRAINT fk_taxonomy_group__family_id FOREIGN KEY (family_id) REFERENCES taxonomy_rank_family (id) ON DELETE CASCADE ON UPDATE CASCADE;
+ALTER TABLE taxonomy_group ADD CONSTRAINT fk_taxonomy_group__genus_id FOREIGN KEY (genus_id) REFERENCES taxonomy_rank_genus (id) ON DELETE CASCADE ON UPDATE CASCADE;
+ALTER TABLE taxonomy_group ADD CONSTRAINT fk_taxonomy_group__specie_id FOREIGN KEY (specie_id) REFERENCES taxonomy_rank_specie (id) ON DELETE CASCADE ON UPDATE CASCADE;
+ALTER TABLE oauth_providers ADD CONSTRAINT FK_oauth_providers__user_id FOREIGN KEY (user_id) REFERENCES users (id) ON DELETE CASCADE ON UPDATE NO ACTION;

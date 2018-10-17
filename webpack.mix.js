@@ -4,12 +4,12 @@ const mix = require('laravel-mix')
 
 mix.config.vue.esModule = true
 
-mix
-  .js('resources/assets/js/app.js', 'public/js')
-  .sass('resources/assets/sass/app.scss', 'public/css')
-
-  .sourceMaps()
-  .disableNotifications()
+mix.js('resources/assets/js/manifest.js', 'public/js')
+   .js('resources/assets/js/vendor.js', 'public/js')
+   .js('resources/assets/js/app.js', 'public/js')
+   .sass('resources/assets/sass/app.scss', 'public/css')
+   .sourceMaps()
+   .disableNotifications()
 
 if (mix.inProduction()) {
   mix.version()
