@@ -1,5 +1,5 @@
 export default {
-    "en": {
+    "en-US": {
         "admin": {
             "manage": "Manage this",
             "article_title": "Your Articles",
@@ -314,7 +314,7 @@ export default {
             "profile": "Your Profile"
         }
     },
-    "pt-br": {
+    "pt-BR": {
         "admin": {
             "manage": "Administrar isso",
             "article_title": "Seus artigos",
