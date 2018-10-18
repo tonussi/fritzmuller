@@ -50,5 +50,7 @@ return [
     'increase_font_size' => 'Increase Font Size',
     'decrease_font_size' => 'Decrease Font Size',
     'turn_mode' => 'Turn Mode',
-    'profile' => 'Your Profile'
+    'profile' => 'Your Profile',
+    'donate' => 'Donate',
+    'open_closed' => 'Close/Open to Guests'
 ];

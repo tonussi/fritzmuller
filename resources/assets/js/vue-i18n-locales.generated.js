@@ -311,7 +311,22 @@ export default {
             "increase_font_size": "Increase Font Size",
             "decrease_font_size": "Decrease Font Size",
             "turn_mode": "Turn Mode",
-            "profile": "Your Profile"
+            "profile": "Your Profile",
+            "donate": "Donate",
+            "open_closed": "Close\/Open to Guests"
+        },
+        "taxonomy": {
+            "create": "Create Taxonomy",
+            "kingdom": "Kingdom",
+            "phylum": "Phylum",
+            "class": "Class",
+            "order": "Order",
+            "family": "Family",
+            "genus": "Genus",
+            "species": "Species",
+            "show": "Mostrar Taxonomy",
+            "creating": "Creating Taxonomy",
+            "editing": "Editing Taxonomy"
         }
     },
     "pt-BR": {
@@ -625,7 +640,22 @@ export default {
             "increase_font_size": "Aumentar Fonte",
             "decrease_font_size": "Diminuir Fonte",
             "turn_mode": "Mudar o modo",
-            "profile": "Conta do usuário"
+            "profile": "Conta do usuário",
+            "donate": "Doar",
+            "open_closed": "Fechar ou Abrir para os Convidados"
+        },
+        "taxonomy": {
+            "create": "Criar Taxonomia",
+            "kingdom": "Reino",
+            "phylum": "Filo",
+            "class": "Classe",
+            "order": "Ordem",
+            "family": "Família",
+            "genus": "Gênero",
+            "species": "Espécie",
+            "show": "Mostrar Taxonomia",
+            "creating": "Criando Taxonomia",
+            "editing": "Editando Taxonomia"
         }
     }
 }

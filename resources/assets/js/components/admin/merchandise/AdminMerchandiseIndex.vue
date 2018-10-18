@@ -34,7 +34,7 @@
               <v-flex xs12 sm6 md4>
                 <!-- <v-subheader>{{ $t("runningactivities.active") }}</v-subheader> -->
                 <!-- <v-text-field v-model="editedItem.active"></v-text-field> -->
-                <v-subheader>{{ $t( 'messages.' + `${editedItem.active.toString()}`) }}</v-subheader>
+                <v-subheader>{{ $t('messages.open_closed') }}</v-subheader>
                 <v-switch v-model="editedItem.active"></v-switch>
               </v-flex>
             </v-form>

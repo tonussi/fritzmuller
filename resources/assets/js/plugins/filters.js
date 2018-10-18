@@ -1,11 +1,23 @@
 import Vue from 'vue'
 import moment from 'moment'
-import i18n from './i18n'
 
 /**
  * Filters
  */
-Vue.filter('formatDate', function (value) {
+Vue.filter('datei18n', function (value) {
  if (!value) return '';
- return moment(String(value), 'YYYY-MM-DD HH:mm:ss').locale('pt-br').format(i18n.t('misc.datetime'));
+ /* Attention YYYY-MM-DD is not a locale! This is the database generic format! */
+ return moment(String(value), 'YYYY-MM-DD').locale(localStorage.getItem('locale')).format('LL');
+});
+
+Vue.filter('currencyi18n', function (value) {
+ if (typeof value !== "number") {
+  return value;
+ }
+ var formatter = new Intl.NumberFormat(localStorage.getItem('locale'), {
+  style: 'currency',
+  currency: localStorage.getItem('currency'),
+  minimumFractionDigits: 0
+ });
+ return formatter.format(value);
 });

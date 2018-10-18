@@ -50,5 +50,7 @@ return [
     'increase_font_size' => 'Aumentar Fonte',
     'decrease_font_size' => 'Diminuir Fonte',
     'turn_mode' => 'Mudar o modo',
-    'profile' => 'Conta do usuário'
+    'profile' => 'Conta do usuário',
+    'donate' => 'Doar',
+    'open_closed' => 'Fechar ou Abrir para os Convidados'
 ];

@@ -14,22 +14,22 @@
             <v-form ref="form_article" lazy-validation>
               <v-flex xs6>
                 <v-subheader>{{ $t("article.title") }}</v-subheader>
-                <v-text-field v-model="editedItem.title"></v-text-field>
+                <v-text-field required v-model="editedItem.title"></v-text-field>
               </v-flex>
               <v-flex xs6>
                 <v-subheader>{{ $t("article.subtitle") }}</v-subheader>
-                <v-text-field v-model="editedItem.subtitle"></v-text-field>
+                <v-text-field required v-model="editedItem.subtitle"></v-text-field>
               </v-flex>
               <v-flex xs6>
                 <v-subheader>{{ $t("article.figure_path") }}</v-subheader>
-                <v-text-field :title="$t('messages.pick_an_image')"
+                <v-text-field required :title="$t('messages.pick_an_image')"
                               @click="setNewFigurePath(editedItem);"
                               v-model="editedItem.figure_path">
                 </v-text-field>
               </v-flex>
               <v-flex xs6>
                 <v-subheader>{{ $t("article.content") }}</v-subheader>
-                <tinymce id="article_content"
+                <tinymce required id="article_content"
                          v-model="editedItem.article_content"
                          :content='editedItem.article_content_reflection'
                          :options='editor_tiny_mce.options'>
@@ -46,6 +46,7 @@
                   width="300px"
                   :return-value.sync="editedItem.publication_date">
                   <v-text-field
+                    required
                     slot="activator"
                     v-model="editedItem.publication_date"
                     prepend-icon="event"
@@ -61,8 +62,8 @@
               <v-flex xs6>
                 <!-- <v-subheader>{{ $t("article.active") }}</v-subheader> -->
                 <!-- <v-text-field v-model="editedItem.active"></v-text-field> -->
-                <v-subheader>{{ $t( 'messages.' + `${editedItem.active.toString()}`) }}</v-subheader>
-                <v-switch v-model="editedItem.active"></v-switch>
+                <v-subheader>{{ $t( 'messages.open_closed') }}</v-subheader>
+                <v-switch required v-model="editedItem.active"></v-switch>
               </v-flex>
             </v-form>
           </v-container>

@@ -43,11 +43,11 @@
                     </v-flex>
                     <v-flex xs6>
                       <v-card-title primary-title>
-                        <h2 class="headline" v-text="post.title"></h2>
-                        <p class="grey--text">{{ post.subtitle }}</p>
+                        <h2 class="headline" v-text="post.title"></h2><br/>
+                        <p class="grey--text">{{ post.subtitle }}</p><br/>
                         <v-badge right color="cyan">
-                          <v-icon :title="$t('messages.active_and_published')" slot="badge" dark small>done</v-icon>
-                          <span>{{ post.publication_date }}</span>
+                          <v-icon :title="$t('messages.active_and_published')" slot="badge" small>done</v-icon>
+                          <span>{{ post.publication_date | datei18n }}</span>
                         </v-badge>
                       </v-card-title>
                     </v-flex>
@@ -57,15 +57,15 @@
                       {{ $t("article.readit") }}
                     </v-btn>
                     <v-spacer></v-spacer>
-                    {{ $t("article.shareit") }}
+                    {{ $t("messages.donate") }}
                     <v-btn icon @click.native="post.show = !post.show">
                       <v-icon>{{ post.show ? 'keyboard_arrow_down' : 'keyboard_arrow_up' }}</v-icon>
                     </v-btn>
                   </v-card-actions>
                   <v-slide-y-transition>
                     <span v-show="post.show">
-                      <v-btn flat color="blue" :to="{ path: '/guest/articles/read/' + post.id }">
-                        {{ $t("article.shareit") }}
+                      <v-btn flat color="blue">
+                        {{ 1 | fmtcurrency }}
                       </v-btn>
                     </span>
                   </v-slide-y-transition>
@@ -95,7 +95,7 @@ export default {
     return {
       cards: [],
       posts: [],
-      howManyMore: 5
+      howManyMore: 15
     }
   },
 
