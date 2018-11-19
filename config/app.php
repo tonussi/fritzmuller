@@ -52,7 +52,7 @@ return [
     |
     */
 
-    'url' => env('APP_URL', 'https://localhost'),
+    'url' => env('APP_URL', 'http://localhost'),
 
     /*
     |--------------------------------------------------------------------------
@@ -79,6 +79,11 @@ return [
     */
 
     'locale' => 'pt-BR',
+
+    'locales' => [
+        'en-US' => 'English (United States)',
+        'pt-BR' => 'Português (Brasileiro)',
+    ],
 
     /*
     |--------------------------------------------------------------------------
