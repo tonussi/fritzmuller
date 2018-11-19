@@ -19,7 +19,7 @@ return [
     'readit' => 'Read it',
     'create' => 'Create New Article',
     'figure_path' => 'Article\'s Firstlook Image',
-    'loadmore' => 'Load More Articles',
+    'loadmore' => 'Load More Posts',
     'selecting_species_taxonomy' => 'Selecting Subspecies (Using Taxonomy)',
     'species_selector' => 'Species Selector',
     'pdf_session' => 'PDF',

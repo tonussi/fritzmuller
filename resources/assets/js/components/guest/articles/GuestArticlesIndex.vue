@@ -88,7 +88,6 @@
       </v-card-text>
       <v-layout row wrap>
         <v-flex
-          v-bind="{ [`xs${card.flex}`]: true }"
           v-for="(card, i) in articles"
           :key="i">
           <v-card>

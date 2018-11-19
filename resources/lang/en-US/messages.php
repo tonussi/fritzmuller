@@ -42,6 +42,7 @@ return [
     'extra_meta_data' => 'Extra Images',
     'select_locale' => 'Select Locale',
     'choose_your_language' => 'Choose Your Language',
+    'choose_your_currency' => 'Choose Your Currency',
     'begin_date_label' => 'Put the beginning date',
     'end_date_label' => 'Put the ending date',
     'page_not_found' => 'Page not found. Sorry.',

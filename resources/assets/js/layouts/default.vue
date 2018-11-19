@@ -1,5 +1,5 @@
 <template>
-  <v-app id="inspire">
+  <v-app>
     <my-tool-bar/>
     <v-content>
       <child/>

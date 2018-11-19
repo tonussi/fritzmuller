@@ -28,7 +28,15 @@ class Article extends Model
      */
     protected $fillable = ['article_content', 'publication_date', 'active', 'title', 'subtitle', 'figure_path', 'created_at', 'updated_at'];
 
-    protected $appends = ['flex', 'show'];
+    protected $appends = ['flex', 'show', 'rating', 'price'];
+
+    public function getRatingAttribute() {
+        return random_int(1, 5);
+    }
+
+    public function getPriceAttribute() {
+        return random_int(1, 5);
+    }
 
     public function getFlexAttribute() {
         return 4;

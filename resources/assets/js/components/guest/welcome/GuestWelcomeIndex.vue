@@ -20,7 +20,7 @@
       </slide>
     </carousel>
 
-    <v-card style="margin:160px 60px 10px 60px;">
+    <v-card>
       <v-layout row align-center>
         <v-flex xs12>
           <div style="margin-top:60px" class="text-xs-center">
@@ -33,7 +33,6 @@
           <v-container grid-list-sm>
             <v-layout row wrap>
               <v-flex
-                v-bind="{ [`xs${post.flex}`]: true }"
                 v-for="(post, idx) in posts"
                 :key="post.title + '__n_' + idx">
                 <v-card>
@@ -43,12 +42,20 @@
                     </v-flex>
                     <v-flex xs6>
                       <v-card-title primary-title>
-                        <h2 class="headline" v-text="post.title"></h2><br/>
-                        <p class="grey--text">{{ post.subtitle }}</p><br/>
-                        <v-badge right color="cyan">
-                          <v-icon :title="$t('messages.active_and_published')" slot="badge" small>done</v-icon>
-                          <span>{{ post.publication_date | datei18n }}</span>
-                        </v-badge>
+                        <v-layout row wrap>
+                          <v-flex>
+                            <h2 class="headline" v-text="post.title"></h2>
+                          </v-flex>
+                          <v-flex>
+                            <p class="grey--text">{{ post.subtitle }}</p>
+                          </v-flex>
+                          <v-flex>
+                            <v-badge right color="cyan">
+                              <v-icon :title="$t('messages.active_and_published')" slot="badge" small>done</v-icon>
+                              <span>{{ post.publication_date | datei18n }}</span>
+                            </v-badge>
+                          </v-flex>
+                        </v-layout>
                       </v-card-title>
                     </v-flex>
                   </v-layout>
@@ -65,7 +72,7 @@
                   <v-slide-y-transition>
                     <span v-show="post.show">
                       <v-btn flat color="blue">
-                        {{ 1 | fmtcurrency }}
+                        {{ post.price | currencyi18n }}
                       </v-btn>
                     </span>
                   </v-slide-y-transition>

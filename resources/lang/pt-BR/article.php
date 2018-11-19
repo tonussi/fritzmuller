@@ -19,7 +19,7 @@ return [
     'readit' => 'Ler Artigo',
     'create' => 'Criar Novo Artigo',
     'figure_path' => 'Article\'s Imagem de Apresentação',
-    'loadmore' => 'Carregar mais artigos',
+    'loadmore' => 'Carregar mais postagens',
     'selecting_species_taxonomy' => 'Selecionando Subespécies (Usando Taxonomia)',
     'species_selector' => 'Seletor de Espécies',
     'pdf_session' => 'PDF',

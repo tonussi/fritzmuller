@@ -73,7 +73,7 @@
           <v-img :src="readableItem.figure_path" height="600px"></v-img>
         </v-flex>
       </v-layout>
-      <v-layout row justify-space-between>
+      <v-layout row wrap justify-space-between>
         <v-flex xs12 align-end flexbox>
           <v-subheader>{{ $t("article.title") }}</v-subheader>
           <span class="display-3">{{readableItem.title}}</span>
@@ -94,7 +94,7 @@
       </v-layout>
       <v-layout row justify-space-between>
         <div class="text-xs-center">
-          <v-rating v-model="rating"></v-rating>
+          <v-rating v-model="readableItem.rating"></v-rating>
         </div>
       </v-layout>
       <v-divider style="margin-top:20px;margin-bottom:20px;"></v-divider>
@@ -122,7 +122,7 @@
           {{ $t("article.comments") }}
           <v-icon>people</v-icon>
         </v-tab>
-        <v-tab-item id="tab-1">
+        <v-tab-item value="tab-1">
           <v-card flat>
             <v-layout row justify-space-between>
               <v-flex xs12 align-end flexbox>
@@ -144,7 +144,7 @@
             </v-layout>
           </v-card>
         </v-tab-item>
-        <v-tab-item id="tab-2">
+        <v-tab-item value="tab-2">
           <v-card flat>
             <v-layout row justify-space-between>
               <v-flex xs12 align-end flexbox>
@@ -165,7 +165,7 @@
             </v-layout>
           </v-card>
         </v-tab-item>
-        <v-tab-item id="tab-3">
+        <v-tab-item value="tab-3">
           <div id="disqus_thread"></div>
         </v-tab-item>
       </v-tabs>
@@ -180,7 +180,6 @@ import moment from 'moment';
 export default {
   data () {
     return {
-      rating: 0,
       applocale: 'pt-br',
       taxonomy_dialog: false,
       taxonomy_info_display: '',
