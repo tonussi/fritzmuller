@@ -14,10 +14,17 @@ Vue.filter('currencyi18n', function (value) {
  if (typeof value !== "number") {
   return value;
  }
- var formatter = new Intl.NumberFormat(localStorage.getItem('locale'), {
+
+ var aux = localStorage.getItem('locale');
+ if (aux === undefined) {
+   aux = 'BRL';
+ }
+
+ var formatter = new Intl.NumberFormat(aux, {
   style: 'currency',
   currency: localStorage.getItem('currency'),
   minimumFractionDigits: 0
  });
+
  return formatter.format(value);
 });

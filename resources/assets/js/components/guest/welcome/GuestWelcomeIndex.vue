@@ -20,7 +20,7 @@
       </slide>
     </carousel>
 
-    <v-card>
+    <v-card class="m-4">
       <v-layout row align-center>
         <v-flex xs12>
           <div style="margin-top:60px" class="text-xs-center">
@@ -28,13 +28,12 @@
           </div>
         </v-flex>
       </v-layout>
-      <v-layout row align-center>
-        <v-flex xs12>
-          <v-container grid-list-sm>
-            <v-layout row wrap>
-              <v-flex
-                v-for="(post, idx) in posts"
-                :key="post.title + '__n_' + idx">
+
+      <v-content>
+        <v-container fluid>
+          <v-container class="px-0" fluid grid-list-lg>
+            <v-layout wrap grid-list-md>
+              <v-flex v-for="(post, idx) in posts" :key="post.title + '__n_' + idx">
                 <v-card>
                   <v-layout row wrap>
                     <v-flex xs6>
@@ -42,20 +41,16 @@
                     </v-flex>
                     <v-flex xs6>
                       <v-card-title primary-title>
-                        <v-layout row wrap>
-                          <v-flex>
-                            <h2 class="headline" v-text="post.title"></h2>
-                          </v-flex>
-                          <v-flex>
-                            <p class="grey--text">{{ post.subtitle }}</p>
-                          </v-flex>
-                          <v-flex>
-                            <v-badge right color="cyan">
-                              <v-icon :title="$t('messages.active_and_published')" slot="badge" small>done</v-icon>
-                              <span>{{ post.publication_date | datei18n }}</span>
-                            </v-badge>
-                          </v-flex>
-                        </v-layout>
+                        <h2 class="headline" v-text="post.title"></h2>
+                      </v-card-title>
+                      <v-card-title>
+                        <p class="grey--text">{{ post.subtitle }}</p>
+                      </v-card-title>
+                      <v-card-title>
+                        <v-badge right color="cyan">
+                          <v-icon :title="$t('messages.active_and_published')" slot="badge" small>done</v-icon>
+                          <span>{{ post.publication_date | datei18n }}</span>
+                        </v-badge>
                       </v-card-title>
                     </v-flex>
                   </v-layout>
@@ -80,8 +75,9 @@
               </v-flex>
             </v-layout>
           </v-container>
-        </v-flex>
-      </v-layout>
+        </v-container>
+      </v-content>
+
       <v-layout column wrap align-center>
         <v-flex xs12 sm4>
           <div class="text-xs-center">

@@ -24,7 +24,7 @@ class TaxasSeeder extends Seeder
 
     private function createTaxaGroups()
     {
-        for ($i = 0; $i < 29; $i ++)
+        for ($i = 0; $i < 5; $i ++)
             $this->createTaxonomyRank();
     }
 

@@ -30,16 +30,20 @@ import currencymanager from '../../plugins/currencymanager';
 export default {
   data: () => ({
     availableLocales: localemanager.localeCodes,
-    localizationState: localemanager.getSystemLocale(),
     availableCurrencies: currencymanager.currencyCodes,
-    currencyState: currencymanager.getSystemCurrency()
+    localizationState: '',
+    currencyState: ''
   }),
+  created() {
+    this.localizationState = localemanager.getSystemLocale();
+    this.currencyState = currencymanager.getSystemCurrency();
+  },
   watch: {
-    localizationState: function (v) {
+    localizationState: function(v) {
       localemanager.setSystemLocale(v);
       this.$i18n.locale = localemanager.getSystemLocale();
     },
-    currencyState: function (v) {
+    currencyState: function(v) {
       currencymanager.setSystemCurrency(v);
     }
   }

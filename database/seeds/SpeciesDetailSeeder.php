@@ -25,7 +25,7 @@ class SpeciesDetailSeeder extends Seeder
             SpeciesDetail::create([
                 'taxonomy_group_id' => $a_id,
                 'species_description' => $this->faker->sentence(6, true),
-                'figure_path' => '/photos/1/Cristina/coruja.png'
+                'figure_path' => 'https://placeimg.com/400/400/animals'
             ]);
         }
     }

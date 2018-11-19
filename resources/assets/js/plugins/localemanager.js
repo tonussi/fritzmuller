@@ -10,7 +10,14 @@ var localeCodes = [
 ]
 
 var getSystemLocale = function() {
-  return localStorage.getItem('locale');
+  var aux = localStorage.getItem('locale');
+
+  if (aux === null) {
+    localStorage.setItem('locale', 'pt-BR');
+    return 'pt-BR';
+  }
+
+  return aux;
 }
 
 var setSystemLocale = function(v) {

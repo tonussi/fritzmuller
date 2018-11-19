@@ -222,13 +222,14 @@ export default {
             "readit": "Read it",
             "create": "Create New Article",
             "figure_path": "Article's Firstlook Image",
-            "loadmore": "Load More Articles",
+            "loadmore": "Load More Posts",
             "selecting_species_taxonomy": "Selecting Subspecies (Using Taxonomy)",
             "species_selector": "Species Selector",
             "pdf_session": "PDF",
             "get_pdf": "Generate PDF",
             "species": "Species in the Article",
-            "comments": "Comments"
+            "comments": "Comments",
+            "rating": "Rating"
         },
         "auth": {
             "failed": "These credentials do not match our records.",
@@ -553,13 +554,14 @@ export default {
             "readit": "Ler Artigo",
             "create": "Criar Novo Artigo",
             "figure_path": "Article's Imagem de Apresentação",
-            "loadmore": "Carregar mais artigos",
+            "loadmore": "Carregar mais postagens",
             "selecting_species_taxonomy": "Selecionando Subespécies (Usando Taxonomia)",
             "species_selector": "Seletor de Espécies",
             "pdf_session": "PDF",
             "get_pdf": "Gerar PDF",
             "species": "Espécies no Artigo",
-            "comments": "Comentários"
+            "comments": "Comentários",
+            "rating": "Nota"
         },
         "auth": {
             "failed": "As informações de login não foram encontradas.",

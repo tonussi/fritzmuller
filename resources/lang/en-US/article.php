@@ -25,5 +25,6 @@ return [
     'pdf_session' => 'PDF',
     'get_pdf' => 'Generate PDF',
     'species' => 'Species in the Article',
-    'comments' => 'Comments'
+    'comments' => 'Comments',
+    'rating' => 'Rating'
 ];

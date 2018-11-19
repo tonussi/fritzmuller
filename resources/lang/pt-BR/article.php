@@ -25,5 +25,6 @@ return [
     'pdf_session' => 'PDF',
     'get_pdf' => 'Gerar PDF',
     'species' => 'Espécies no Artigo',
-    'comments' => 'Comentários'
+    'comments' => 'Comentários',
+    'rating' => 'Nota'
 ];

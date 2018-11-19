@@ -18,7 +18,7 @@ class AuthorSeeder extends Seeder
 
     private function createAuthors()
     {
-        for ($i = 0; $i < 19; $i ++)
+        for ($i = 0; $i < 5; $i ++)
             $this->createAuthor();
     }
 
@@ -43,7 +43,7 @@ class AuthorSeeder extends Seeder
             'author_surname' => $this->faker->sentence(6, true),
             'bio' => $this->faker->sentence(6, true),
             'contact' => $this->faker->sentence(6, true),
-            'figure_path' => '/photos/1/Cristina/avatar.jpg'
+            'figure_path' => 'https://placeimg.com/400/400/people'
         ]);
     }
 }

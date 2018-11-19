@@ -18,7 +18,7 @@ class TagSeeder extends Seeder
 
     private function createTags()
     {
-        for ($i = 0; $i < 29; $i ++)
+        for ($i = 0; $i < 5; $i ++)
             $this->createTag();
     }
 

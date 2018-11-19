@@ -37,7 +37,14 @@ const currencyCodes = [
 }];
 
 var getSystemCurrency = function() {
-  return localStorage.getItem('currency');
+  var aux = localStorage.getItem('currency');
+
+  if (aux === null) {
+    localStorage.setItem('currency', 'BRL');
+    return 'BRL';
+  }
+
+  return aux;
 }
 
 var setSystemCurrency = function(v) {

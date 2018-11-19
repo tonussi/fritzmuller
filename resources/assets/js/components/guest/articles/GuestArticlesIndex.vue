@@ -86,41 +86,36 @@
           </v-layout>
         </v-container>
       </v-card-text>
-      <v-layout row wrap>
-        <v-flex
-          v-for="(card, i) in articles"
-          :key="i">
-          <v-card>
-            <v-img
-              :src="card.figure_path"
-              height="200px">
-            </v-img>
-            <v-card-title primary-title>
-              <div>
+
+        <v-layout row wrap>
+          <v-flex xs6 sm4 md3 v-for="(card, i) in articles" :key="i">
+            <v-card>
+              <v-img :src="card.figure_path" height="200px"></v-img>
+              <v-card-title primary-title>
                 <h2 class="headline" v-text="card.title"></h2>
                 <p class="grey--text">{{ card.subtitle }}</p>
                 <v-badge right color="cyan">
                   <v-icon :title="$t('messages.active_and_published')" slot="badge" dark small>done</v-icon>
                   <span>{{ card.publication_date }}</span>
                 </v-badge>
-              </div>
-            </v-card-title>
-            <v-card-actions>
-              <v-btn flat color="cyan" :to="{ path: '/guest/articles/read/' + card.id }">{{ $t("article.readit") }}</v-btn>
-              <v-spacer></v-spacer>
-              {{ $t("article.shareit") }}
-              <v-btn icon @click.native="card.show = !card.show">
-                <v-icon>{{ card.show ? 'keyboard_arrow_down' : 'keyboard_arrow_up' }}</v-icon>
-              </v-btn>
-            </v-card-actions>
-            <v-slide-y-transition>
-              <span v-show="card.show">
-                <v-btn flat color="blue" :to="{ path: '/guest/articles/read/' + card.id }">{{ $t("article.shareit") }}</v-btn>
-              </span>
-            </v-slide-y-transition>
-          </v-card>
-        </v-flex>
-      </v-layout>
+              </v-card-title>
+              <v-card-actions>
+                <v-btn flat color="cyan" :to="{ path: '/guest/articles/read/' + card.id }">{{ $t("article.readit") }}</v-btn>
+                <v-spacer></v-spacer>
+                {{ $t("article.shareit") }}
+                <v-btn icon @click.native="card.show = !card.show">
+                  <v-icon>{{ card.show ? 'keyboard_arrow_down' : 'keyboard_arrow_up' }}</v-icon>
+                </v-btn>
+              </v-card-actions>
+              <v-slide-y-transition>
+                <span v-show="card.show">
+                  <v-btn flat color="blue" :to="{ path: '/guest/articles/read/' + card.id }">{{ $t("article.shareit") }}</v-btn>
+                </span>
+              </v-slide-y-transition>
+            </v-card>
+          </v-flex>
+        </v-layout>
+
     </v-container>
   </v-card>
 </template>

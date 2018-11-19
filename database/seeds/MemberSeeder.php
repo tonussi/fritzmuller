@@ -17,13 +17,13 @@ class MemberSeeder extends Seeder
 
     private function createProjects()
     {
-        for ($i = 0; $i < 9; $i ++)
+        for ($i = 0; $i < 5; $i ++)
             $this->createProject();
     }
 
     private function createMembers()
     {
-        for ($i = 0; $i < 19; $i ++)
+        for ($i = 0; $i < 5; $i ++)
             $this->createMember();
     }
 
@@ -31,7 +31,7 @@ class MemberSeeder extends Seeder
     {
         Project::create([
             'project_description' => $this->faker->sentence(6, true),
-            'figure_path' => '/photos/1/Cristina/Catavento.jpg',
+            'figure_path' => 'https://placeimg.com/400/400/nature',
             'project_name' => $this->faker->sentence(6, true)
         ]);
     }
@@ -44,7 +44,7 @@ class MemberSeeder extends Seeder
             'member_name' => $this->faker->sentence(3, true),
             'member_description' => $this->faker->sentence(6, true),
             'grad' => $this->faker->sentence(6, true),
-            'figure_path' => '/photos/1/Cristina/avatar.jpg'
+            'figure_path' => 'https://placeimg.com/400/400/people'
         ]);
     }
 }

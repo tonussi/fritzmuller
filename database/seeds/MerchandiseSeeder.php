@@ -22,7 +22,7 @@ class MerchandiseSeeder extends Seeder
     private function createRunningActivity()
     {
         return Merchandise::create([
-            'figure_path' => '/photos/1/Cristina/ra.png',
+            'figure_path' => 'https://placeimg.com/1000/400/arch',
             'title' => $this->faker->word,
             'activity_description' => $this->faker->text(140),
             'target_url' => '/guest/articles/read/1',

@@ -16,7 +16,7 @@ class ArticleSeeder extends Seeder
 
     private function createArticles()
     {
-        for ($i = 0; $i < 19; $i ++)
+        for ($i = 0; $i < 5; $i ++)
             $this->createArticle();
     }
 
@@ -28,7 +28,7 @@ class ArticleSeeder extends Seeder
             'article_content' => $this->faker->text(200),
             'publication_date' => $this->faker->dateTimeBetween('-2 years', 'now')->format('Y-m-d'),
             'active' => $this->faker->boolean(30),
-            'figure_path' => '/photos/1/Cristina/catav.jpg'
+            'figure_path' => 'https://placeimg.com/940/480/nature'
         ]);
     }
 }

@@ -84,18 +84,17 @@
         </v-flex>
         <v-flex xs12 align-end flexbox>
           <v-subheader>{{ $t("article.publication_date") }}</v-subheader>
-          <h3>{{readableItem.publication_date }}</h3>
+          <h3>{{readableItem.publication_date | datei18n }}</h3>
           <!-- <v-date-picker :locale="applocale" v-model="readableItem.publication_date" readonly></v-date-picker> -->
         </v-flex>
         <v-flex xs12 align-end flexbox>
           <v-subheader>{{ $t("article.pdf_session") }}</v-subheader>
           <v-btn @click="pdf(readableItem)">{{ $t("article.get_pdf") }}</v-btn>
         </v-flex>
-      </v-layout>
-      <v-layout row justify-space-between>
-        <div class="text-xs-center">
+        <v-flex xs12 align-end flexbox>
+          <v-subheader>{{ $t("article.rating") }}</v-subheader>
           <v-rating v-model="readableItem.rating"></v-rating>
-        </div>
+        </v-flex>
       </v-layout>
       <v-divider style="margin-top:20px;margin-bottom:20px;"></v-divider>
       <v-layout row justify-space-between>
@@ -147,10 +146,10 @@
         <v-tab-item value="tab-2">
           <v-card flat>
             <v-layout row justify-space-between>
-              <v-flex xs12 align-end flexbox>
-                <v-container grid-list-xl>
+              <v-flex align-end flexbox>
+                <v-container grid-list-xm>
                   <v-layout row wrap align-center>
-                    <v-flex class="xs3" v-for="(item, i) in species" :key="'specie_' + i">
+                    <v-flex v-for="(item, i) in species" :key="'specie_' + i">
                       <v-card>
                         <v-img :src="item.species_detail.figure_path" height="300px"></v-img>
                         <v-card-actions>

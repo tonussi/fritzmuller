@@ -1,7 +1,7 @@
 <template>
   <div>
 
-    <v-toolbar fixed app clipped-right>
+    <v-toolbar fixed app>
       <v-toolbar-side-icon @click.stop="drawer = !drawer"></v-toolbar-side-icon>
 
       <v-menu open-on-hover offset-x>
@@ -30,10 +30,12 @@
         </v-list>
       </v-menu>
 
-      <v-layout row align-center style="max-width: 650px"></v-layout>
       <v-spacer></v-spacer>
+      <v-toolbar-side-icon @click.stop="iconsdrawer = !iconsdrawer"></v-toolbar-side-icon>
+    </v-toolbar>
 
-      <v-navigation-drawer v-model="iconsdrawer" fixed app>
+    <v-navigation-drawer v-model="iconsdrawer" fixed right app>
+      <v-list>
         <v-btn icon :title="$t('messages.sign_language')">
           <v-icon>fas fa-sign-language</v-icon>
         </v-btn>
@@ -75,10 +77,10 @@
         <v-btn icon :to="{ name: 'register' }" :title="$t('auth.register')">
           <v-icon>fas fa-user-plus</v-icon>
         </v-btn>
-      </v-navigation-drawer>
-    </v-toolbar>
+      </v-list>
+    </v-navigation-drawer>
 
-    <v-navigation-drawer v-model="drawer" fixed app>
+    <v-navigation-drawer v-model="drawer" fixed left app>
       <v-list>
         <v-list-tile :to="{ name: 'guestWelcomeIndex' }">
           <v-list-tile-avatar>
