@@ -1,9 +1,3 @@
-# Trabalho para disciplina de Internacionalização de Software
-
-- **Professor**: Dr. José Eduardo De Lucca
-- **Disciplina**: INE5653-07238 (20182) - Introdução à Internacionalização e Localização de Software
-- **Estudante**: Lucas Pagotto Tonussi
-
 # Projeto Fritz Müller
 
 Projeto educacional para auxiliar Maria Cristina P. T.
