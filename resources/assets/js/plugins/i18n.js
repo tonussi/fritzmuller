@@ -9,5 +9,4 @@ const i18n = new VueI18n({
   messages: Locales
 });
 
-
 export default i18n;

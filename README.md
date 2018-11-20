@@ -1,6 +1,15 @@
+# Trabalho para disciplina de Internacionalização de Software
+
+- **Professor**: Dr. José Eduardo De Lucca
+- **Disciplina**: INE5653-07238 (20182) - Introdução à Internacionalização e Localização de Software
+- **Estudante**: Lucas Pagotto Tonussi
+
 # Projeto Fritz Müller
 
-Projeto educacional para auxiliar Maria Cristina P. T. https://fritzmuller.org/
+Projeto educacional para auxiliar Maria Cristina P. T.
+
+- [Github](https://github.com/tonussi/fritzmuller)
+- [App em Produção](https://fritzmuller.org/)
 
 <img src="fritzmuller.jpg" height="250px"></img>
 
@@ -48,6 +57,10 @@ yarn run production
 ```
 
 ## i18n
+
+Internacionalização de software é dar a capacidade do software de alternar linguagens de forma automática, integrada ao app e que responda de acordo com a preferência do usuário, um software internacionalizado para um conjunto de linguagens deve fornecer a possibilidade de escolha, para que o usuário possa decidir qual linguagem ele prefere. Juntamente com isso vem algumas responsabilidades do desenvolvedor de software, que são no mínimo fornecer um sistema de troca de linguagens inteligente e que vise não confundir o usuário, facilitando a orientação do mesmo. A internacionalização (i18n) visa também cuidados com a cultura onde a linguagem se encontra nativa (natural). Um exemplo disso é a língua árabe que começa da direita e vai para a esquerda, onde induz uma preferência por um layout que induz a visão do usuário da direita para a esquerda.
+
+Localizar um software é portar ele para uma linguagem nativa de uma região do globo, mas também tomar cuidados com a cultura local dessa região, tentando ao máximo respeitar essas mesmas. Por exemplo, os Japonêses são muito organizados, cuidadosos, detalhistas, ou seja, se você faz um site ou um app e esse site/app vai ter suporte para Japonês, seria muito cabível que o site tivesse um layout amigável aos Japonêses. Esse layout amigável/familiar aos Japonêses pode facilmente ser o padrão do site inteiro, visto que seria algo bastante bonito e muito bem organizado.
 
 A internacionalização desse app/site foi feita usando os recursos de um plugin para Laravel. Esse plugin ajuda a converter e empacotar todas as traduções para um único .json que é carregado por inteiro na página do usuário para poder oferecer tradução dos componentes padrão do site, em tempo real sem precisar recarregar a página. Existem muitos meios de fazer essa mesma ideia, como por exemplo fazer requisições assíncronas de apenas a tradução desejada e atualizar todos os componentes Vue() contidos no app/site.
 
@@ -187,6 +200,8 @@ Vue.filter('currencyi18n', function (value) {
 ```
 
 Esse filtro pode ser usado em qualquer lugar do APP, mas em arquivos .vue. Contidos em `resources/assets/js/components`.
+
+> __Gostaria de alertar que a troca de moeda não está atualizando instantâneamente no site, é preciso trocar a linguagem para que a moeda altere junto com a linguagem, ou ao trocar a moeda, pode-se atualizar a página. Por algum detalhe que eu não consegui entender no sistema de filtros do Vue, não foi possível fazer com que a mudança de estado da seleção de moedas propagasse para os campos de preço usando o filtro.__
 
 # Novas Traduções
 

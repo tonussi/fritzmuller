@@ -59,18 +59,13 @@
                       {{ $t("article.readit") }}
                     </v-btn>
                     <v-spacer></v-spacer>
-                    {{ $t("messages.donate") }}
-                    <v-btn icon @click.native="post.show = !post.show">
-                      <v-icon>{{ post.show ? 'keyboard_arrow_down' : 'keyboard_arrow_up' }}</v-icon>
-                    </v-btn>
-                  </v-card-actions>
-                  <v-slide-y-transition>
-                    <span v-show="post.show">
+                    <span>
+                      {{ $t("messages.donate") }}
                       <v-btn flat color="blue">
                         {{ post.price | currencyi18n }}
                       </v-btn>
                     </span>
-                  </v-slide-y-transition>
+                  </v-card-actions>
                 </v-card>
               </v-flex>
             </v-layout>
