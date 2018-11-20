@@ -15,12 +15,12 @@ Vue.filter('currencyi18n', function (value) {
   return value;
  }
 
- var aux = localStorage.getItem('locale');
- if (aux === undefined) {
-   aux = 'BRL';
+ var auxLocale = localStorage.getItem('locale');
+ if (auxLocale === undefined) {
+   auxLocale = 'pt-BR';
  }
 
- var formatter = new Intl.NumberFormat(aux, {
+ var formatter = new Intl.NumberFormat(auxLocale, {
   style: 'currency',
   currency: localStorage.getItem('currency'),
   minimumFractionDigits: 0

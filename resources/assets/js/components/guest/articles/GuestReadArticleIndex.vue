@@ -298,26 +298,27 @@ export default {
     },
 
     getPicturesFor(specie) {
+      this.getSplinkContent(specie);
+      this.getArkiveContent(specie);
       this.goToLinkedDataTab();
     },
 
-    getSplinkContent(subspecie) {
+    getSplinkContent(specie) {
       var app = this;
-      console.log('/api/v1/splink/' + subspecie + '/2/10')
-      axios.get('/api/v1/splink/' + subspecie + '/2/10').then(function(resp) {
+      console.log('/api/v1/splink/' + specie + '/2/10')
+      axios.get('/api/v1/splink/' + specie + '/2/10').then(function(resp) {
         app.linkedata = resp.data;
         console.log(app.linkedata);
       }).catch(function(resp) {
         console.log(resp);
         alert(this.$i18n.t('alerts.could_not_load') + ' ' + this.$i18n.t('alerts.article'));
       });
-      this.goToLinkedDataTab();
     },
 
-    getArkiveContent(subspecie) {
+    getArkiveContent(specie) {
       var app = this;
-      console.log('/api/v1/arkive/' + subspecie + '/10')
-      axios.get('/api/v1/arkive/' + subspecie + '/10').then(function(resp) {
+      console.log('/api/v1/arkive/' + specie + '/10')
+      axios.get('/api/v1/arkive/' + specie + '/10').then(function(resp) {
         console.log(resp.data);
         app.linkedata = resp.data;
         console.log(app.linkedata);
@@ -325,7 +326,6 @@ export default {
         console.log(resp);
         alert(this.$i18n.t('alerts.could_not_load') + ' ' + this.$i18n.t('alerts.article'));
       });
-      this.goToLinkedDataTab();
     },
 
     goToLinkedDataTab() {

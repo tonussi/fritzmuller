@@ -5,6 +5,7 @@
     <v-layout row wrap>
       <v-flex style="margin-right:30px;">
         <v-autocomplete :label="$t('messages.choose_your_language')"
+          prepend-icon="fas fa-globe-americas"
           :items="availableLocales"
           item-text="name"
           item-value="code"
@@ -13,6 +14,7 @@
       </v-flex>
       <v-flex>
         <v-autocomplete :label="$t('messages.choose_your_currency')"
+          prepend-icon="fas fa-money-bill-wave"
           :items="availableCurrencies"
           item-text="name"
           item-value="code"

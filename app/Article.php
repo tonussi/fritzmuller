@@ -31,11 +31,11 @@ class Article extends Model
     protected $appends = ['flex', 'show', 'rating', 'price'];
 
     public function getRatingAttribute() {
-        return random_int(1, 5);
+        return random_int(3, 5);
     }
 
     public function getPriceAttribute() {
-        return random_int(1, 5);
+        return random_int(100000, 50000000) / 11;
     }
 
     public function getFlexAttribute() {

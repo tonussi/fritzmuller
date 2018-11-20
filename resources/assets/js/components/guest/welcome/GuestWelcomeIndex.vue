@@ -31,9 +31,9 @@
 
       <v-content>
         <v-container fluid>
-          <v-container class="px-0" fluid grid-list-lg>
-            <v-layout wrap grid-list-md>
-              <v-flex v-for="(post, idx) in posts" :key="post.title + '__n_' + idx">
+          <v-container class="px-0" fluid grid-list-md>
+            <v-layout row wrap>
+              <v-flex d-flex xs12 sm6 md3 v-for="(post, idx) in posts" :key="post.title + '__n_' + idx">
                 <v-card>
                   <v-layout row wrap>
                     <v-flex xs6>
