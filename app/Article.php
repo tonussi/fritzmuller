@@ -3,7 +3,6 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
-use Laravel\Scout\Searchable;
 
 /**
  * @property int $id
@@ -21,22 +20,12 @@ use Laravel\Scout\Searchable;
  */
 class Article extends Model
 {
-    use Searchable;
-
     /**
      * @var array
      */
-    protected $fillable = ['article_content', 'publication_date', 'active', 'title', 'subtitle', 'figure_path', 'created_at', 'updated_at'];
+    protected $fillable = ['article_content', 'publication_date', 'active', 'title', 'subtitle', 'figure_path', 'rating', 'price', 'created_at', 'updated_at'];
 
-    protected $appends = ['flex', 'show', 'rating', 'price'];
-
-    public function getRatingAttribute() {
-        return random_int(3, 5);
-    }
-
-    public function getPriceAttribute() {
-        return random_int(100000, 50000000) / 11;
-    }
+    protected $appends = ['flex', 'show'];
 
     public function getFlexAttribute() {
         return 4;

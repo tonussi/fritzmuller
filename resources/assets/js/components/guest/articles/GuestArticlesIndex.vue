@@ -86,36 +86,49 @@
           </v-layout>
         </v-container>
       </v-card-text>
-
-        <v-layout row wrap>
-          <v-flex xs6 sm4 md3 v-for="(card, i) in articles" :key="i">
-            <v-card>
-              <v-img :src="card.figure_path" height="200px"></v-img>
-              <v-card-title primary-title>
-                <h2 class="headline" v-text="card.title"></h2>
-                <p class="grey--text">{{ card.subtitle }}</p>
-                <v-badge right color="cyan">
-                  <v-icon :title="$t('messages.active_and_published')" slot="badge" dark small>done</v-icon>
-                  <span>{{ card.publication_date }}</span>
-                </v-badge>
-              </v-card-title>
-              <v-card-actions>
-                <v-btn flat color="cyan" :to="{ path: '/guest/articles/read/' + card.id }">{{ $t("article.readit") }}</v-btn>
-                <v-spacer></v-spacer>
-                {{ $t("article.shareit") }}
-                <v-btn icon @click.native="card.show = !card.show">
-                  <v-icon>{{ card.show ? 'keyboard_arrow_down' : 'keyboard_arrow_up' }}</v-icon>
-                </v-btn>
-              </v-card-actions>
-              <v-slide-y-transition>
-                <span v-show="card.show">
-                  <v-btn flat color="blue" :to="{ path: '/guest/articles/read/' + card.id }">{{ $t("article.shareit") }}</v-btn>
-                </span>
-              </v-slide-y-transition>
-            </v-card>
-          </v-flex>
-        </v-layout>
-
+      <v-content>
+        <v-container fluid>
+          <v-container class="px-0" fluid grid-list-md>
+            <v-layout row wrap>
+              <v-flex d-flex xs12 sm6 md3 v-for="(post, idx) in articles" :key="post.title + '__n_' + idx">
+                <v-card>
+                  <v-layout row wrap>
+                    <v-flex xs6>
+                      <v-img :src="post.figure_path" height="20vh"></v-img>
+                    </v-flex>
+                    <v-flex xs6>
+                      <v-card-title primary-title>
+                        <h2 class="headline" v-text="post.title"></h2>
+                      </v-card-title>
+                      <v-card-title>
+                        <p class="grey--text">{{ post.subtitle }}</p>
+                      </v-card-title>
+                      <v-card-title>
+                        <v-badge right color="cyan">
+                          <v-icon :title="$t('messages.active_and_published')" slot="badge" small>done</v-icon>
+                          <span>{{ post.publication_date | datei18n }}</span>
+                        </v-badge>
+                      </v-card-title>
+                    </v-flex>
+                  </v-layout>
+                  <v-card-actions>
+                    <v-btn flat color="cyan" :to="{ path: '/guest/articles/read/' + post.id }">
+                      {{ $t("article.readit") }}
+                    </v-btn>
+                    <v-spacer></v-spacer>
+                    <span>
+                      {{ $t("messages.donate") }}
+                      <v-btn flat color="blue">
+                        {{ post.price | currencyi18n }}
+                      </v-btn>
+                    </span>
+                  </v-card-actions>
+                </v-card>
+              </v-flex>
+            </v-layout>
+          </v-container>
+        </v-container>
+      </v-content>
     </v-container>
   </v-card>
 </template>
@@ -189,7 +202,7 @@ export default {
           alert(this.$i18n.t('alerts.could_not_load') + ' ' + this.$i18n.t('alerts.articles'));
         });
       } else {
-        if (app.contentquery === '') {
+        if (app.contentquery == '') {
           axios.get('/api/v1/articles/newest/5').then(function(resp) {
             app.articles = resp.data;
           }).catch(function(resp) {
@@ -197,8 +210,9 @@ export default {
             alert(this.$i18n.t('alerts.could_not_load') + ' ' + this.$i18n.t('alerts.articles'));
           });
         } else {
-          axios.get('/api/v1/search?q=' + this.contentquery).then(function(response) {
-            // console.log(response);
+          console.log('http://127.0.0.1:8000' + '/api/v1/articles/search/' + this.contentquery);
+          axios.get('/api/v1/articles/search/' + this.contentquery).then(function(response) {
+            console.log(response);
             app.articles = response.data;
           }).catch(function(response) {
             console.log(response);

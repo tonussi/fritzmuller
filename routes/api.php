@@ -133,6 +133,19 @@ Route::group([
     'namespace' => 'Api\V1',
     'as' => 'api.'
 ], function () {
+    Route::get('articles/search/{value}', 'ArticleService@search', [
+        'except' => [
+            'create',
+            'edit'
+        ]
+    ]);
+});
+
+Route::group([
+    'prefix' => '/v1',
+    'namespace' => 'Api\V1',
+    'as' => 'api.'
+], function () {
     Route::get('articles/read/{id}', 'ArticleService@byid', [
         'except' => [
             'create',
@@ -229,17 +242,6 @@ Route::group([
             'create',
             'edit'
         ]
-    ]);
-});
-
-Route::group([
-    'prefix' => '/v1',
-    'namespace' => 'Api\V1',
-    'as' => 'api.'
-], function () {
-    Route::get('search', [
-        'as' => 'api.search',
-        'uses' => 'SearchService@search'
     ]);
 });
 

@@ -25,5 +25,6 @@ return [
     'send_pass_reset_link' => 'Send Password Reset Link',
     'your_name' => 'Your Name',
     'confirm_pass' => 'Confirm Password',
-    'actions' => 'Auth Actions'
+    'actions' => 'Auth Actions',
+    'ticket' => 'Ticket Number'
 ];

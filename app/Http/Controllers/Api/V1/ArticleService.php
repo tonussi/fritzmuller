@@ -37,6 +37,11 @@ class ArticleService extends Controller
         return Article::whereBetween('publication_date', $range_array)->where('active', '=', true)->limit($limit)->get();
     }
 
+    public function search($value, $limit=20)
+    {
+        return Article::where('title', 'LIKE', "%$value%")->where('subtitle', 'LIKE', "%$value%")->where('active', '=', true)->limit($limit)->get();
+    }
+
     public function byid($id)
     {
         return Article::where('id', '=', $id)->where('active', '=', true)->get()->first();

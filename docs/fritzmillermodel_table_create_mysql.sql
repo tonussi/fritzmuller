@@ -3,11 +3,17 @@ CREATE TABLE users (
     name character varying (255) NOT NULL,
     is_admin boolean NOT NULL DEFAULT FALSE,
     email character varying (255) UNIQUE NOT NULL,
-    PASSWORD character varying (60) NOT NULL,
+    password character varying (60) NOT NULL,
     remember_token character varying (100),
     created_at timestamp DEFAULT CURRENT_TIMESTAMP NOT NULL,
     updated_at timestamp DEFAULT CURRENT_TIMESTAMP NOT NULL,
     PRIMARY KEY (id)) ENGINE = InnoDB;
+
+CREATE TABLE ticket (
+  id INT NOT NULL AUTO_INCREMENT,
+  ticket_number VARCHAR(60) UNIQUE NOT NULL,
+  user_creator_id INT NOT NULL,
+  PRIMARY KEY (id)) ENGINE = InnoDB;
 
 CREATE TABLE password_resets (
     id integer NOT NULL AUTO_INCREMENT,
@@ -38,6 +44,8 @@ CREATE TABLE articles (
     publication_date date NOT NULL,
     active BOOLEAN DEFAULT TRUE NOT NULL,
     title varchar(250) NOT NULL,
+    price float DEFAULT 0.25,
+    rating int DEFAULT 3,
     subtitle varchar(250) NOT NULL,
     figure_path varchar(500) NOT NULL,
     created_at timestamp DEFAULT CURRENT_TIMESTAMP NOT NULL,
@@ -312,6 +320,9 @@ ALTER TABLE taxonomy_group
         CASCADE;
 
 ALTER TABLE oauth_providers
-    ADD CONSTRAINT FK_oauth_providers__user_id FOREIGN KEY (user_id) REFERENCES users (id) ON DELETE CASCADE ON
+    ADD CONSTRAINT fk_oauth_providers__user_id FOREIGN KEY (user_id) REFERENCES users (id) ON DELETE CASCADE ON
     UPDATE
         NO ACTION;
+
+ALTER TABLE ticket
+    ADD CONSTRAINT fk_ticket__user_creator FOREIGN KEY (user_creator_id) REFERENCES users (id) ON DELETE CASCADE ON UPDATE CASCADE;

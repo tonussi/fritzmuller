@@ -28,7 +28,9 @@ class ArticleSeeder extends Seeder
             'article_content' => $this->faker->text(200),
             'publication_date' => $this->faker->dateTimeBetween('-2 years', 'now')->format('Y-m-d'),
             'active' => $this->faker->boolean(30),
-            'figure_path' => 'https://placeimg.com/940/480/nature'
+            'figure_path' => 'https://placeimg.com/940/480/nature',
+            'rating' => $this->faker->randomNumber(100) % 6,
+            'price' => $this->faker->randomFloat(2)
         ]);
     }
 }

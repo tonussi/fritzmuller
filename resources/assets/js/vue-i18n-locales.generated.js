@@ -245,7 +245,8 @@ export default {
             "send_pass_reset_link": "Send Password Reset Link",
             "your_name": "Your Name",
             "confirm_pass": "Confirm Password",
-            "actions": "Auth Actions"
+            "actions": "Auth Actions",
+            "ticket": "Ticket Number"
         },
         "validation": {
             "accepted": "The {attribute} must be accepted.",
@@ -577,7 +578,8 @@ export default {
             "send_pass_reset_link": "Enviar link para refazer senha",
             "your_name": "Seu nome",
             "confirm_pass": "Confirma senha",
-            "actions": "Autenticação"
+            "actions": "Autenticação",
+            "ticket": "Número do Ticket"
         },
         "validation": {
             "accepted": "{Attribute} deve ser aceito.",

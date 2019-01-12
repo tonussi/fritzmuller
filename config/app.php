@@ -170,8 +170,7 @@ return [
          */
         MartinLindhe\VueInternationalizationGenerator\GeneratorProvider::class,
         Unisharp\Laravelfilemanager\LaravelFilemanagerServiceProvider::class,
-        Intervention\Image\ImageServiceProvider::class,
-        Laravel\Scout\ScoutServiceProvider::class,
+        Intervention\Image\ImageServiceProvider::class
     ],
 
     /*

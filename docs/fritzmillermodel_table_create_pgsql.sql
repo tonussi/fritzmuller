@@ -3,7 +3,7 @@ CREATE TABLE public.users (
     name character varying (255) NOT NULL,
     is_admin boolean NOT NULL DEFAULT FALSE,
     email character varying (255) UNIQUE NOT NULL,
-    PASSWORD character varying (60) NOT NULL,
+    password character varying (60) NOT NULL,
     remember_token character varying (100),
     created_at timestamp(0) without time zone NOT NULL,
     updated_at timestamp(0) without time zone NOT NULL,

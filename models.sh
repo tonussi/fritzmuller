@@ -18,3 +18,4 @@ php artisan krlove:generate:model TaxonomyRankOrder --table-name=taxonomy_rank_o
 php artisan krlove:generate:model TaxonomyRankPhylum --table-name=taxonomy_rank_phylum
 php artisan krlove:generate:model TaxonomyRankSpecie --table-name=taxonomy_rank_specie
 php artisan krlove:generate:model TaxonomyGroup --table-name=taxonomy_group
+php artisan krlove:generate:model Ticket --table-name=ticket

@@ -25,5 +25,6 @@ return [
     'send_pass_reset_link' => 'Enviar link para refazer senha',
     'your_name' => 'Seu nome',
     'confirm_pass' => 'Confirma senha',
-    'actions' => 'Autenticação'
+    'actions' => 'Autenticação',
+    'ticket' => 'Número do Ticket'
 ];

@@ -27,6 +27,17 @@
                 </div>
               </div>
 
+              <!-- Ticket -->
+              <div class="form-group row">
+                <div class="col-md-7">
+                  <v-text-field :label="$t('auth.ticket')" v-model="form.ticket_number"
+                    :class="{ 'is-invalid': form.errors.has('ticket_number') }"
+                    class="form-control" type="ticket_number" name="ticket_number">
+                  </v-text-field>
+                  <has-error :form="form" field="ticket_number"/>
+                </div>
+              </div>
+
               <!-- Password -->
               <div class="form-group row">
                 <div class="col-md-7">
@@ -87,6 +98,7 @@ export default {
     form: new Form({
       name: '',
       email: '',
+      ticket_number: '',
       password: '',
       password_confirmation: ''
     })
