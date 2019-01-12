@@ -21,6 +21,8 @@ $polyfills = [
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, minimal-ui">
 
+  <meta name="Description" CONTENT="Author: Maria Cristina Pagotto Tonussi, Illustrator: Maria C. P. T. et al., Category: Educational, About: Fritz Muller ponto Org. Esse site é uma uma simples homenagem ao legado científico">
+
   <title>{{ config('app.name') }}</title>
 
   <link rel="dns-prefetch" href="https://fonts.gstatic.com">
