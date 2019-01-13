@@ -39,7 +39,7 @@ class ArticleService extends Controller
 
     public function search($value, $limit=20)
     {
-        return Article::where('title', 'LIKE', "%$value%")->where('subtitle', 'LIKE', "%$value%")->where('active', '=', true)->limit($limit)->get();
+        return Article::where('title', 'LIKE', "%$value%")->orWhere('subtitle', 'LIKE', "%$value%")->where('active', '=', true)->limit($limit)->get();
     }
 
     public function byid($id)
