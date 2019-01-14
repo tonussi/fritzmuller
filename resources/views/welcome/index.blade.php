@@ -38,6 +38,9 @@ $polyfills = [
 <body>
   <div id="app"></div>
 
+  {{-- Analytics --}}
+  @include('welcome.analytics')
+
   {{-- Global configuration object --}}
   <script>window.config = @json($config);</script>
 
@@ -49,7 +52,7 @@ $polyfills = [
     <script src="{{ mix('js/manifest.js') }}"></script>
     <script src="{{ mix('js/vendor.js') }}"></script>
     <script src="{{ mix('js/app.js') }}"></script>
-    @include('welcome.analytics')
   @endif
+
 </body>
 </html>
