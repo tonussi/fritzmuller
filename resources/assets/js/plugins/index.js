@@ -6,3 +6,4 @@ import './carousel';
 import './filters';
 import './localemanager';
 import './currencymanager';
+import './consensu';
