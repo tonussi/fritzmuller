@@ -1,7 +1,7 @@
 <template>
   <v-card style="padding-top:60px;">
-    <v-dialog fullscreen transition="dialog-bottom-transition" :overlay="false" scrollable v-model="dialog" max-width="500px">
-      <v-btn color="primary" dark slot="activator" class="mb-2" @click.native="clean">
+    <v-dialog v-model="dialog" persistent>
+      <v-btn color="primary" slot="activator" mb-2 @click.native="clean">
         <v-icon>brush</v-icon>
         {{ $t("member.create") }}
       </v-btn>
@@ -12,36 +12,39 @@
         <v-card-text>
           <v-container grid-list-md>
             <v-form ref="form" lazy-validation>
-              <v-flex xs12 sm6 md4>
-                <v-subheader>{{ $t("member.member_name") }}</v-subheader>
-                <v-text-field v-model="editedItem.member_name"></v-text-field>
-              </v-flex>
-              <v-flex xs12 sm6 md4>
-                <v-subheader>{{ $t("member.figure_path") }}</v-subheader>
-                <v-text-field :title="$t('messages.pick_an_image')"
-                              @click="setNewFigurePath(editedItem);"
-                              v-model="editedItem.figure_path">
-                </v-text-field>
-              </v-flex>
-              <v-flex xs12 sm6 md4>
-                <v-subheader>{{ $t("member.bio") }}</v-subheader>
-                <tinymce id="member_description"
-                         v-model="editedItem.member_description"
-                         :content='editedItem.member_description_reflection'
-                         :options='editor_tiny_mce.options'>
-                </tinymce>
-              </v-flex>
-              <v-flex xs12 sm6 md4>
-                <v-subheader>{{ $t("member.grad") }}</v-subheader>
-                <v-text-field v-model="editedItem.grad"></v-text-field>
-              </v-flex>
+              <v-layout>
+                <v-flex xs6>
+                  <v-flex xs6>
+                    <v-subheader>{{ $t("member.member_name") }}</v-subheader>
+                    <v-text-field v-model="editedItem.member_name"></v-text-field>
+                  </v-flex>
+                  <v-flex xs6>
+                    <v-subheader>{{ $t("member.figure_path") }}</v-subheader>
+                    <v-text-field :title="$t('messages.pick_an_image')"
+                                  @click="setNewFigurePath(editedItem);"
+                                  v-model="editedItem.figure_path">
+                    </v-text-field>
+                  </v-flex>
+                  <v-flex xs6>
+                    <v-subheader>{{ $t("member.grad") }}</v-subheader>
+                    <v-text-field v-model="editedItem.grad"></v-text-field>
+                  </v-flex>
+                </v-flex>
+                <v-flex xs6>
+                  <v-subheader>{{ $t("member.bio") }}</v-subheader>
+                  <tinymce id="member_description"
+                          v-model="editedItem.member_description"
+                          :content='editedItem.member_description_reflection'
+                          :options='editor_tiny_mce.options'>
+                  </tinymce>
+                </v-flex>
+              </v-layout>
             </v-form>
           </v-container>
         </v-card-text>
         <v-card-actions>
-          <v-spacer></v-spacer>
-          <v-btn color="green lighten-2" @click.native="save">{{ $t("messages.ok") }}</v-btn>
-          <v-btn color="blue lighten-2" @click.native="close">{{ $t("messages.cancel") }}</v-btn>
+          <v-btn block color="green lighten-2" @click.native="save">{{ $t("messages.ok") }}</v-btn>
+          <v-btn block color="blue lighten-2" @click.native="close">{{ $t("messages.cancel") }}</v-btn>
         </v-card-actions>
       </v-card>
     </v-dialog>
@@ -62,13 +65,13 @@
       :search="search"
       hide-actions>
       <template slot="items" slot-scope="props">
-        <td class="text-xs-left">{{ props.item.member_name }}</td>
-        <td width="50px" class="text-xs-left">
+        <td class="text-xs-center">{{ props.item.member_name }}</td>
+        <td class="text-xs-center">{{ props.item.member_description.slice(0, 50) + ' ...' }}</td>
+        <td class="text-xs-center">{{ props.item.grad }}</td>
+        <td class="text-xs-center" width="50px">
           <v-img :src="props.item.figure_path" height="60px"></v-img>
         </td>
-        <td class="text-xs-left">{{ props.item.member_description.slice(0, 50) + ' ...' }}</td>
-        <td class="text-xs-left">{{ props.item.grad }}</td>
-        <td class="justify-center layout px-0">
+        <td class="text-xs-center">
           <v-btn icon class="mx-0" @click="editItem(props.item)">
             <v-icon color="teal">fas fa-edit</v-icon>
           </v-btn>
@@ -107,8 +110,6 @@ export default {
       editor_tiny_mce: {
         options: {
           selector: "#member_description",
-          width: 842,
-          height: 1191,
           browser_spellcheck : true,
           forced_root_block: false,
           force_p_newlines: false,
@@ -130,8 +131,6 @@ export default {
                     document.getElementsByTagName('body')[0].clientHeight;
 
             var cmsURL = '/laravel-filemanager?field_name=' + field_name;
-
-            // console.log(field_name);
             if (type == 'image') {
               cmsURL = cmsURL + "&type=Images";
             } else {
@@ -152,27 +151,29 @@ export default {
       headers: [
         {
           text: this.$i18n.t('member.member_name'),
-          value: 'name'
-        },
-        {
-          text: this.$i18n.t('member.figure_path'),
-          value: 'figure_path',
-          sortable: false
+          value: 'member_name',
+          sortable: true,
+          align: 'center'
         },
         {
           text: this.$i18n.t('member.grad'),
-          value: 'content1',
-          sortable: false
+          sortable: false,
+          align: 'center'
         },
         {
           text: this.$i18n.t('member.bio'),
-          value: 'content2',
-          sortable: false
+          sortable: false,
+          align: 'center'
+        },
+        {
+          text: this.$i18n.t('member.figure_path'),
+          sortable: false,
+          align: 'center'
         },
         {
           text: this.$i18n.t('messages.actions'),
-          value: 'action',
-          sortable: false
+          sortable: false,
+          align: 'center'
         }
       ],
       editedItem: {
@@ -221,10 +222,6 @@ export default {
         app.pagination.totalItems = resp.data.total;
         app.pagination.rowsPerPage = resp.data.per_page;
         app.pages = resp.data.last_page;
-        console.log(resp.data);
-      }).catch(function(resp) {
-        console.log(resp);
-        alert(this.$i18n.t('alerts.could_not_load') + ' ' + this.$i18n.t('alerts.members'));
       });
     },
 
@@ -232,9 +229,6 @@ export default {
       var app = this;
       axios.get('/api/v1/members?page=' + page).then(function(resp) {
         app.items = resp.data.data;
-        console.log(app.items);
-      }).catch(error => {
-        console.log(error);
       });
     },
 
@@ -251,8 +245,6 @@ export default {
       if (confirm(this.$i18n.t('messages.sure_delete_question'))) {
         axios.delete('/api/v1/members/' + item.id).then(function (resp) {
           app.items.splice(index, 1);
-        }).catch(function (resp) {
-          alert(this.$i18n.t('alerts.could_not_load') + ' ' + this.$i18n.t('alerts.member'));
         });
       }
     },
@@ -286,8 +278,6 @@ export default {
       var app = this;
       axios.post('/api/v1/members', this.editedItem).then(function (resp) {
         app.$router.push({path: '/admin/members'});
-      }).catch(function (resp) {
-        alert(this.$i18n.t('alerts.could_not_load') + ' ' + this.$i18n.t('alerts.member'));
       });
     },
 
@@ -295,8 +285,6 @@ export default {
       var app = this;
       axios.patch('/api/v1/members/' + articleId, this.editedItem).then(function (resp) {
           app.$router.replace('/admin/members');
-      }).catch(function (resp) {
-          alert(this.$i18n.t('alerts.could_not_load') + ' ' + this.$i18n.t('alerts.member'));
       });
     },
 

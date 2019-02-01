@@ -58,11 +58,14 @@ class RegisterController extends Controller
      */
     protected function create(array $data)
     {
-        return User::create([
-            'name' => $data['name'],
-            'email' => $data['email'],
-            'password' => bcrypt($data['password']),
-            'ticket_number' => $data['ticket_number']
-        ]);
+        $ticket = Ticket::where('ticket_number', '=', $data['ticket_number'])->get()->first();
+
+        if ($ticket) {
+            return User::create([
+                'name' => $data['name'],
+                'email' => $data['email'],
+                'password' => bcrypt($data['password'])
+            ]);
+        }
     }
 }

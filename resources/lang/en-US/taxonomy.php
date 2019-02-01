@@ -8,7 +8,7 @@ return [
     'order' => 'Order',
     'family' => 'Family',
     'genus' => 'Genus',
-    'species' => 'Species',
+    'species' => 'Specie',
     'show' => 'Mostrar Taxonomy',
     'creating' => 'Creating Taxonomy',
     'editing' => 'Editing Taxonomy'

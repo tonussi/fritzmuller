@@ -1,5 +1,14 @@
 export default {
     "en-US": {
+        "ticket": {
+            "editing": "Editing Ticket",
+            "creating": "Creating a Ticket",
+            "generate_number": "Generate a Random Ticket",
+            "create": "Create a Ticket",
+            "show": "Show Tickets",
+            "ticket_number": "Ticket Number",
+            "user_creator_id": "User Creator ID"
+        },
         "alerts": {
             "could_not_load": "Sorry, a problem with our servers occurred and wasn't possible to load",
             "project": "project",
@@ -45,30 +54,32 @@ export default {
             "next": "Next &raquo;"
         },
         "species": {
-            "readmore": "More about this animal",
+            "readmore": "More about this specie",
             "description": "Species's Description",
             "created_at": "Species's Created At",
             "updated_at": "Species's Update At",
-            "moreinfo": "More animal's Info",
-            "animal_name": "Species's Name",
-            "animal_description": "Species's Name",
-            "figure_path": "animal Presentation's Figure",
-            "show": "List of animals",
-            "create": "Create New animal",
+            "moreinfo": "More Specie's Info",
+            "specie_name": "Species's Name",
+            "specie_description": "Species's Name",
+            "figure_path": "Specie's Main Presentation Figure",
+            "show": "List of species",
+            "create": "Create New Specie",
             "editing": "Editing Info For This Species",
             "creating": "Creating Info For This Species",
             "popular_name": "This Species's Popular Name",
             "selecting_species_taxonomy": "Selecting A Specie To This Species",
-            "fauna_subspecies_selector": "Subspecies Selector (Can Select Just One)",
-            "new_specie_to_swap": "New Subspecies To Swap",
-            "current_specie_associated": "Current Subspecies Associated",
+            "species_selector": "Specie's Selector (Select Just One)",
+            "new_specie_to_swap": "New Specie's To Swap",
+            "current_specie_associated": "Current Associated Specie",
             "search_by_taxa_kingdom": "Search By Kingdom Rank",
             "search_by_taxa_phylum": "Search By Phylum Rank",
             "search_by_taxa_class": "Search By Class Rank",
             "search_by_taxa_order": "Search By Order Rank",
             "search_by_taxa_family": "Search By Family Rank",
             "search_by_taxa_genus": "Search By Genus Rank",
-            "search_by_taxa_specie": "Search By Specie Rank"
+            "search_by_taxa_specie": "Search By Specie Rank",
+            "loadmore": "Load More Species",
+            "species_we_saw": "Species we saw in the field!"
         },
         "messages": {
             "welcome": "Greetings, We welcome you.",
@@ -124,7 +135,14 @@ export default {
             "turn_mode": "Turn Mode",
             "profile": "Your Profile",
             "donate": "Donate",
-            "open_closed": "Close\/Open to Guests"
+            "open_closed": "Close/Open to Guests",
+            "password": "User Password",
+            "settings": "User Settings",
+            "info_updated": "Info has been updated!",
+            "nightmode": "Night Mode",
+            "your_info": "Your Basic Information",
+            "help_search_fill": "Use fields bellow to search taxonomy names",
+            "search_catalog_of_life": "Search at Catalog of Life"
         },
         "runningactivities": {
             "figure_desktop_widescreen": "Figure Desktop Widescreen",
@@ -149,7 +167,7 @@ export default {
             "order": "Order",
             "family": "Family",
             "genus": "Genus",
-            "species": "Species",
+            "species": "Specie",
             "show": "Mostrar Taxonomy",
             "creating": "Creating Taxonomy",
             "editing": "Editing Taxonomy"
@@ -180,7 +198,8 @@ export default {
             "species_session": "Species's Session",
             "projects_session": "Projects's Session",
             "members_session": "Colaborator's Session",
-            "taxonomy_session": "Taxonomy's Session"
+            "taxonomy_session": "Taxonomy's Session",
+            "tickets_session": "Ticket's Session"
         },
         "passwords": {
             "password": "Passwords must be at least six characters and match the confirmation.",
@@ -192,7 +211,7 @@ export default {
         "member": {
             "readmore": "More about this member",
             "name": "Member Name",
-            "grad": "Member Graduation\/Qualification",
+            "grad": "Member Graduation/Qualification",
             "bio": "Member Short Biography",
             "member_name": "Member's Name",
             "member_description": "Member's Name",
@@ -266,7 +285,8 @@ export default {
             "your_name": "Your Name",
             "confirm_pass": "Confirm Password",
             "actions": "Auth Actions",
-            "ticket": "Ticket Number"
+            "ticket": "Ticket Number",
+            "new_password": "New Password"
         },
         "validation": {
             "accepted": "The {attribute} must be accepted.",
@@ -353,6 +373,15 @@ export default {
         }
     },
     "pt-BR": {
+        "ticket": {
+            "editing": "Editando Ticket",
+            "creating": "Criando a Ticket",
+            "generate_number": "Gerar um Ticket",
+            "create": "Criar um Ticket",
+            "show": "Mostrar Tickets",
+            "ticket_number": "Número do Ticket",
+            "user_creator_id": "ID do usuário criador"
+        },
         "alerts": {
             "could_not_load": "Desculpe, algum problema ocorreu em nossos servidores, e não foi possível carregar",
             "project": "projeto",
@@ -398,30 +427,32 @@ export default {
             "next": "Próxima &raquo;"
         },
         "species": {
-            "readmore": "Saiba mais sobre esse animal",
+            "readmore": "Saiba mais sobre esse espécie",
             "description": "Descrição desta espécie",
-            "created_at": "Esse animal foi criado em",
-            "updated_at": "Esse animal foi atualizado em",
-            "moreinfo": "Mais Informações desse animal",
-            "project_name": "Nome do animal",
-            "project_description": "Descrição do animal",
-            "figure_path": "Figure de Apresentação do animal",
-            "show": "Lista de animals",
-            "create": "Criar Novo Animal",
+            "created_at": "Esse espécie foi criado em",
+            "updated_at": "Esse espécie foi atualizado em",
+            "moreinfo": "Mais Informações desse espécie",
+            "project_name": "Nome do espécie",
+            "project_description": "Descrição do espécie",
+            "figure_path": "Figure de Apresentação do espécie",
+            "show": "Lista de espécies",
+            "create": "Criar Novo espécie",
             "editing": "Editando a Informação para essa Espécie",
             "creating": "Criando a Informação para essa Espécie",
             "popular_name": "Nome Popular",
-            "selecting_species_taxonomy": "Selecionando Espécie Para Este Animal",
-            "subspecies_selector": "Selecionador de Subespécies (Pode selecionar apenas uma)",
+            "selecting_species_taxonomy": "Selecionando Espécie",
+            "species_selector": "Selecionador de Subespécies (Pode selecionar apenas uma)",
             "new_specie_to_swap": "Nova Subespécie para Trocar",
-            "current_specie_associated": "Subespécie Atual Deste Animal",
-            "search_by_taxa_kingdom": "Procurar Pelo Rank Kingdom",
-            "search_by_taxa_phylum": "Procurar Pelo Rank Phylum",
-            "search_by_taxa_class": "Procurar Pelo Rank Class",
-            "search_by_taxa_order": "Procurar Pelo Rank Order",
-            "search_by_taxa_family": "Procurar Pelo Rank Family",
-            "search_by_taxa_genus": "Procurar Pelo Rank Genus",
-            "search_by_taxa_specie": "Procurar Pelo Rank Specie"
+            "current_specie_associated": "Subespécie Atual Deste espécie",
+            "search_by_taxa_kingdom": "Procurar Pelo Rank Reino",
+            "search_by_taxa_phylum": "Procurar Pelo Rank Filo",
+            "search_by_taxa_class": "Procurar Pelo Rank Classe",
+            "search_by_taxa_order": "Procurar Pelo Rank Ordem",
+            "search_by_taxa_family": "Procurar Pelo Rank Família",
+            "search_by_taxa_genus": "Procurar Pelo Rank Gênero",
+            "search_by_taxa_specie": "Procurar Pelo Rank Espécie",
+            "loadmore": "Carregar Mais Espécies",
+            "species_we_saw": "Espécies que avistamos em campo!"
         },
         "messages": {
             "welcome": "Olá, seja bem vindo.",
@@ -477,7 +508,14 @@ export default {
             "turn_mode": "Mudar o modo",
             "profile": "Conta do usuário",
             "donate": "Doar",
-            "open_closed": "Fechar ou Abrir para os Convidados"
+            "open_closed": "Fechar ou Abrir para os Convidados",
+            "password": "Password do Usuário",
+            "settings": "Configurações do Usuário",
+            "info_updated": "Informações foram atualizadas!",
+            "nightmode": "Modo Noturno",
+            "your_info": "Suas Informações Básicas",
+            "help_search_fill": "Usar os campos abaixo para pesquisar nomes da taxonomia",
+            "search_catalog_of_life": "Buscar no Catálogo da Vida"
         },
         "runningactivities": {
             "figure_desktop_widescreen": "Imagem para Desktop Widescreen",
@@ -511,7 +549,7 @@ export default {
             "title": "Imagens de splink.org.br",
             "load": "Carregar Imagens",
             "viewer": "Abrir Splink Viewer",
-            "show_taxonomy": "Mostrar Taxonomy",
+            "show_taxonomy": "Mostrar Taxonomia",
             "info": "Ir para fonte original"
         },
         "admin": {
@@ -533,7 +571,8 @@ export default {
             "species_session": "Sessão das Espécies",
             "projects_session": "Sessão dos Projetos",
             "members_session": "Sessão dos Membros",
-            "taxonomy_session": "Sessão das Taxonomias"
+            "taxonomy_session": "Sessão das Taxonomias",
+            "tickets_session": "Sessão dos Tickets"
         },
         "passwords": {
             "password": "A senha deve possuir no mínimo 6 caracteres e ser igual à confirmação.",
@@ -619,7 +658,8 @@ export default {
             "your_name": "Seu nome",
             "confirm_pass": "Confirma senha",
             "actions": "Autenticação",
-            "ticket": "Número do Ticket"
+            "ticket": "Número do Ticket",
+            "new_password": "Nova Senha"
         },
         "validation": {
             "accepted": "{Attribute} deve ser aceito.",

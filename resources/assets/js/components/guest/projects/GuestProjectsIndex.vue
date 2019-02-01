@@ -1,10 +1,9 @@
 <template>
-
     <v-card style="margin:160px 60px 10px 60px;">
       <v-layout column wrap align-center>
-        <v-flex xs12 sm6 md4 class="my-3">
+        <v-flex>
           <div class="text-xs-center">
-            <h2 class="headline">{{ $t('messages.projects') }}</h2>
+            <h1>{{ $t('messages.projects') }}</h1>
           </div>
         </v-flex>
       </v-layout>
@@ -12,38 +11,26 @@
         <v-flex>
           <v-container grid-list-sm>
             <v-layout wrap>
-              <v-flex
-                v-bind="{ [`xs${project.flex}`]: true }"
-                v-for="project in projects"
-                :key="project.project_name">
+              <v-flex x6 ma-3 v-for="project in projects" :key="project.project_name">
                 <v-card>
                   <v-layout row wrap>
                     <v-flex xs6>
-                      <v-img :src="project.figure_path" height="20vh"></v-img>
+                      <v-img :src="project.figure_path"></v-img>
                     </v-flex>
                     <v-flex xs6>
                       <v-card-title primary-title>
                         <h3 class="green--text" v-text="project.project_name"></h3>
                       </v-card-title>
                     </v-flex>
+                    <v-flex xs6 ma-3>
+                      <label><b>{{ $t("project.description") }}</b></label>
+                      <p v-html="project.project_description"></p>
+                      <label><b>{{ $t("project.created_at") }}</b></label>
+                      <p>{{ project.created_at | datei18n }}</p>
+                      <label><b>{{ $t("project.updated_at") }}</b></label>
+                      <p>{{ project.updated_at | datei18n }}</p>
+                    </v-flex>
                   </v-layout>
-                  <v-card-actions>
-                    <v-spacer></v-spacer>
-                    {{ $t("project.moreinfo") }}
-                    <v-btn icon @click.native="project.show = !project.show">
-                      <v-icon>{{ project.show ? 'keyboard_arrow_down' : 'keyboard_arrow_up' }}</v-icon>
-                    </v-btn>
-                  </v-card-actions>
-                  <v-slide-y-transition>
-                    <span v-show="project.show">
-                      <label class="orange--text">{{ $t("project.description") }}</label>
-                      <p class="grey--text" v-html="project.project_description"></p>
-                      <label class="orange--text">{{ $t("project.created_at") }}</label>
-                      <p class="grey--text">{{ project.created_at }}</p>
-                      <label class="orange--text">{{ $t("project.updated_at") }}</label>
-                      <p class="grey--text">{{ project.updated_at }}</p>
-                    </span>
-                  </v-slide-y-transition>
                 </v-card>
               </v-flex>
             </v-layout>

@@ -18,7 +18,6 @@ axios.interceptors.request.use(request => {
   }
 
   // request.headers['X-Socket-Id'] = Echo.socketId()
-
   return request
 })
 
@@ -33,7 +32,7 @@ axios.interceptors.response.use(response => response, error => {
   if (status === 401 && store.getters['auth/check']) {
     alert (i18n.t('alerts.token_expired_alert_text'));
 
-    store.commit('auth/LOGOUT')
+    store.commit('auth/logout')
     router.push({ name: 'login' })
   }
 

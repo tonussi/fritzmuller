@@ -1,5 +1,5 @@
 <template>
-  <v-app id="inspire">
+  <v-app id="inspire" :dark="NightMode">
     <my-tool-bar/>
     <v-content>
       <child/>

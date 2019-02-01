@@ -19,4 +19,5 @@ return [
     'projects_session' => 'Sessão dos Projetos',
     'members_session' => 'Sessão dos Membros',
     'taxonomy_session' => 'Sessão das Taxonomias',
+    'tickets_session' => 'Sessão dos Tickets',
 ];

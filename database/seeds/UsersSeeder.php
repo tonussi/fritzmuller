@@ -17,18 +17,18 @@ class UsersSeeder extends Seeder
 
     private function createAdmins()
     {
-        User::create([
+        User::firstOrCreate([
             'email' => 'fulanodetal@example.com',
             'name' => 'Fulano de tal',
             'password' => bcrypt('senhasecreta'),
-            // 'is_admin' => true
+            'is_admin' => true
         ]);
 
-        User::create([
+        User::firstOrCreate([
             'email' => 'siclanodetal@example.com',
             'name' => 'Siclano de tal',
             'password' => bcrypt('senhasecreta'),
-            // 'is_admin' => false
+            'is_admin' => false
         ]);
     }
 
@@ -40,7 +40,7 @@ class UsersSeeder extends Seeder
 
     private function createUser()
     {
-        return User::create([
+        return User::firstOrCreate([
             'email' => $this->faker->email,
             'name' => $this->faker->name,
             'password' => bcrypt(str_random(6))

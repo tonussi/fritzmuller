@@ -15,18 +15,7 @@ class ArticleService extends Controller
      */
     public function index()
     {
-        $objects = Article::orderBy('updated_at', 'DESC')->paginate(15);
-        // foreach ($objects as $key => $object_value) {
-        //     $animals = $object_value->articlesanimals;
-        //     foreach ($animals as $key2 => $species) {
-        //         $animal = $species->animal;
-        //     }
-        //     $plants = $object_value->articlesplants;
-        //     foreach ($plants as $key3 => $species) {
-        //         $plant = $species->plant;
-        //     }
-        // }
-        return $objects;
+        return Article::orderBy('updated_at', 'DESC')->paginate(15);
     }
 
     public function newest($limit=10)
@@ -34,7 +23,9 @@ class ArticleService extends Controller
         $begin_date = (new \DateTime('2012-10-16'))->format('Y-m-d');
         $end_date = (new \DateTime())->format('Y-m-d');
         $range_array = array($begin_date, $end_date);
-        return Article::whereBetween('publication_date', $range_array)->where('active', '=', true)->limit($limit)->get();
+        return Article::whereBetween('publication_date', $range_array)->where('active', '=', true)
+        ->select('id', 'publication_date', 'active', 'title', 'price', 'rating', 'subtitle', 'figure_path', 'created_at', 'updated_at')
+        ->limit($limit)->get();
     }
 
     public function search($value, $limit=20)
@@ -108,6 +99,7 @@ class ArticleService extends Controller
      */
     public function update(Request $request, $id)
     {
+        \Log::info($request);
         $object = Article::findOrFail($id);
         $object->update($request->all());
         return;

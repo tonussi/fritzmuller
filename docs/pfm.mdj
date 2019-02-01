@@ -33027,7 +33027,7 @@
 							"_parent": {
 								"$ref": "AAAAAAFic4T95GXL1Tc="
 							},
-							"name": "species_description",
+							"name": "specie_description",
 							"type": "TEXT",
 							"length": 0,
 							"primaryKey": false,

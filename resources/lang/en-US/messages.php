@@ -53,5 +53,12 @@ return [
     'turn_mode' => 'Turn Mode',
     'profile' => 'Your Profile',
     'donate' => 'Donate',
-    'open_closed' => 'Close/Open to Guests'
+    'open_closed' => 'Close/Open to Guests',
+    'password' => 'User Password',
+    'settings' => 'User Settings',
+    'info_updated' => 'Info has been updated!',
+    'nightmode' => 'Night Mode',
+    'your_info' => 'Your Basic Information',
+    'help_search_fill' => 'Use fields bellow to search taxonomy names',
+    'search_catalog_of_life' => 'Search at Catalog of Life'
 ];

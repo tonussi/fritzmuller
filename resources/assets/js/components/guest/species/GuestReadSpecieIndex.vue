@@ -75,16 +75,15 @@
       <v-layout row wrap justify-space-between>
         <v-flex xs12 align-end flexbox>
           <v-subheader>{{ $t("article.title") }}</v-subheader>
-          <span class="display-3">{{readableItem.title}}</span>
+          <span class="display-3">{{readableItem.taxonomy_group.taxonomy_rank_specie.rank_name}}</span>
         </v-flex>
         <v-flex xs12 align-end flexbox>
           <v-subheader>{{ $t("article.subtitle") }}</v-subheader>
           <h2>{{readableItem.subtitle}}</h2>
         </v-flex>
         <v-flex xs12 align-end flexbox>
-          <v-subheader>{{ $t("article.publication_date") }}</v-subheader>
-          <h3>{{readableItem.publication_date | datei18n }}</h3>
-          <!-- <v-date-picker :locale="applocale" v-model="readableItem.publication_date" readonly></v-date-picker> -->
+          <v-subheader>{{ $t("species.created_at") }}</v-subheader>
+          <h3>{{readableItem.created_at | datei18n }}</h3>
         </v-flex>
         <v-flex xs12 align-end flexbox>
           <v-subheader>{{ $t("article.pdf_session") }}</v-subheader>
@@ -111,7 +110,7 @@
         <v-flex xs12 align-end flexbox>
           <v-subheader>{{ $t("article.content") }}</v-subheader>
           <v-card-text id="pdf" ref="pdf" style="padding:55px;">
-            <div id="adjustfont" v-html="readableItem.article_content"></div>
+            <div id="adjustfont" v-html="readableItem.specie_description"></div>
           </v-card-text>
         </v-flex>
       </v-layout>
@@ -170,22 +169,20 @@
             <v-layout>
               <v-container>
                 <v-layout row wrap>
-                  <v-flex xs3 v-for="(item, i) in species" :key="'specie___' + i">
-                    <v-card row wrap>
-                      <v-img :src="item.species_detail.figure_path" height="200px"></v-img>
-                      <v-card-actions>
-                        <v-list>
-                          <v-list-tile-action>
-                            <v-btn class="pa-3" color="red lighten-3" @click="getPicturesFor(item.species_detail.taxonomy_group)">{{ $t("linkedata.load") }}</v-btn>
-                          </v-list-tile-action>
-                          <v-spacer class="pb-3 pt-3"></v-spacer>
-                          <v-list-tile-action>
-                            <v-btn class="pa-3" color="green lighten-3" @click.native.stop="taxonomy_dialog = true" @click.exact="showTaxonomy(item.species_detail.taxonomy_group)">{{ $t("linkedata.show_taxonomy") }}</v-btn>
-                          </v-list-tile-action>
-                        </v-list>
-                      </v-card-actions>
-                    </v-card>
-                  </v-flex>
+                  <v-card row wrap>
+                    <v-img :src="readableItem.figure_path" height="200px"></v-img>
+                    <v-card-actions>
+                      <v-list>
+                        <v-list-tile-action>
+                          <v-btn class="pa-3" color="red lighten-3" @click="getPicturesFor(readableItem.taxonomy_group)">{{ $t("linkedata.load") }}</v-btn>
+                        </v-list-tile-action>
+                        <v-spacer class="pb-3 pt-3"></v-spacer>
+                        <v-list-tile-action>
+                          <v-btn class="pa-3" color="green lighten-3" @click.native.stop="taxonomy_dialog = true" @click.exact="showTaxonomy(readableItem.taxonomy_group)">{{ $t("linkedata.show_taxonomy") }}</v-btn>
+                        </v-list-tile-action>
+                      </v-list>
+                    </v-card-actions>
+                  </v-card>
                 </v-layout>
               </v-container>
             </v-layout>
@@ -219,12 +216,9 @@ export default {
       species: [],
       activetab: 'linkedata_0',
       readableItem: {
-        title: '',
-        subtitle: '',
-        article_content: '',
-        publication_date: '',
-        figure_path: '',
-        active: false,
+        taxonomy_group: {
+          taxonomy_rank_specie: {}
+        },
         modal_date_check: false
       }
     }
@@ -232,7 +226,6 @@ export default {
 
   created() {
     this.getArticleById();
-    this.getSpeciesRelated();
     this.startDisqus();
   },
 
@@ -313,25 +306,10 @@ export default {
 
     getArticleById() {
       var app = this;
-      axios.get('/api/v1/articles/read/' + app.$route.params.id).then(function(resp) {
+      axios.get('/api/v1/species/read/' + app.$route.params.id).then(function(resp) {
         app.readableItem = resp.data;
-        document.title = document.title + ' :: ' + resp.data.title + " (" + resp.data.subtitle + ")";
+        document.title = document.title + ' :: ' + readableItem.taxonomy_group.taxonomy_rank_specie.rank_name;
         console.log(resp.data);
-      }).catch(function(resp) {
-        console.log(resp);
-        alert(this.$i18n.t('alerts.could_not_load') + ' ' + this.$i18n.t('alerts.article'));
-      });
-    },
-
-    getSpeciesRelated() {
-      var app = this;
-      console.log('/api/v1/articles/' + app.$route.params.id + '/all_species');
-      axios.get('/api/v1/articles/' + app.$route.params.id + '/all_species').then(function(resp) {
-        app.species = resp.data;
-        console.log(app.species);
-      }).catch(function(resp) {
-        console.log(resp);
-        alert(this.$i18n.t('alerts.could_not_load') + ' ' + this.$i18n.t('alerts.animals'));
       });
     },
 

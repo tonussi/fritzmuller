@@ -26,5 +26,6 @@ return [
     'your_name' => 'Your Name',
     'confirm_pass' => 'Confirm Password',
     'actions' => 'Auth Actions',
-    'ticket' => 'Ticket Number'
+    'ticket' => 'Ticket Number',
+    'new_password' => 'New Password'
 ];

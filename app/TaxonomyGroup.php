@@ -15,14 +15,14 @@ use Illuminate\Database\Eloquent\Model;
  * @property int $specie_id
  * @property string $created_at
  * @property string $updated_at
- * @property TaxonomyRankKingdom $taxonomyRankKingdom
- * @property TaxonomyRankPhylum $taxonomyRankPhylum
  * @property TaxonomyRankClass $taxonomyRankClass
- * @property TaxonomyRankOrder $taxonomyRankOrder
  * @property TaxonomyRankFamily $taxonomyRankFamily
  * @property TaxonomyRankGenus $taxonomyRankGenus
+ * @property TaxonomyRankKingdom $taxonomyRankKingdom
+ * @property TaxonomyRankOrder $taxonomyRankOrder
+ * @property TaxonomyRankPhylum $taxonomyRankPhylum
  * @property TaxonomyRankSpecie $taxonomyRankSpecie
- * @property SpeciesDetail[] $speciesDetails
+ * @property SpecieDetail[] $speciesDetails
  */
 class TaxonomyGroup extends Model
 {
@@ -41,33 +41,9 @@ class TaxonomyGroup extends Model
     /**
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
-    public function taxonomyRankKingdom()
-    {
-        return $this->belongsTo('App\TaxonomyRankKingdom', 'kingdom_id');
-    }
-
-    /**
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
-     */
-    public function taxonomyRankPhylum()
-    {
-        return $this->belongsTo('App\TaxonomyRankPhylum', 'phylum_id');
-    }
-
-    /**
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
-     */
     public function taxonomyRankClass()
     {
         return $this->belongsTo('App\TaxonomyRankClass', 'class_id');
-    }
-
-    /**
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
-     */
-    public function taxonomyRankOrder()
-    {
-        return $this->belongsTo('App\TaxonomyRankOrder', 'order_id');
     }
 
     /**
@@ -89,6 +65,30 @@ class TaxonomyGroup extends Model
     /**
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
+    public function taxonomyRankKingdom()
+    {
+        return $this->belongsTo('App\TaxonomyRankKingdom', 'kingdom_id');
+    }
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function taxonomyRankOrder()
+    {
+        return $this->belongsTo('App\TaxonomyRankOrder', 'order_id');
+    }
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function taxonomyRankPhylum()
+    {
+        return $this->belongsTo('App\TaxonomyRankPhylum', 'phylum_id');
+    }
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
     public function taxonomyRankSpecie()
     {
         return $this->belongsTo('App\TaxonomyRankSpecie', 'specie_id');
@@ -99,6 +99,6 @@ class TaxonomyGroup extends Model
      */
     public function speciesDetails()
     {
-        return $this->hasMany('App\SpeciesDetail');
+        return $this->hasMany('App\SpecieDetail');
     }
 }

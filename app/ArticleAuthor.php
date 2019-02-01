@@ -10,8 +10,8 @@ use Illuminate\Database\Eloquent\Model;
  * @property int $article_id
  * @property string $created_at
  * @property string $updated_at
- * @property Author $author
  * @property Article $article
+ * @property Author $author
  */
 class ArticleAuthor extends Model
 {
@@ -30,16 +30,16 @@ class ArticleAuthor extends Model
     /**
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
-    public function author()
+    public function article()
     {
-        return $this->belongsTo('App\Author');
+        return $this->belongsTo('App\Article');
     }
 
     /**
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
-    public function article()
+    public function author()
     {
-        return $this->belongsTo('App\Article');
+        return $this->belongsTo('App\Author');
     }
 }

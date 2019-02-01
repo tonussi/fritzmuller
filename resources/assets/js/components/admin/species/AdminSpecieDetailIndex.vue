@@ -1,47 +1,37 @@
 <template>
   <v-card style="padding-top:60px;">
-    <v-dialog fullscreen transition="dialog-bottom-transition" :overlay="false" scrollable v-model="dialog_species_taxonomy" max-width="500px">
+    <v-dialog v-model="dialog_species_taxonomy" persistent>
       <v-card>
         <v-card-title>
-          <span class="headline">{{ $t("species.selecting_species_taxonomy") }}</span>
+          <h1>{{ $t("species.selecting_species_taxonomy") }}</h1>
         </v-card-title>
         <v-card-text>
           <v-container grid-list-md>
-            <v-form ref="form_species_tax" lazy-validation>
+            <v-form ref="form_tax_group" lazy-validation>
               <v-container fluid>
                 <v-layout>
                   <v-flex>
                     <v-autocomplete
-                      :loading="species_selectors.loading_species"
-                      :items="species_selectors.species"
-                      :search-input.sync="search_species"
+                      @keydown.enter.native.prevent
+                      :loading="specie_selector.loading"
+                      :items="specie_selector.items"
+                      :search-input.sync="searchable_specie_rank_name"
                       :label="$t('species.species_selector')"
-                      v-model="editedItem.taxonomy_group"
-                      cache-items
-                      chips
-                      required>
+                      v-model="editedItem.new_specie_rank_name">
                     </v-autocomplete>
                     <v-card>
                       <v-layout row wrap>
                         <v-subheader>{{$t('species.new_specie_to_swap')}}</v-subheader>
-                        <v-flex v-for="(value, key, index) in editedItem.taxonomy_group" :key="'new_specie_to_swap'+index">
-                          <v-flex xs1 order-xs1>
-                            <v-chip color="pink lighten-4">
-                              {{key}}: {{value}}
-                            </v-chip>
-                          </v-flex>
-                        </v-flex>
+                        <v-chip color="pink lighten-4">
+                          {{editedItem.new_specie_rank_name}}
+                        </v-chip>
                       </v-layout>
                       <v-divider></v-divider>
                       <v-layout row wrap>
                         <v-subheader>{{$t('species.current_specie_associated')}}</v-subheader>
-                        <v-flex v-for="(value, key, index) in editedItem.taxonomy_group" :key="'current_specie_associated'+index">
-                          <v-flex xs1 order-xs1>
-                            <v-chip color="green lighten-4">
-                              {{key}}: {{value}}
-                            </v-chip>
-                          </v-flex>
-                        </v-flex>
+                          <v-chip color="green lighten-4">
+                            {{editedItem.taxonomy_group.taxonomy_rank_specie.rank_name}}
+                          </v-chip>
                       </v-layout>
                     </v-card>
                   </v-flex>
@@ -51,14 +41,13 @@
           </v-container>
         </v-card-text>
         <v-card-actions>
-          <v-spacer></v-spacer>
-          <v-btn color="green lighten-2" @click.native="save">{{ $t("messages.ok") }}</v-btn>
-          <v-btn color="blue lighten-2" @click.native="close">{{ $t("messages.cancel") }}</v-btn>
+          <v-btn block color="green lighten-2" @click.native="save">{{ $t("messages.ok") }}</v-btn>
+          <v-btn block color="blue lighten-2" @click.native="close">{{ $t("messages.cancel") }}</v-btn>
         </v-card-actions>
       </v-card>
     </v-dialog>
-    <v-dialog fullscreen transition="dialog-bottom-transition" :overlay="false" scrollable v-model="dialog_species" max-width="500px">
-      <v-btn color="primary" dark slot="activator" class="mb-2" @click.native="clean">
+    <v-dialog v-model="dialog_species" persistent>
+      <v-btn color="primary" slot="activator" mb-2 @click.native="clean">
         <v-icon>brush</v-icon>
         {{ $t("species.create") }}
       </v-btn>
@@ -68,52 +57,52 @@
         </v-card-title>
         <v-card-text>
           <v-container grid-list-md>
-            <v-form ref="form_species" lazy-validation>
-              <v-flex xs12 sm6 md4>
-                <v-subheader>{{ $t('species.popular_name') }}</v-subheader>
-                  <v-combobox
-                    v-model="editedItem.popular_names"
-                    :label="$t('species.popular_names_creator')"
-                    chips
-                    clearable
-                    prepend-icon="filter_list"
-                    solo
-                    multiple>
-                    <template slot="selection" slot-scope="data">
-                      <v-chip
-                        :selected="data.selected"
-                        close
-                        @input="remove(data.item.popular_name)">
-                        <strong>{{ data.item.popular_name }}</strong>&nbsp;
-                      </v-chip>
-                    </template>
-                  </v-combobox>
-                  <!-- <v-flex v-for="(value, key, index) in editedItem.popular_names" :key="'popular_name_associated' + index">
-                    <v-text-field v-model="editedItem.popular_names[key].popular_name"></v-text-field>
-                  </v-flex> -->
-              </v-flex>
-              <v-flex xs12 sm6 md4>
-                <v-subheader>{{ $t("species.figure_path") }}</v-subheader>
-                <v-text-field :title="$t('messages.pick_an_image')"
-                              @click="setNewFigurePath(editedItem);"
-                              v-model="editedItem.figure_path">
-                </v-text-field>
-              </v-flex>
-              <v-flex xs12 sm6 md4>
-                <v-subheader>{{ $t("species.description") }}</v-subheader>
-                <tinymce id="species_description" v-model="editedItem.species_description"
-                         :content="editedItem.species_description_content_reflection"
-                         :options="editor_tiny_mce.options">
-                </tinymce>
-              </v-flex>
+            <v-form ref="form_species">
+              <v-layout>
+                <v-flex xs6>
+                  <v-flex xs6>
+                    <v-autocomplete
+                      @keydown.enter.native.prevent
+                      :loading="specie_selector.loading"
+                      :items="specie_selector.items"
+                      :search-input.sync="searchable_specie_rank_name"
+                      :label="$t('species.species_selector')"
+                      v-model="editedItem.new_specie_rank_name"
+                      cache-items>
+                    </v-autocomplete>
+                    <v-card>
+                      <v-flex>
+                        <v-subheader>{{$t('species.new_specie_to_swap')}}</v-subheader>
+                        <v-chip color="pink lighten-4">
+                          {{editedItem.new_specie_rank_name}}
+                        </v-chip>
+                      </v-flex>
+                    </v-card>
+                  </v-flex>
+                  <v-flex xs6>
+                    <v-subheader>{{ $t("species.figure_path") }}</v-subheader>
+                    <v-text-field @keydown.enter.native.prevent
+                      @click="setNewFigurePath(editedItem);"
+                      :title="$t('messages.pick_an_image')"
+                      v-model="editedItem.figure_path">
+                    </v-text-field>
+                  </v-flex>
+                </v-flex>
+                <v-flex xs6>
+                  <v-subheader>{{ $t("species.description") }}</v-subheader>
+                  <tinymce id="specie_description" v-model="editedItem.specie_description"
+                          :content="editedItem.specie_description_content_reflection"
+                          :options="editor_tiny_mce.options">
+                  </tinymce>
+                </v-flex>
+              </v-layout>
+              <v-card-actions>
+                <v-btn block color="green lighten-2" @click.native="save">{{ $t("messages.ok") }}</v-btn>
+                <v-btn block color="blue lighten-2" @click.native="close">{{ $t("messages.cancel") }}</v-btn>
+              </v-card-actions>
             </v-form>
           </v-container>
         </v-card-text>
-        <v-card-actions>
-          <v-spacer></v-spacer>
-          <v-btn color="green lighten-2" @click.native="save">{{ $t("messages.ok") }}</v-btn>
-          <v-btn color="blue lighten-2" @click.native="close">{{ $t("messages.cancel") }}</v-btn>
-        </v-card-actions>
       </v-card>
     </v-dialog>
     <v-card-title>
@@ -133,27 +122,19 @@
       :search="search"
       hide-actions>
       <template slot="items" slot-scope="props">
-        <td width="150px" class="text-xs-left">
-          <v-layout row wrap>
-            <v-flex v-for="(value, key, index) in props.item.popular_names" :key="value.popular_name.toLowerCase() + index">
-              <v-chip color="blue lighten-3">
-                {{value.popular_name}}
-              </v-chip>
-            </v-flex>
-          </v-layout>
-        </td>
-        <td width="50px" class="text-xs-left">
+        <td class="text-xs-center">{{ props.item.taxonomy_group.taxonomy_rank_specie.rank_name }}</td>
+        <td class="text-xs-center">{{ props.item.specie_description.slice(0, 150) + ' ...' }}</td>
+        <td width="50px" class="text-xs-center">
           <v-img :src="props.item.figure_path" height="60px"></v-img>
         </td>
-        <td class="text-xs-left">{{ props.item.species_description.slice(0, 50) + ' ...' }}</td>
-        <td class="justify-center layout px-0">
-          <v-btn icon class="mx-0" @click="selectTaxonomy(props.item)">
+        <td class="text-xs-center">
+          <v-btn icon @click="selectTaxonomy(props.item)">
             <v-icon color="blue">fas fa-crow</v-icon>
           </v-btn>
-          <v-btn icon class="mx-0" @click="editItem(props.item)">
+          <v-btn icon @click="editItem(props.item)">
             <v-icon color="teal">fas fa-edit</v-icon>
           </v-btn>
-          <v-btn icon class="mx-0" @click="deleteItem(props.item)">
+          <v-btn icon @click="deleteItem(props.item)">
             <v-icon color="pink">fas fa-trash-alt</v-icon>
           </v-btn>
         </td>
@@ -181,10 +162,11 @@ export default {
       applocale: 'pt-br',
       pages: 0,
       dialog_species_taxonomy: false,
-      search_species: null,
-      species_selectors: {
-        loading_species: false,
-        species: []
+      searchable_specie_rank_name: '',
+      specie_selector: {
+        loading: false,
+        rank_name: '',
+        items: []
       },
       pagination: {
         page: null,
@@ -193,9 +175,7 @@ export default {
       },
       editor_tiny_mce: {
         options: {
-          selector: "#species_description",
-          width: 842,
-          height: 1191,
+          selector: "#specie_description",
           browser_spellcheck : true,
           forced_root_block: false,
           force_p_newlines: false,
@@ -215,10 +195,7 @@ export default {
             var y = window.innerHeight ||
                     document.documentElement.clientHeight ||
                     document.getElementsByTagName('body')[0].clientHeight;
-
             var cmsURL = '/laravel-filemanager?field_name=' + field_name;
-
-            // console.log(field_name);
             if (type == 'image') {
               cmsURL = cmsURL + "&type=Images";
             } else {
@@ -237,44 +214,44 @@ export default {
       },
       headers: [
         {
-          text: this.$i18n.t('species.popular_name'),
-          value: 'popular_name'
-        },
-        {
-          text: this.$i18n.t('species.figure_path'),
-          value: 'figure_path',
-          sortable: false
+          text: this.$i18n.t('taxonomy.species'),
+          value: 'taxonomy_group.taxonomy_rank_specie.rank_name',
+          sortable: true,
+          align: 'center'
         },
         {
           text: this.$i18n.t('species.description'),
-          value: 'description',
-          sortable: false
+          sortable: false,
+          align: 'center'
+        },
+        {
+          text: this.$i18n.t('species.figure_path'),
+          sortable: false,
+          align: 'center'
         },
         {
           text: this.$i18n.t('messages.actions'),
-          value: 'action',
-          sortable: false
+          sortable: false,
+          align: 'center'
         }
       ],
       editedItem: {
-        popular_name: '',
         figure_path: '',
-        species_description: '',
-        species_description_content_reflection: '',
-        modal_date_check: false,
+        specie_description: '',
+        specie_description_content_reflection: '',
         species_tax_id: undefined,
-        taxonomy_group: undefined,
-        popular_names: []
+        taxonomy_group: { taxonomy_rank_specie: {} },
+        new_specie_rank_name: '',
+        modal_date_check: false
       },
       defaultItem: {
-        popular_name: '',
         figure_path: '',
-        species_description: '',
-        species_description_content_reflection: '',
-        modal_date_check: false,
+        specie_description: '',
+        specie_description_content_reflection: '',
         species_tax_id: undefined,
-        taxonomy_group: undefined,
-        popular_names: []
+        taxonomy_group: { taxonomy_rank_specie: {} },
+        new_specie_rank_name: '',
+        modal_date_check: false
       }
     }
   },
@@ -292,8 +269,8 @@ export default {
     dialog_species_taxonomy(val) {
       val || this.close()
     },
-    search_species(val) {
-      val && this.querySelections(val)
+    searchable_specie_rank_name(val) {
+      val && val !== this.editedItem.new_specie_rank_name && this.querySpecieRanks(val)
     }
   },
 
@@ -312,9 +289,6 @@ export default {
         app.pagination.totalItems = resp.data.total;
         app.pagination.rowsPerPage = resp.data.per_page;
         app.pages = resp.data.last_page;
-      }).catch(function(resp) {
-        console.log(resp);
-        alert(this.$i18n.t('alerts.could_not_load') + ' ' + this.$i18n.t('alerts.species'));
       });
     },
 
@@ -322,15 +296,13 @@ export default {
       var app = this;
       axios.get('/api/v1/species?page=' + page).then(function(resp) {
         app.items = resp.data.data;
-      }).catch(error => {
-        console.log(error);
       });
     },
 
     editItem(item) {
       this.editedIndex = this.items.indexOf(item);
       Object.assign(this.editedItem, item);
-      this.editedItem.species_description_content_reflection = this.editedItem.species_description;
+      this.editedItem.specie_description_content_reflection = this.editedItem.specie_description;
       this.dialog_species = true;
     },
 
@@ -340,8 +312,6 @@ export default {
       if (confirm(this.$i18n.t('messages.sure_delete_question'))) {
         axios.delete('/api/v1/species/' + item.id).then(function (resp) {
           app.items.splice(index, 1);
-        }).catch(function (resp) {
-          alert(this.$i18n.t('alerts.could_not_load') + ' ' + this.$i18n.t('alerts.specie'));
         });
       }
     },
@@ -352,25 +322,24 @@ export default {
       Object.assign(this.editedItem, item);
     },
 
-    querySelections(v) {
+    async queryRankName(link, val, sel) {
       var app = this;
-      app.species_selectors.loading_species = true;
-      setTimeout(() => {
-        if (v.split(" ").length > 1) {
-          this.searchForAvailableTaxonomyInfo(v);
-          app.species_selectors.loading_species = false;
-        }
-      }, 500)
+      axios.get(link + val).then(function(resp) {
+        sel.loading = true;
+        setTimeout(() => {
+          if (resp.data[0]) {
+            for (let index = 0; index < resp.data.length; index++) {
+              const element = resp.data[index].rank_name;
+              sel.items.push(element);
+            }
+          }
+          sel.loading = false;
+        }, 500);
+      });
     },
 
-    searchForAvailableTaxonomyInfo(v) {
-      var app = this;
-      axios.get('/api/v1/species/search/' + v).then(function(resp) {
-        console.log(resp.data);
-        app.species_selectors.species = resp.data;
-      }).catch(function(resp) {
-        alert(this.$i18n.t('alerts.could_not_load') + ' ' + this.$i18n.t('alerts.species'));
-      });
+    querySpecieRanks(val) {
+      this.queryRankName('/api/v1/rank/search/specie/', val, this.specie_selector);
     },
 
     close() {
@@ -390,7 +359,6 @@ export default {
     save(event) {
       event.preventDefault();
       if (this.editedIndex > -1) {
-        this.editedItem.species_tax_id = this.editedItem.taxonomy_group.id;
         Object.assign(this.items[this.editedIndex], this.editedItem);
         this.updateForm(this.items[this.editedIndex].id);
       } else {
@@ -404,17 +372,13 @@ export default {
       var app = this;
       axios.post('/api/v1/species', this.editedItem).then(function (resp) {
         app.$router.push({path: '/admin/species'});
-      }).catch(function (resp) {
-        alert(this.$i18n.t('alerts.could_not_load') + ' ' + this.$i18n.t('alerts.specie'));
       });
     },
 
-    updateForm(speciesId) {
+    updateForm(id) {
       var app = this;
-      axios.patch('/api/v1/species/' + speciesId, this.editedItem).then(function (resp) {
+      axios.patch('/api/v1/species/' + id, this.editedItem).then(function (resp) {
         app.$router.replace('/admin/species');
-      }).catch(function (resp) {
-        alert(this.$i18n.t('alerts.could_not_load') + ' ' + this.$i18n.t('alerts.specie'));
       });
     },
 

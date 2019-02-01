@@ -83,7 +83,6 @@ scpt.parentNode.insertBefore(elem, scpt);
   }
 })();
 window.__cmp('init', {
-  'Language': i18n.locale,
   'Initial Screen Title Text': i18n.t('consensu.initial_screen_title_text'),
   'Initial Screen Reject Button Text': i18n.t('consensu.initial_screen_reject_button_text'),
   'Initial Screen Accept Button Text': i18n.t('consensu.initial_screen_accept_button_text'),

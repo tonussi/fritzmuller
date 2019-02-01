@@ -19,4 +19,5 @@ return [
     'projects_session' => 'Projects\'s Session',
     'members_session' => 'Colaborator\'s Session',
     'taxonomy_session' => 'Taxonomy\'s Session',
+    'tickets_session' => 'Ticket\'s Session',
 ];

@@ -10,8 +10,8 @@ use Illuminate\Database\Eloquent\Model;
  * @property int $article_id
  * @property string $created_at
  * @property string $updated_at
- * @property SpeciesDetail $speciesDetail
  * @property Article $article
+ * @property SpecieDetail $speciesDetail
  */
 class ArticleSpecie extends Model
 {
@@ -30,16 +30,16 @@ class ArticleSpecie extends Model
     /**
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
-    public function speciesDetail()
+    public function article()
     {
-        return $this->belongsTo('App\SpeciesDetail', 'species_id');
+        return $this->belongsTo('App\Article');
     }
 
     /**
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
-    public function article()
+    public function speciesDetail()
     {
-        return $this->belongsTo('App\Article');
+        return $this->belongsTo('App\SpecieDetail', 'species_id');
     }
 }

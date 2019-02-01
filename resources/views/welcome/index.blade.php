@@ -27,19 +27,20 @@ $polyfills = [
 
   <link rel="dns-prefetch" href="https://fonts.gstatic.com">
 
-  <link href='//fonts.googleapis.com/css?family=Roboto:300,300i,400,400i|Material+Icons'
-        rel="stylesheet" type="text/css">
+  <link href='//fonts.googleapis.com/css?family=Merriweather:300,300i,400,400i|Material+Icons' rel="stylesheet" type="text/css">
 
   @include('welcome.favicon')
 
   <link rel="stylesheet" href="{{ mix('css/app.css') }}">
-  <script src="https://www.google.com/recaptcha/api.js?onload=vueRecaptchaApiLoaded&render=explicit" async defer></script>
 </head>
 <body>
   <div id="app"></div>
 
   {{-- Analytics --}}
   @include('welcome.analytics')
+
+  {{-- Recaptcha --}}
+  <script src="https://www.google.com/recaptcha/api.js?onload=vueRecaptchaApiLoaded&render=explicit" async defer></script>
 
   {{-- Global configuration object --}}
   <script>window.config = @json($config);</script>

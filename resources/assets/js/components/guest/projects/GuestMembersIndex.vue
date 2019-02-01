@@ -1,10 +1,9 @@
 <template>
-
     <v-card style="margin:160px 60px 10px 60px;">
       <v-layout column wrap align-center>
-        <v-flex xs12 sm4 class="my-3">
+        <v-flex>
           <div class="text-xs-center">
-            <h2 class="headline">{{ $t('messages.members') }}</h2>
+            <h1>{{ $t('messages.members') }}</h1>
           </div>
         </v-flex>
       </v-layout>
@@ -12,38 +11,26 @@
         <v-flex>
           <v-container grid-list-sm>
             <v-layout wrap>
-              <v-flex
-                v-bind="{ [`xs${member.flex}`]: true }"
-                v-for="member in members"
-                :key="member.member_name">
+              <v-flex x6 ma-3 v-for="member in members" :key="member.member_name">
                 <v-card>
                   <v-layout row wrap>
                     <v-flex xs6>
-                      <v-img :src="member.figure_path" height="20vh"></v-img>
+                      <v-img :src="member.figure_path"></v-img>
                     </v-flex>
                     <v-flex xs6>
                       <v-card-title primary-title>
                         <h3 class="green--text" v-text="member.member_name"></h3>
                       </v-card-title>
                     </v-flex>
+                    <v-flex xs6 ma-3>
+                      <label><b>{{ $t("member.name") }}</b></label>
+                      <p>{{ member.member_name }}</p>
+                      <label><b>{{ $t("member.grad") }}</b></label>
+                      <p>{{ member.grad }}</p>
+                      <label><b>{{ $t("member.bio") }}</b></label>
+                      <p v-html="member.member_description"></p>
+                    </v-flex>
                   </v-layout>
-                  <v-card-actions>
-                    <v-spacer></v-spacer>
-                    {{ $t("member.readmore") }}
-                    <v-btn icon @click.native="member.show = !member.show">
-                      <v-icon>{{ member.show ? 'keyboard_arrow_down' : 'keyboard_arrow_up' }}</v-icon>
-                    </v-btn>
-                  </v-card-actions>
-                  <v-slide-y-transition>
-                      <span v-show="member.show">
-                        <label class="orange--text">{{ $t("member.name") }}</label>
-                        <p class="grey--text">{{ member.member_name }}</p>
-                        <label class="orange--text">{{ $t("member.grad") }}</label>
-                        <p class="grey--text">{{ member.grad }}</p>
-                        <label class="orange--text">{{ $t("member.bio") }}</label>
-                        <p class="grey--text" v-html="member.member_description"></p>
-                      </span>
-                  </v-slide-y-transition>
                 </v-card>
               </v-flex>
             </v-layout>

@@ -18,5 +18,8 @@ taxonomy_rank_class,\
 taxonomy_rank_order,\
 taxonomy_rank_phylum,\
 taxonomy_rank_specie,\
-taxonomy_group\
-ticket\
+taxonomy_group,\
+ticket,\
+users,\
+password_resets,\
+oauth_providers\

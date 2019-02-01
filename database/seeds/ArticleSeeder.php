@@ -16,7 +16,7 @@ class ArticleSeeder extends Seeder
 
     private function createArticles()
     {
-        for ($i = 0; $i < 5; $i ++)
+        for ($i = 0; $i < 25; $i ++)
             $this->createArticle();
     }
 
@@ -27,10 +27,10 @@ class ArticleSeeder extends Seeder
             'subtitle' => $this->faker->sentence(6, true),
             'article_content' => $this->faker->text(200),
             'publication_date' => $this->faker->dateTimeBetween('-2 years', 'now')->format('Y-m-d'),
-            'active' => $this->faker->boolean(30),
+            'active' => $this->faker->boolean(70),
             'figure_path' => 'https://placeimg.com/940/480/nature',
-            'rating' => $this->faker->randomNumber(100) % 6,
-            'price' => $this->faker->randomFloat(2)
+            'rating' => 3,
+            'price' => 1.34
         ]);
     }
 }

@@ -27,16 +27,6 @@ class Project extends Model
      */
     protected $fillable = ['project_description', 'figure_path', 'project_name', 'created_at', 'updated_at'];
 
-    protected $appends = ['flex', 'show'];
-
-    public function getFlexAttribute() {
-        return 4;
-    }
-
-    public function getShowAttribute() {
-        return false;
-    }
-
     /**
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */

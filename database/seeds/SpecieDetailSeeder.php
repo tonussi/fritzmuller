@@ -1,30 +1,29 @@
 <?php
 use Illuminate\Database\Seeder;
 use Faker\Factory as FactoryFaker;
-use App\SpeciesDetail;
+use App\SpecieDetail;
 use App\TaxonomyGroup;
-use App\PopularName;
 
-class SpeciesDetailSeeder extends Seeder
+class SpecieDetailSeeder extends Seeder
 {
     private $faker;
 
     public function run()
     {
         $this->faker = FactoryFaker::create();
-        $this->createSpeciesDetails();
+        $this->createSpecieDetails();
         $this->speciesDetails();
     }
 
-    private function createSpeciesDetails()
+    private function createSpecieDetails()
     {
         $arr_a = TaxonomyGroup::all()->pluck('id')->toArray();
         for ($i = 0; $i < count($arr_a); $i++)
         {
             $a_id = $this->faker->randomElement($arr_a);
-            SpeciesDetail::create([
+            SpecieDetail::create([
                 'taxonomy_group_id' => $a_id,
-                'species_description' => $this->faker->sentence(6, true),
+                'specie_description' => $this->faker->sentence(6, true),
                 'figure_path' => 'https://placeimg.com/400/400/animals'
             ]);
         }
@@ -32,13 +31,9 @@ class SpeciesDetailSeeder extends Seeder
 
     private function speciesDetails()
     {
-        $arr_b = SpeciesDetail::all()->pluck('id')->toArray();
+        $arr_b = SpecieDetail::all()->pluck('id')->toArray();
         for ($i = 0; $i < count($arr_b); $i++) {
             $b_id = $this->faker->randomElement($arr_b);
-            PopularName::create([
-                'popular_name' => $this->faker->sentence(1, true),
-                'species_detail_id' => $b_id
-            ]);
         }
     }
 }

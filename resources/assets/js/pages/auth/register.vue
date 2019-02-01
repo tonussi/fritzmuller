@@ -5,11 +5,11 @@
         <v-card-text style="margin-top: 120px;">
 
           <v-card class="pa-4" :title="$t('auth.register')">
-            <v-form @submit.prevent="register" @keydown="form.onKeydown($event)">
+            <v-form @submit.prevent="submit" @keydown="form.onKeydown($event)">
               <div class="form-group row">
                 <div class="col-md-7">
                   <v-text-field :label="$t('auth.your_name')" v-model="form.name"
-                    :class="{ 'is-invalid': form.errors.has('auth.your_name') }"
+                    :class="{ 'is-invalid': form.errors.has('name') }"
                     class="form-control" type="text" name="name">
                   </v-text-field>
                   <has-error :form="form" field="name"/>
@@ -62,14 +62,20 @@
 
               <div class="form-group row pt-5 pb-5">
                 <div class="col-md-9 ml-md-auto">
-                  <vue-recaptcha sitekey="6LdgDBYTAAAAAN6RpxiDWiK8GML7LaUdNZHrQLWS"></vue-recaptcha>
+                  <vue-recaptcha
+                    ref="recaptcha"
+                    @verify="onCaptchaVerified"
+                    @expired="onCaptchaExpired"
+                    size="invisible"
+                    sitekey="GRECAPTCHA_SITE_KEY">
+                  </vue-recaptcha>
                 </div>
               </div>
 
               <div class="form-group row">
                 <div class="col-md-7 offset-md-3 d-flex">
                   <!-- Submit Button -->
-                  <v-btn @click="register" block color="cyan lighten-3" :loading="form.busy">
+                  <v-btn @click="submit" block color="cyan lighten-3" :loading="form.busy">
                     {{ $t('auth.register') }}
                   </v-btn>
                 </div>
@@ -84,8 +90,7 @@
 </template>
 
 <script>
-import Form from 'vform'
-import VueRecaptcha from 'vue-recaptcha';
+import Form from 'vform';
 
 export default {
   middleware: 'guest',
@@ -100,11 +105,10 @@ export default {
       email: '',
       ticket_number: '',
       password: '',
-      password_confirmation: ''
+      password_confirmation: '',
+      recaptchaToken: null
     })
   }),
-
-  components: { VueRecaptcha },
 
   methods: {
     async register () {
@@ -122,7 +126,52 @@ export default {
 
       // Redirect home.
       this.$router.push({ name: 'guestWelcomeIndex' })
+    },
+
+    submit () {
+      this.$refs.recaptcha.execute()
+    },
+
+    onCaptchaVerified (recaptchaToken) {
+      const self = this
+      self.status = "submitting"
+      self.$refs.recaptcha.reset()
+
+      this.form.recaptchaToken = recaptchaToken
+      this.register().then((response) => {
+
+        self.sucessfulServerResponse = response.data.message
+
+      }).catch((err) => {
+
+        self.serverError = getErrorMessage(err)
+
+        // helper to get a displayable message to the user
+
+        function getErrorMessage(err) {
+          let responseBody
+
+          responseBody = err.response
+
+          if (!responseBody) {
+            responseBody = err
+          } else {
+            responseBody = err.response.data || responseBody
+          }
+
+          return responseBody.message || JSON.stringify(responseBody)
+        }
+
+      }).then(() => {
+        self.status = ""
+      })
+    },
+
+    onCaptchaExpired () {
+      this.$refs.recaptcha.reset()
+      this.form.recaptchaToken = null
     }
+
   }
 }
 </script>

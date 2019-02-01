@@ -1,7 +1,7 @@
 <template>
   <v-card style="padding-top:60px;">
-    <v-dialog fullscreen transition="dialog-bottom-transition" :overlay="false" scrollable v-model="dialog_article" max-width="500px">
-      <v-btn color="primary" dark slot="activator" class="mb-2" @click.native="clean">
+    <v-dialog v-model="dialog_article" persistent>
+      <v-btn color="primary" slot="activator" mb-2 @click.native="clean">
         <v-icon>brush</v-icon>
         {{ $t("article.create") }}
       </v-btn>
@@ -11,105 +11,110 @@
         </v-card-title>
         <v-card-text>
           <v-container grid-list-md>
-            <v-form ref="form_article" lazy-validation>
-              <v-flex xs6>
-                <v-subheader>{{ $t("article.title") }}</v-subheader>
-                <v-text-field required v-model="editedItem.title"></v-text-field>
-              </v-flex>
-              <v-flex xs6>
-                <v-subheader>{{ $t("article.subtitle") }}</v-subheader>
-                <v-text-field required v-model="editedItem.subtitle"></v-text-field>
-              </v-flex>
-              <v-flex xs6>
-                <v-subheader>{{ $t("article.figure_path") }}</v-subheader>
-                <v-text-field required :title="$t('messages.pick_an_image')"
-                              @click="setNewFigurePath(editedItem);"
-                              v-model="editedItem.figure_path">
-                </v-text-field>
-              </v-flex>
-              <v-flex xs6>
-                <v-subheader>{{ $t("article.content") }}</v-subheader>
-                <tinymce required id="article_content"
-                         v-model="editedItem.article_content"
-                         :content='editedItem.article_content_reflection'
-                         :options='editor_tiny_mce.options'>
-                </tinymce>
-              </v-flex>
-              <v-flex xs6>
-                <v-subheader>{{ $t("article.publication_date") }}</v-subheader>
-                <v-dialog
-                  ref="dialog_date"
-                  persistent
-                  v-model="editedItem.modal_date_check"
-                  lazy
-                  full-width
-                  width="300px"
-                  :return-value.sync="editedItem.publication_date">
-                  <v-text-field
-                    required
-                    slot="activator"
-                    v-model="editedItem.publication_date"
-                    prepend-icon="event"
-                    readonly>
-                  </v-text-field>
-                  <v-date-picker :locale="applocale" v-model="editedItem.publication_date" scrollable>
-                    <v-spacer></v-spacer>
-                    <v-btn flat color="primary" @click="editedItem.modal_date_check = false">{{ $t("messages.cancel") }}</v-btn>
-                    <v-btn flat color="primary" @click="$refs.dialog_date.save(editedItem.publication_date)">{{ $t("messages.ok") }}</v-btn>
-                  </v-date-picker>
-                </v-dialog>
-              </v-flex>
-              <v-flex xs6>
-                <!-- <v-subheader>{{ $t("article.active") }}</v-subheader> -->
-                <!-- <v-text-field v-model="editedItem.active"></v-text-field> -->
-                <v-subheader>{{ $t( 'messages.open_closed') }}</v-subheader>
-                <v-switch required v-model="editedItem.active"></v-switch>
-              </v-flex>
+            <v-form ref="form_article">
+              <v-layout>
+                <v-flex xs6>
+                  <v-flex xs6>
+                    <v-subheader>{{ $t("article.rating") }}</v-subheader>
+                    <span class="display-3 font-weight-light" v-text="editedItem.rating"></span>
+                    <v-slider :min="1" :max="5" v-model="editedItem.rating"></v-slider>
+                  </v-flex>
+                  <v-flex xs6>
+                    <v-subheader>{{ $t("messages.donate") }}</v-subheader>
+                    <span class="display-3 font-weight-light">{{editedItem.price | currencyi18n}}</span>
+                    <v-slider :min="0" :max="60" v-model="price_fraction_left_part"></v-slider>
+                    <v-slider :min="0" :max="99" v-model="price_fraction_right_part"></v-slider>
+                  </v-flex>
+                  <v-flex xs6>
+                    <v-subheader>{{ $t("article.title") }}</v-subheader>
+                    <v-text-field v-model="editedItem.title"></v-text-field>
+                  </v-flex>
+                  <v-flex xs6>
+                    <v-subheader>{{ $t("article.subtitle") }}</v-subheader>
+                    <v-text-field v-model="editedItem.subtitle"></v-text-field>
+                  </v-flex>
+                  <v-flex xs6>
+                    <v-subheader>{{ $t("article.figure_path") }}</v-subheader>
+                    <v-text-field :title="$t('messages.pick_an_image')"
+                        @click="setNewFigurePath(editedItem);"
+                        v-model="editedItem.figure_path">
+                    </v-text-field>
+                  </v-flex>
+                  <v-flex xs6>
+                    <v-subheader>{{ $t("article.publication_date") }}</v-subheader>
+                    <v-dialog ref="dialog_date"
+                      persistent
+                      v-model="editedItem.modal_date_check"
+                      width="300px"
+                      :return-value.sync="editedItem.publication_date">
+                      <v-text-field slot="activator"
+                        v-model="editedItem.publication_date"
+                        prepend-icon="event"
+                        readonly>
+                      </v-text-field>
+                      <v-date-picker :locale="applocale" v-model="editedItem.publication_date" scrollable>
+                        <v-spacer></v-spacer>
+                        <v-btn flat color="primary" @click="editedItem.modal_date_check = false">{{ $t("messages.cancel") }}</v-btn>
+                        <v-btn flat color="primary" @click="$refs.dialog_date.save(editedItem.publication_date)">{{ $t("messages.ok") }}</v-btn>
+                      </v-date-picker>
+                    </v-dialog>
+                  </v-flex>
+                  <v-flex xs6>
+                    <!-- <v-subheader>{{ $t("article.active") }}</v-subheader> -->
+                    <!-- <v-text-field v-model="editedItem.active"></v-text-field> -->
+                    <v-subheader>{{ $t( 'messages.open_closed') }}</v-subheader>
+                    <v-switch v-model="editedItem.active"></v-switch>
+                  </v-flex>
+                </v-flex>
+                <v-flex xs6>
+                  <v-subheader>{{ $t("article.content") }}</v-subheader>
+                  <tinymce id="article_content"
+                    v-model="editedItem.article_content"
+                    :content='editedItem.article_content_reflection'
+                    :options='editor_tiny_mce.options'>
+                  </tinymce>
+                </v-flex>
+              </v-layout>
+              <v-card-actions>
+                <v-btn block color="green lighten-2" @click.native="save">{{ $t("messages.ok") }}</v-btn>
+                <v-btn block color="blue lighten-2" @click.native="close">{{ $t("messages.cancel") }}</v-btn>
+              </v-card-actions>
             </v-form>
           </v-container>
         </v-card-text>
-        <v-card-actions>
-          <v-spacer></v-spacer>
-          <v-btn color="green lighten-2" @click.native="save">{{ $t("messages.ok") }}</v-btn>
-          <v-btn color="blue lighten-2" @click.native="close">{{ $t("messages.cancel") }}</v-btn>
-        </v-card-actions>
       </v-card>
     </v-dialog>
-
-    <v-dialog fullscreen transition="dialog-bottom-transition"
-              :overlay="false" scrollable v-model="dialog_species_taxonomy" max-width="500px">
+    <v-dialog v-model="dialog_species_taxonomy" persistent>
       <v-card>
         <v-card-title>
           <span class="headline">{{ $t("article.selecting_species_taxonomy") }}</span>
         </v-card-title>
         <v-card-text>
           <v-container grid-list-md>
-            <v-form ref="form_fauna_flora_tax" lazy-validation>
+            <v-form ref="form_fauna_flora_tax">
               <v-container fluid>
                 <v-layout>
                   <v-flex>
-                    <v-autocomplete
-                      :loading="species_selectors.loading_species"
-                      :items="species_selectors.species"
-                      :search-input.sync="search_species"
-                      v-model="editedItem.articleSpecies"
+                    <v-autocomplete @keydown.enter.native.prevent
+                      :loading="specie_selector.loading"
+                      :items="specie_selector.items"
+                      :search-input.sync="searchable_specie_rank_name"
+                      v-model="editedItem.new_species"
                       :label="$t('article.species_selector')"
                       multiple
-                      cache-items
-                      chips
-                      required>
+                      chips>
                     </v-autocomplete>
                   </v-flex>
                 </v-layout>
                 <v-layout row wrap>
                   <v-flex xs4 order-md2 order-xs1
-                          v-for="(data, idx) in editedItem.articleSpecies"
-                          :key="'current_ones_chosen_specie_idx_' + idx">
+                    v-for="(data, idx) in editedItem.article_species"
+                    :key="'current_specie_idx_' + idx">
                     <v-chip color="cyan lighten-4">
                       <v-avatar>
-                        <img :src="data.figure_path">
+                        <img :src="data.species_detail.figure_path">
                       </v-avatar>
-                      <span>{{data}}</span>
+                      <span>{{data.species_detail.taxonomy_group.taxonomy_rank_specie.rank_name}}</span>
                     </v-chip>
                   </v-flex>
                 </v-layout>
@@ -118,13 +123,11 @@
           </v-container>
         </v-card-text>
         <v-card-actions>
-          <v-spacer></v-spacer>
-          <v-btn color="green lighten-2" @click.native="saveTaxonomy">{{ $t("messages.ok") }}</v-btn>
-          <v-btn color="blue lighten-2" @click.native="close">{{ $t("messages.cancel") }}</v-btn>
+          <v-btn block color="green lighten-2" @click.native="save">{{ $t("messages.ok") }}</v-btn>
+          <v-btn block color="blue lighten-2" @click.native="close">{{ $t("messages.cancel") }}</v-btn>
         </v-card-actions>
       </v-card>
     </v-dialog>
-
     <v-card-title>
       {{ $t("article.show") }}
       <v-spacer></v-spacer>
@@ -142,14 +145,14 @@
       :search="search"
       hide-actions>
       <template slot="items" slot-scope="props">
-        <td class="text-xs-left">{{ props.item.title }}</td>
-        <td class="text-xs-left">{{ props.item.subtitle }}</td>
-        <td width="50px" class="text-xs-left">
+        <td class="text-xs-center">{{ props.item.title }}</td>
+        <td class="text-xs-center">{{ props.item.subtitle }}</td>
+        <td class="text-xs-center">{{ props.item.article_content.slice(0, 50) + ' ...' }}</td>
+        <td class="text-xs-center">{{ props.item.publication_date | datei18n }}</td>
+        <td class="text-xs-center" width="50px">
           <v-img :src="props.item.figure_path" height="60px"></v-img>
         </td>
-        <td class="text-xs-left">{{ props.item.article_content.slice(0, 50) + ' ...' }}</td>
-        <td class="text-xs-left">{{ props.item.publication_date }}</td>
-        <td class="text-xs-right">
+        <td class="text-xs-center">
           <div v-if="props.item.active">
             <v-icon>far fa-eye</v-icon>
           </div>
@@ -157,7 +160,7 @@
             <v-icon>far fa-eye-slash</v-icon>
           </div>
         </td>
-        <td class="justify-center layout px-0">
+        <td class="text-xs-center">
           <v-btn icon class="mx-0" @click="selectTaxonomy(props.item)">
             <v-icon color="blue">fas fa-fish</v-icon>
           </v-btn>
@@ -192,10 +195,16 @@ export default {
       dialog_species_taxonomy: false,
       editedIndex: -1,
       pages: 0,
-      search_species: null,
-      species_selectors: {
-        loading_species: false,
-        species: []
+      searchable_specie_rank_name: null,
+      price_fraction_left_part: 0,
+      price_fraction_right_part: 0,
+      specie_selector: {
+        loading: false,
+        items: []
+      },
+      default_specie_selector: {
+        loading: false,
+        items: []
       },
       pagination: {
         page: null,
@@ -205,8 +214,6 @@ export default {
       editor_tiny_mce: {
         options: {
           selector: "#article_content",
-          width: 842,
-          height: 1191,
           browser_spellcheck : true,
           forced_root_block: false,
           force_p_newlines: false,
@@ -249,36 +256,41 @@ export default {
       headers: [
         {
           text: this.$i18n.t('article.title'),
-          value: 'title'
+          value: 'title',
+          sortable: true,
+          align: 'center'
         },
         {
           text: this.$i18n.t('article.subtitle'),
-          value: 'subtitle'
-        },
-        {
-          text: this.$i18n.t('article.figure_path'),
-          value: 'figure_path',
-          sortable: false
+          value: 'subtitle',
+          sortable: true,
+          align: 'center'
         },
         {
           text: this.$i18n.t('article.content'),
-          value: 'content',
-          sortable: false
+          sortable: false,
+          align: 'center'
         },
         {
           text: this.$i18n.t('article.publication_date'),
-          value: 'date',
-          sortable: false
+          value: 'publication_date',
+          sortable: true,
+          align: 'center'
+        },
+        {
+          text: this.$i18n.t('article.figure_path'),
+          sortable: false,
+          align: 'center'
         },
         {
           text: this.$i18n.t('article.active'),
-          value: 'active',
-          sortable: false
+          sortable: false,
+          align: 'center'
         },
         {
           text: this.$i18n.t('messages.actions'),
-          value: 'action',
-          sortable: false
+          sortable: false,
+          align: 'center'
         }
       ],
       editedItem: {
@@ -289,8 +301,11 @@ export default {
         article_content_reflection: '',
         publication_date: '',
         active: false,
-        modal_date_check: false,
-        articleSpecies: []
+        price: 0.0,
+        rating: 0,
+        new_species: [],
+        article_species: [],
+        modal_date_check: false
       },
       defaultItem: {
         title: '',
@@ -300,8 +315,11 @@ export default {
         article_content_reflection: '',
         publication_date: '',
         active: false,
-        modal_date_check: false,
-        articleSpecies: []
+        price: 0.0,
+        rating: 0,
+        new_species: [],
+        article_species: [],
+        modal_date_check: false
       }
     }
   },
@@ -319,14 +337,19 @@ export default {
     dialog_species_taxonomy(val) {
       val || this.close()
     },
-    search_species(val) {
-      val && this.querySelections(val)
+    searchable_specie_rank_name(val) {
+      val && this.querySpecieRanks(val)
+    },
+    price_fraction_left_part(val) {
+      val && this.buildDonationPrice(this.price_fraction_left_part, this.price_fraction_right_part)
+    },
+    price_fraction_right_part(val) {
+      val && this.buildDonationPrice(this.price_fraction_left_part, this.price_fraction_right_part)
     }
   },
 
   created() {
     this.initialize();
-    this.getAllSpecies();
     const lang = document.documentElement.lang;
     this.applocale = lang;
   },
@@ -340,17 +363,18 @@ export default {
         app.pagination.totalItems = resp.data.total;
         app.pagination.rowsPerPage = resp.data.per_page;
         app.pages = resp.data.last_page;
-      }).catch(function(resp) {
-        console.log(resp);
-        alert(this.$i18n.t('alerts.could_not_load') + ' ' + this.$i18n.t('alerts.articles'));
       });
+    },
+
+    buildDonationPrice(left, right) {
+      this.editedItem.price = parseFloat(`${left}.${right}`);
     },
 
     querySelections(v) {
       var app = this;
-      app.species_selectors.loading_species = true;
+      app.species_selectors.loading = true;
       setTimeout(() => {
-        app.species_selectors.loading_species = false;
+        app.species_selectors.loading = false;
       }, 500);
     },
 
@@ -358,58 +382,64 @@ export default {
       var app = this;
       axios.get('/api/v1/articles?page=' + page).then(function(resp) {
         app.items = resp.data.data;
-      }).catch(error => {
-        console.log(error);
       });
     },
 
     selectTaxonomy(item) {
-      var app = this;
-      app.dialog_species_taxonomy = true;
-      app.editedIndex = app.items.indexOf(item);
-      Object.assign(app.editedItem, item);
-      app.assignSpeciesToArticle(item.id);
+      this.dialog_species_taxonomy = true;
+      this.editedIndex = this.items.indexOf(item);
+      Object.assign(this.editedItem, item);
+      this.editedItem.article_content_reflection = this.editedItem.article_content;
+      this.assignSpeciesToArticle(item.id);
     },
 
     saveTaxonomy(event) {
-      var app = this;
       event.preventDefault();
-      if (app.editedIndex > -1) {
-        Object.assign(app.items[app.editedIndex], app.editedItem);
-        app.updateTaxonomyForm(app.items[app.editedIndex]);
+      var app = this;
+      if (this.editedIndex > -1) {
+        this.updateTaxonomyForm(this.items[this.editedIndex]);
       }
-      app.close();
+      this.close();
     },
 
     assignSpeciesToArticle(id) {
       var app = this;
-      console.log('/api/v1/articles/' + id + '/all_species');
       axios.get('/api/v1/articles/' + id + '/all_species').then(function (resp) {
-        app.editedItem.articleSpecies = resp.data;
-      }).catch(function (resp) {
-        alert(this.$i18n.t('alerts.could_not_load') + ' ' + this.$i18n.t('alerts.article'));
+        app.editedItem.article_species = resp.data;
       });
-      console.log(app.editedItem.articleSpecies);
+      console.log(app.editedItem.article_species);
     },
 
     updateTaxonomyForm(item) {
       var app = this;
-      axios.patch('/api/v1/articles/species/' + item.id, item.articleSpecies).then(function (resp) {
+      axios.patch('/api/v1/articles/species/' + item.id, item.article_species).then(function (resp) {
         app.$router.replace('/admin/articles');
-      }).catch(function (resp) {
-        alert(this.$i18n.t('alerts.could_not_load') + ' ' + this.$i18n.t('alerts.article'));
       });
     },
 
-    getAllSpecies() {
+    async queryRankName(link, val, sel) {
       var app = this;
-      axios.get('/api/v1/species/parcial/all').then(function(resp) {
-        app.species_selectors.species = resp.data;
-      }).catch(function(resp) {
-        console.log(resp);
-        alert(this.$i18n.t('alerts.could_not_load') + ' ' + this.$i18n.t('alerts.articles'));
+      axios.get(link + val).then(function(resp) {
+        sel.loading = true;
+        setTimeout(() => {
+          if (resp.data[0]) {
+            sel.items = [resp.data[0].rank_name];
+          }
+          sel.loading = false;
+        }, 100);
       });
     },
+
+    querySpecieRanks(val) {
+      this.queryRankName('/api/v1/species/search/', val, this.specie_selector);
+    },
+
+    // getAllSpecies() {
+    //   var app = this;
+    //   axios.get('/api/v1/species/parcial/all').then(function(resp) {
+    //     app.species_selectors.species = resp.data;
+    //   });
+    // },
 
     editItem(item) {
       this.dialog_article = true;
@@ -424,8 +454,6 @@ export default {
       if (confirm(this.$i18n.t('messages.sure_delete_question'))) {
         axios.delete('/api/v1/articles/' + item.id).then(function (resp) {
           app.items.splice(index, 1);
-        }).catch(function (resp) {
-          alert(this.$i18n.t('alerts.could_not_load') + ' ' + this.$i18n.t('alerts.article'));
         });
       }
     },
@@ -434,7 +462,6 @@ export default {
       this.dialog_article = false;
       this.dialog_species_taxonomy = false;
       setTimeout(() => {
-        this.clean();
         this.editedIndex = -1;
       }, 300);
       this.initialize();
@@ -442,6 +469,7 @@ export default {
 
     clean() {
       Object.assign(this.editedItem, this.defaultItem);
+      Object.assign(this.specie_selector, this.default_specie_selector);
     },
 
     save(event) {
@@ -456,17 +484,10 @@ export default {
       this.close();
     },
 
-    clean() {
-      var app = this;
-      Object.assign(app.editedItem, app.defaultItem);
-    },
-
     createForm() {
       var app = this;
       axios.post('/api/v1/articles', this.editedItem).then(function (resp) {
         app.$router.push({path: '/admin/articles'});
-      }).catch(function (resp) {
-        alert(this.$i18n.t('alerts.could_not_load') + ' ' + this.$i18n.t('alerts.article'));
       });
     },
 
@@ -474,8 +495,6 @@ export default {
       var app = this;
       axios.patch('/api/v1/articles/' + articleId, this.editedItem).then(function (resp) {
         app.$router.replace('/admin/articles');
-      }).catch(function (resp) {
-        alert(this.$i18n.t('alerts.could_not_load') + ' ' + this.$i18n.t('alerts.article'));
       });
     },
 

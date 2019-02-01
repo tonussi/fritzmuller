@@ -53,5 +53,12 @@ return [
     'turn_mode' => 'Mudar o modo',
     'profile' => 'Conta do usuário',
     'donate' => 'Doar',
-    'open_closed' => 'Fechar ou Abrir para os Convidados'
+    'open_closed' => 'Fechar ou Abrir para os Convidados',
+    'password' => 'Password do Usuário',
+    'settings' => 'Configurações do Usuário',
+    'info_updated' => 'Informações foram atualizadas!',
+    'nightmode' => 'Modo Noturno',
+    'your_info' => 'Suas Informações Básicas',
+    'help_search_fill' => 'Usar os campos abaixo para pesquisar nomes da taxonomia',
+    'search_catalog_of_life' => 'Buscar no Catálogo da Vida'
 ];

@@ -1,7 +1,7 @@
 <template>
   <v-card style="padding-top:60px;">
-    <v-dialog fullscreen transition="dialog-bottom-transition" :overlay="false" scrollable v-model="dialog_fauna" max-width="500px">
-      <v-btn color="primary" dark slot="activator" class="mb-2" @click.native="clean">
+    <v-dialog v-model="dialog_editing_taxonomy" persistent>
+      <v-btn color="primary" slot="activator" mb-2 @click.native="clean">
         <v-icon>brush</v-icon>
         {{ $t("taxonomy.create") }}
       </v-btn>
@@ -12,142 +12,127 @@
         <v-card-text>
           <v-container grid-list-md>
             <v-form ref="form_taxonomy_group" lazy-validation>
-              <v-layout row wrap>
-                <v-flex xs12 sm6 md4>
-                  <v-header>{{ editedItem.taxonomy_rank_kingdom }}</v-header>
-                  <v-text-field v-model="editedItem.kingdom_id"
-                    :label="$t('taxonomy.kingdom') + ': ' +  editedItem.taxonomy_rank_kingdom">
-                  </v-text-field>
-                  <v-autocomplete
-                    :loading="taxonomy_rank_selector.taxonomy_rank_kingdom.loading_rank_names" 
-                    :items="taxonomy_rank_selector.taxonomy_rank_kingdom.items" 
-                    :search-input.sync="taxonomy_rank_selector.taxonomy_rank_kingdom.searchable_rank_names" 
-                    v-model="taxonomy_rank_selector.taxonomy_rank_kingdom.rank_name"
-                    :label="$t('taxonomy.kingdom')" 
-                    cache-items chips required>
-                  </v-autocomplete>
+              <v-layout>
+                <v-flex xs6>
+                  <v-flex xs6>
+                    <v-text-field v-model="editedItem.taxonomy_rank_kingdom.rank_name"
+                      :label="$t('taxonomy.kingdom') + ': ' +  editedItem.taxonomy_rank_kingdom.rank_name">
+                    </v-text-field>
+                  </v-flex>
+                  <v-flex xs6>
+                    <v-text-field v-model="editedItem.taxonomy_rank_phylum.rank_name"
+                      :label="$t('taxonomy.phylum') + ': ' +  editedItem.taxonomy_rank_phylum.rank_name">
+                    </v-text-field>
+                  </v-flex>
+                  <v-flex xs6>
+                    <v-text-field v-model="editedItem.taxonomy_rank_class.rank_name"
+                      :label="$t('taxonomy.class') + ': ' +  editedItem.taxonomy_rank_class.rank_name">
+                    </v-text-field>
+                  </v-flex>
+                  <v-flex xs6>
+                    <v-text-field v-model="editedItem.taxonomy_rank_order.rank_name"
+                      :label="$t('taxonomy.order') + ': ' +  editedItem.taxonomy_rank_order.rank_name">
+                    </v-text-field>
+                  </v-flex>
+                  <v-flex xs6>
+                    <v-text-field v-model="editedItem.taxonomy_rank_family.rank_name"
+                      :label="$t('taxonomy.family') + ': ' +  editedItem.taxonomy_rank_family.rank_name">
+                    </v-text-field>
+                  </v-flex>
+                  <v-flex xs6>
+                    <v-text-field v-model="editedItem.taxonomy_rank_genus.rank_name"
+                      :label="$t('taxonomy.genus') + ': ' +  editedItem.taxonomy_rank_genus.rank_name">
+                    </v-text-field>
+                  </v-flex>
+                  <v-flex xs6>
+                    <v-text-field v-model="editedItem.taxonomy_rank_specie.rank_name"
+                      :label="$t('taxonomy.species') + ': ' +  editedItem.taxonomy_rank_specie.rank_name">
+                    </v-text-field>
+                    <v-btn @click="get_catalog_of_life(editedItem.taxonomy_rank_specie.rank_name)">
+                      {{ $t('messages.search_catalog_of_life') }}
+                    </v-btn>
+                    <v-card-text>
+                      <a :href="catalog_of_life_link" target="_blank">{{catalog_of_life_link}}</a>
+                    </v-card-text>
+                  </v-flex>
                 </v-flex>
-              </v-layout>
-              <v-layout row wrap>
-                <v-flex xs12 sm6 md4>
-                  <v-header>{{ editedItem.taxonomy_rank_phylum }}</v-header>
-                  <v-text-field v-model="editedItem.phylum_id"
-                    :label="$t('taxonomy.phylum') + ': ' +  editedItem.taxonomy_rank_phylum">
-                  </v-text-field>
-                  <v-autocomplete
-                    :loading="taxonomy_rank_selector.taxonomy_rank_phylum.loading_rank_names" 
-                    :items="taxonomy_rank_selector.taxonomy_rank_phylum.items" 
-                    :search-input.sync="taxonomy_rank_selector.taxonomy_rank_phylum.searchable_rank_names" 
-                    v-model="taxonomy_rank_selector.taxonomy_rank_phylum.rank_name"
-                    :label="$t('taxonomy.phylum')"
-                    cache-items 
-                    chips
-                    required>
-                  </v-autocomplete>
-                </v-flex>
-              </v-layout>
-              <v-layout row wrap>
-                <v-flex xs12 sm6 md4>
-                  <v-header>{{ editedItem.taxonomy_rank_class }}</v-header>
-                  <v-text-field v-model="editedItem.class_id"
-                    :label="$t('taxonomy.class') + ': ' +  editedItem.taxonomy_rank_class">
-                  </v-text-field>
-                  <v-autocomplete
-                    :loading="taxonomy_rank_selector.taxonomy_rank_class.loading_rank_names" 
-                    :items="taxonomy_rank_selector.taxonomy_rank_class.items" 
-                    :search-input.sync="taxonomy_rank_selector.taxonomy_rank_class.searchable_rank_names" 
-                    v-model="taxonomy_rank_selector.taxonomy_rank_class.rank_name"
-                    :label="$t('taxonomy.class')"
-                    cache-items
-                    chips 
-                    required>
-                  </v-autocomplete>
-                </v-flex>
-              </v-layout>
-              <v-layout row wrap>
-                <v-flex xs12 sm6 md4>
-                  <v-header>{{ editedItem.taxonomy_rank_order }}</v-header>
-                  <v-text-field v-model="editedItem.order_id"
-                    :label="$t('taxonomy.order') + ': ' +  editedItem.taxonomy_rank_order">
-                  </v-text-field>
-                  <v-autocomplete
-                    :loading="taxonomy_rank_selector.taxonomy_rank_order.loading_rank_names" 
-                    :items="taxonomy_rank_selector.taxonomy_rank_order.items" 
-                    :search-input.sync="taxonomy_rank_selector.taxonomy_rank_order.searchable_rank_names" 
-                    v-model="taxonomy_rank_selector.taxonomy_rank_order.rank_name"
-                    :label="$t('taxonomy.order')"
-                    cache-items
-                    chips 
-                    required>
-                  </v-autocomplete>
-                </v-flex>
-              </v-layout>
-              <v-layout row wrap>
-                <v-flex xs12 sm6 md4>
-                  <v-header>{{ editedItem.taxonomy_rank_family }}</v-header>
-                  <v-text-field v-model="editedItem.family_id"
-                    :label="$t('taxonomy.family') + ': ' +  editedItem.taxonomy_rank_family">
-                  </v-text-field>
-                  <v-autocomplete
-                    :loading="taxonomy_rank_selector.taxonomy_rank_family.loading_rank_names" 
-                    :items="taxonomy_rank_selector.taxonomy_rank_family.items" 
-                    :search-input.sync="taxonomy_rank_selector.taxonomy_rank_family.searchable_rank_names" 
-                    v-model="taxonomy_rank_selector.taxonomy_rank_family.rank_name"
-                    :label="$t('taxonomy.family')"
-                    cache-items 
-                    chips
-                    required>
-                  </v-autocomplete>
-                </v-flex>
-              </v-layout>
-              <v-layout row wrap>
-                <v-flex xs12 sm6 md4>
-                  <v-header>{{ editedItem.taxonomy_rank_genus }}</v-header>
-                  <v-text-field v-model="editedItem.genus_id"
-                    :label="$t('taxonomy.genus') + ': ' +  editedItem.taxonomy_rank_genus">
-                  </v-text-field>
-                  <v-autocomplete
-                    :loading="taxonomy_rank_selector.taxonomy_rank_genus.loading_rank_names" 
-                    :items="taxonomy_rank_selector.taxonomy_rank_genus.items" 
-                    :search-input.sync="taxonomy_rank_selector.taxonomy_rank_genus.searchable_rank_names" 
-                    v-model="taxonomy_rank_selector.taxonomy_rank_genus.rank_name"
-                    :label="$t('taxonomy.genus')"
-                    cache-items
-                    chips 
-                    required>
-                  </v-autocomplete>
-                </v-flex>
-              </v-layout>
-              <v-layout row wrap>
-                <v-flex xs12 sm6 md4>
-                  <v-header>{{ editedItem.taxonomy_rank_specie }}</v-header>
-                  <v-text-field v-model="editedItem.specie_id"
-                    :label="$t('taxonomy.species') + ': ' +  editedItem.taxonomy_rank_specie">
-                  </v-text-field>
-                  <v-autocomplete
-                    :loading="taxonomy_rank_selector.taxonomy_rank_specie.loading_rank_names" 
-                    :items="taxonomy_rank_selector.taxonomy_rank_specie.items" 
-                    :search-input.sync="taxonomy_rank_selector.taxonomy_rank_specie.searchable_rank_names" 
-                    v-model="taxonomy_rank_selector.taxonomy_rank_specie.rank_name"
-                    :label="$t('taxonomy.species')"
-                    autocomplete 
-                    cache-items
-                    chips
-                    required>
-                  </v-autocomplete>
+
+                <v-flex xs6>
+                  <h1>{{ $t('messages.help_search_fill') }}</h1> 
+                  <v-flex xs6>
+                    <v-autocomplete
+                      :loading="taxonomy_rank_selector.taxonomy_rank_kingdom.loading"
+                      :items="taxonomy_rank_selector.taxonomy_rank_kingdom.items"
+                      :search-input.sync="searchable_kingdom_rank_name"
+                      v-model="editedItem.taxonomy_rank_kingdom.rank_name"
+                      :label="$t('taxonomy.kingdom')">
+                    </v-autocomplete>
+                  </v-flex>
+                  <v-flex xs6>
+                    <v-autocomplete
+                      :loading="taxonomy_rank_selector.taxonomy_rank_phylum.loading"
+                      :items="taxonomy_rank_selector.taxonomy_rank_phylum.items"
+                      :search-input.sync="searchable_phylum_rank_name"
+                      v-model="editedItem.taxonomy_rank_phylum.rank_name"
+                      :label="$t('taxonomy.phylum')">
+                    </v-autocomplete>
+                  </v-flex>
+                  <v-flex xs6>
+                    <v-autocomplete
+                      :loading="taxonomy_rank_selector.taxonomy_rank_class.loading"
+                      :items="taxonomy_rank_selector.taxonomy_rank_class.items"
+                      :search-input.sync="searchable_class_rank_name"
+                      v-model="editedItem.taxonomy_rank_class.rank_name"
+                      :label="$t('taxonomy.class')">
+                    </v-autocomplete>
+                  </v-flex>
+                  <v-flex xs6>
+                    <v-autocomplete
+                      :loading="taxonomy_rank_selector.taxonomy_rank_order.loading"
+                      :items="taxonomy_rank_selector.taxonomy_rank_order.items"
+                      :search-input.sync="searchable_order_rank_name"
+                      v-model="editedItem.taxonomy_rank_order.rank_name"
+                      :label="$t('taxonomy.order')">
+                    </v-autocomplete>
+                  </v-flex>
+                  <v-flex xs6>
+                    <v-autocomplete
+                      :loading="taxonomy_rank_selector.taxonomy_rank_family.loading"
+                      :items="taxonomy_rank_selector.taxonomy_rank_family.items"
+                      :search-input.sync="searchable_family_rank_name"
+                      v-model="editedItem.taxonomy_rank_family.rank_name"
+                      :label="$t('taxonomy.family')">
+                    </v-autocomplete>
+                  </v-flex>
+                  <v-flex xs6>
+                    <v-autocomplete
+                      :loading="taxonomy_rank_selector.taxonomy_rank_genus.loading"
+                      :items="taxonomy_rank_selector.taxonomy_rank_genus.items"
+                      :search-input.sync="searchable_genus_rank_name"
+                      v-model="editedItem.taxonomy_rank_genus.rank_name"
+                      :label="$t('taxonomy.genus')">
+                    </v-autocomplete>
+                  </v-flex>
+                  <v-flex xs6>
+                    <v-autocomplete
+                      :loading="taxonomy_rank_selector.taxonomy_rank_specie.loading"
+                      :items="taxonomy_rank_selector.taxonomy_rank_specie.items"
+                      :search-input.sync="searchable_specie_rank_name"
+                      v-model="editedItem.taxonomy_rank_specie.rank_name"
+                      :label="$t('taxonomy.species')">
+                    </v-autocomplete>
+                  </v-flex>
                 </v-flex>
               </v-layout>
             </v-form>
           </v-container>
         </v-card-text>
         <v-card-actions>
-          <v-spacer></v-spacer>
-          <v-btn color="green lighten-2" @click.native="save">{{ $t("messages.ok") }}</v-btn>
-          <v-btn color="blue lighten-2" @click.native="close">{{ $t("messages.cancel") }}</v-btn>
+          <v-btn block color="green lighten-2" @click.native="save">{{ $t("messages.ok") }}</v-btn>
+          <v-btn block color="blue lighten-2" @click.native="close">{{ $t("messages.cancel") }}</v-btn>
         </v-card-actions>
       </v-card>
     </v-dialog>
-
     <v-card-title>
       {{ $t("taxonomy.show") }}
       <v-spacer></v-spacer>
@@ -172,12 +157,12 @@
         <td class="text-xs-center">{{ props.item.taxonomy_rank_family.rank_name }}</td>
         <td class="text-xs-center">{{ props.item.taxonomy_rank_genus.rank_name }}</td>
         <td class="text-xs-center">{{ props.item.taxonomy_rank_specie.rank_name }}</td>
-        <td class="justify-center layout px-0">
+        <td class="text-xs-center">
           <v-btn icon class="mx-0" @click="editItem(props.item)">
-            <v-icon color="teal">edit</v-icon>
+            <v-icon color="teal">fas fa-edit</v-icon>
           </v-btn>
           <v-btn icon class="mx-0" @click="deleteItem(props.item)">
-            <v-icon color="pink">delete</v-icon>
+            <v-icon color="pink">fas fa-trash-alt</v-icon>
           </v-btn>
         </td>
       </template>
@@ -199,52 +184,52 @@ export default {
     return {
       search: '',
       items: [],
-      dialog_fauna: false,
+      dialog_editing_taxonomy: false,
       editedIndex: -1,
       applocale: 'pt-br',
       pages: 0,
-      dialog_species_taxonomy: false,
+      catalog_of_life_link: "",
       fauna_search_subspecies: null,
-      searchable_kingdom_rank_name: null,
-      searchable_phylum_rank_name: null,
-      searchable_class_rank_name: null,
-      searchable_order_rank_name: null,
-      searchable_family_rank_name: null,
-      searchable_genus_rank_name: null,
-      searchable_specie_rank_name: null,
+      searchable_kingdom_rank_name: '',
+      searchable_phylum_rank_name: '',
+      searchable_class_rank_name: '',
+      searchable_order_rank_name: '',
+      searchable_family_rank_name: '',
+      searchable_genus_rank_name: '',
+      searchable_specie_rank_name: '',
       taxonomy_rank_selector: {
         taxonomy_rank_kingdom: {
-          loading_rank_names: false,
+          loading: false,
           rank_name: '',
           items: []
         },
         taxonomy_rank_phylum: {
-          loading_rank_names: false,
+          loading: false,
           rank_name: '',
           items: []
         },
         taxonomy_rank_class: {
-          loading_rank_names: false,
+          loading: false,
           rank_name: '',
           items: []
         },
         taxonomy_rank_order: {
-          loading_rank_names: false,
+          loading: false,
           rank_name: '',
           items: []
         },
         taxonomy_rank_family: {
-          loading_rank_names: false,
+          loading: false,
           rank_name: '',
           items: []
         },
         taxonomy_rank_genus: {
-          loading_rank_names: false,
+          loading: false,
           rank_name: '',
           items: []
         },
         taxonomy_rank_specie: {
-          loading_rank_names: false,
+          loading: false,
           rank_name: '',
           items: []
         },
@@ -257,62 +242,69 @@ export default {
       headers: [
         {
           text: this.$i18n.t('taxonomy.kingdom'),
-          value: 'kingdom',
-          sortable: true
+          value: 'taxonomy_rank_kingdom.rank_name',
+          sortable: true,
+          align: 'center'
         },
         {
           text: this.$i18n.t('taxonomy.phylum'),
-          value: 'phylum',
-          sortable: true
+          value: 'taxonomy_rank_phylum.rank_name',
+          sortable: true,
+          align: 'center'
         },
         {
           text: this.$i18n.t('taxonomy.class'),
-          value: 'class',
-          sortable: true
+          value: 'taxonomy_rank_class.rank_name',
+          sortable: true,
+          align: 'center'
         },
         {
           text: this.$i18n.t('taxonomy.order'),
-          value: 'order',
-          sortable: true
+          value: 'taxonomy_rank_order.rank_name',
+          sortable: true,
+          align: 'center'
         },
         {
           text: this.$i18n.t('taxonomy.family'),
-          value: 'family',
-          sortable: true
+          value: 'taxonomy_rank_family.rank_name',
+          sortable: true,
+          align: 'center'
         },
         {
           text: this.$i18n.t('taxonomy.genus'),
-          value: 'genus',
-          sortable: true
+          value: 'taxonomy_rank_genus.rank_name',
+          sortable: true,
+          align: 'center'
         },
         {
           text: this.$i18n.t('taxonomy.species'),
-          value: 'species',
-          sortable: true
+          value: 'taxonomy_rank_species.rank_name',
+          sortable: true,
+          align: 'center'
         },
         {
           text: this.$i18n.t('messages.actions'),
-          value: 'action',
-          sortable: false
+          sortable: false,
+          align: 'center'
         }
       ],
       editedItem: {
-        kingdom: undefined,
-        phylum: undefined,
-        class: undefined,
-        order: undefined,
-        family: undefined,
-        genus: undefined,
-        species: undefined
+        taxonomy_rank_kingdom: { rank_name: '' },
+        taxonomy_rank_phylum: { rank_name: '' },
+        taxonomy_rank_class: { rank_name: '' },
+        taxonomy_rank_order: { rank_name: '' },
+        taxonomy_rank_family: { rank_name: '' },
+        taxonomy_rank_genus: { rank_name: '' },
+        taxonomy_rank_specie: { rank_name: '' }
       },
       defaultItem: {
-        kingdom: undefined,
-        phylum: undefined,
-        class: undefined,
-        order: undefined,
-        family: undefined,
-        genus: undefined,
-        species: undefined
+        taxonomy_rank_kingdom: { rank_name: 'Plantae' },
+        taxonomy_rank_phylum: { rank_name: 'Tracheophyta' },
+        taxonomy_rank_class: { rank_name: 'Magnoliopsida' },
+        taxonomy_rank_order: { rank_name: 'Sapindales' },
+        taxonomy_rank_family: { rank_name: 'Sapindaceae' },
+        taxonomy_rank_genus: { rank_name: 'Litchi' },
+        taxonomy_rank_specie: { rank_name: 'Litchi chinensis' }
       }
     }
   },
@@ -324,7 +316,7 @@ export default {
   },
 
   watch: {
-    dialog_fauna(val) {
+    dialog_editing_taxonomy(val) {
       val || this.close()
     },
 
@@ -366,111 +358,88 @@ export default {
   methods: {
     initialize() {
       var app = this;
-      axios.get('/api/v1/taxonomy/groups').then(function(resp) {
+      axios.get('/api/v1/taxonomy/group').then(function(resp) {
         app.items = resp.data.data;
         app.pagination.page = resp.data.current_page;
         app.pagination.totalItems = resp.data.total;
         app.pagination.rowsPerPage = resp.data.per_page;
         app.pages = resp.data.last_page;
-      }).catch(function(resp) {
-        console.log(resp);
-        alert(this.$i18n.t('alerts.could_not_load') + ' ' + this.$i18n.t('alerts.animals'));
       });
     },
 
-    queryKingdomRanks() {
+    async queryRankName(link, val, sel) {
       var app = this;
-      axios.get('/api/v1/rank/search/kingdom/' + val).then(function(resp) {
-        taxonomy_rank_selector.taxonomy_rank_kingdom.items = resp.data;
-      }).catch(error => {
-        console.log(error);
+      axios.get(link + val).then(function(resp) {
+        sel.loading = true;
+        setTimeout(() => {
+          if (resp.data[0]) {
+            sel.items = [resp.data[0].rank_name];
+          }
+          sel.loading = false;
+        }, 100);
       });
     },
 
-    queryPhylumRanks() {
+    get_catalog_of_life(rank_name) {
       var app = this;
-      axios.get('/api/v1/rank/search/phylum/' + val).then(function(resp) {
-        taxonomy_rank_selector.taxonomy_rank_phylum.items = resp.data;
-      }).catch(error => {
-        console.log(error);
+      axios.get('/api/v1/col/' + rank_name + '/1').then(function(resp) {
+        app.catalog_of_life_link = resp.data.result[0].url;
       });
     },
 
-    queryClassRanks() {
-      var app = this;
-      axios.get('/api/v1/rank/search/class/' + val).then(function(resp) {
-        taxonomy_rank_selector.taxonomy_rank_class.items = resp.data;
-      }).catch(error => {
-        console.log(error);
-      });
+    queryKingdomRanks(val) {
+      this.queryRankName('/api/v1/rank/search/kingdom/', val, this.taxonomy_rank_selector.taxonomy_rank_kingdom)
     },
 
-    queryOrderRanks() {
-      var app = this;
-      axios.get('/api/v1/rank/search/order/' + val).then(function(resp) {
-        taxonomy_rank_selector.taxonomy_rank_order.items = resp.data;
-      }).catch(error => {
-        console.log(error);
-      });
+    queryPhylumRanks(val) {
+      this.queryRankName('/api/v1/rank/search/phylum/', val, this.taxonomy_rank_selector.taxonomy_rank_phylum);
     },
 
-    queryFamilyRanks() {
-      var app = this;
-      axios.get('/api/v1/rank/search/family/' + val).then(function(resp) {
-        taxonomy_rank_selector.taxonomy_rank_family.items = resp.data;
-      }).catch(error => {
-        console.log(error);
-      });
+    queryClassRanks(val) {
+      this.queryRankName('/api/v1/rank/search/class/', val, this.taxonomy_rank_selector.taxonomy_rank_class);
     },
 
-    queryGenusRanks() {
-      var app = this;
-      axios.get('/api/v1/rank/search/genus/' + val).then(function(resp) {
-        taxonomy_rank_selector.taxonomy_rank_genus.items = resp.data;
-      }).catch(error => {
-        console.log(error);
-      });
+    queryOrderRanks(val) {
+      this.queryRankName('/api/v1/rank/search/order/', val, this.taxonomy_rank_selector.taxonomy_rank_order);
     },
 
-    querySpecieRanks() {
-      var app = this;
-      axios.get('/api/v1/rank/search/specie/' + val).then(function(resp) {
-        taxonomy_rank_selector.taxonomy_rank_specie.items = resp.data;
-      }).catch(error => {
-        console.log(error);
-      });
+    queryFamilyRanks(val) {
+      this.queryRankName('/api/v1/rank/search/family/', val, this.taxonomy_rank_selector.taxonomy_rank_family);
+    },
+
+    queryGenusRanks(val) {
+      this.queryRankName('/api/v1/rank/search/genus/', val, this.taxonomy_rank_selector.taxonomy_rank_genus);
+    },
+
+    querySpecieRanks(val) {
+      this.queryRankName('/api/v1/rank/search/specie/', val, this.taxonomy_rank_selector.taxonomy_rank_specie);
     },
 
     nextPage(page) {
       var app = this;
-      axios.get('/api/v1/taxonomy/groups?page=' + page).then(function(resp) {
+      axios.get('/api/v1/taxonomy/group?page=' + page).then(function(resp) {
         app.items = resp.data.data;
-      }).catch(error => {
-        console.log(error);
       });
     },
 
     editItem(item) {
-      console.log(item);
       this.editedIndex = this.items.indexOf(item);
       Object.assign(this.editedItem, item);
-      this.dialog_fauna = true;
+      this.dialog_editing_taxonomy = true;
     },
 
     deleteItem(item) {
       var app = this;
-      const index = this.items.indexOf(item)
+      const index = this.items.indexOf(item);
       if (confirm(this.$i18n.t('messages.sure_delete_question'))) {
-        axios.delete('/api/v1/taxonomy/groups/' + item.id).then(function (resp) {
+        axios.delete('/api/v1/taxonomy/group/' + item.id).then(function (resp) {
           app.items.splice(index, 1);
-        }).catch(function (resp) {
-          alert(this.$i18n.t('alerts.could_not_load') + ' ' + this.$i18n.t('alerts.animal'));
         });
       }
     },
 
     close() {
-      this.dialog_fauna = false;
+      this.dialog_editing_taxonomy = false;
       setTimeout(() => {
         Object.assign(this.editedItem, this.defaultItem);
         this.editedIndex = -1;
@@ -488,31 +457,23 @@ export default {
         Object.assign(this.items[this.editedIndex], this.editedItem);
         this.updateForm(this.items[this.editedIndex].id);
       } else {
-        this.items.push(this.editedItem);
         this.createForm();
+        this.items.push(this.editedItem);
       }
       this.close();
     },
 
-    clean() {
-      Object.assign(this.editedItem, this.defaultItem);
-    },
-
     createForm() {
       var app = this;
-      axios.post('/api/v1/taxonomy/groups', this.editedItem).then(function (resp) {
-        app.$router.push({path: '/admin/taxonomy/groups'});
-      }).catch(function (resp) {
-        alert(this.$i18n.t('alerts.could_not_load') + ' ' + this.$i18n.t('alerts.animal'));
+      axios.post('/api/v1/taxonomy/group', this.editedItem).then(function (resp) {
+        app.$router.replace('/admin/taxonomy');
       });
     },
 
-    updateForm(animalId) {
+    updateForm(id) {
       var app = this;
-      axios.patch('/api/v1/taxonomy/groups/' + animalId, this.editedItem).then(function (resp) {
-        app.$router.replace('/admin/taxonomy/groups/');
-      }).catch(function (resp) {
-        alert(this.$i18n.t('alerts.could_not_load') + ' ' + this.$i18n.t('alerts.animal'));
+      axios.patch('/api/v1/taxonomy/group/' + id, this.editedItem).then(function (resp) {
+        app.$router.replace('/admin/taxonomy');
       });
     }
   }

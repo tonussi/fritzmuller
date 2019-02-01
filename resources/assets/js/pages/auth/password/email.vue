@@ -5,7 +5,7 @@
         <v-card-text ma-3 style="margin-top: 120px;">
 
           <v-card class="pa-4" :title="$t('auth.reset_pass')">
-            <v-form @submit.prevent="send" @keydown="form.onKeydown($event)">
+            <v-form @submit.prevent="submit" @keydown="form.onKeydown($event)">
               <alert-success :form="form" :message="status"/>
 
               <!-- Email -->
@@ -21,14 +21,20 @@
 
               <div class="form-group row pt-5 pb-5">
                 <div class="col-md-9 ml-md-auto">
-                  <vue-recaptcha sitekey="6LdgDBYTAAAAAN6RpxiDWiK8GML7LaUdNZHrQLWS"></vue-recaptcha>
+                  <vue-recaptcha
+                    ref="recaptcha"
+                    @verify="onCaptchaVerified"
+                    @expired="onCaptchaExpired"
+                    size="invisible"
+                    sitekey="GRECAPTCHA_SITE_KEY">
+                  </vue-recaptcha>
                 </div>
               </div>
 
               <!-- Submit Button -->
               <div class="form-group row">
                 <div class="col-md-9 ml-md-auto">
-                  <v-btn block color="cyan lighten-3" :loading="form.busy">
+                  <v-btn @click="submit" block color="cyan lighten-3" :loading="form.busy">
                     {{ $t('auth.send_pass_reset_link') }}
                   </v-btn>
                 </div>
@@ -44,8 +50,7 @@
 </template>
 
 <script>
-import Form from 'vform'
-import VueRecaptcha from 'vue-recaptcha';
+import Form from 'vform';
 
 export default {
   middleware: 'guest',
@@ -57,11 +62,10 @@ export default {
   data: () => ({
     status: '',
     form: new Form({
-      email: ''
+      email: '',
+      recaptchaToken: null
     })
   }),
-
-  components: { VueRecaptcha },
 
   methods: {
     async send () {
@@ -70,7 +74,52 @@ export default {
       this.status = data.status
 
       this.form.reset()
+    },
+
+    submit () {
+      this.$refs.recaptcha.execute()
+    },
+
+    onCaptchaVerified (recaptchaToken) {
+      const self = this
+      self.status = "submitting"
+      self.$refs.recaptcha.reset()
+
+      this.form.recaptchaToken = recaptchaToken
+      this.send().then((response) => {
+
+        self.sucessfulServerResponse = response.data.message
+
+      }).catch((err) => {
+
+        self.serverError = getErrorMessage(err)
+
+        // helper to get a displayable message to the user
+
+        function getErrorMessage(err) {
+          let responseBody
+
+          responseBody = err.response
+
+          if (!responseBody) {
+            responseBody = err
+          } else {
+            responseBody = err.response.data || responseBody
+          }
+
+          return responseBody.message || JSON.stringify(responseBody)
+        }
+
+      }).then(() => {
+        self.status = ""
+      })
+    },
+
+    onCaptchaExpired () {
+      this.$refs.recaptcha.reset()
+      this.form.recaptchaToken = null
     }
+
   }
 }
 </script>

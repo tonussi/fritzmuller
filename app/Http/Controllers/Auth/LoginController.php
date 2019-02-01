@@ -49,14 +49,18 @@ class LoginController extends Controller
     {
         $this->clearLoginAttempts($request);
 
-        $token = (string) $this->guard()->getToken();
-        $expiration = $this->guard()->getPayload()->get('exp');
+        if ($request["recaptchaToken"]) {
+            $token = (string) $this->guard()->getToken();
+            $expiration = $this->guard()->getPayload()->get('exp');
 
-        return [
-            'token' => $token,
-            'token_type' => 'bearer',
-            'expires_in' => $expiration - time(),
-        ];
+            return [
+                'token' => $token,
+                'token_type' => 'bearer',
+                'expires_in' => $expiration - time()
+            ];
+        } else {
+            return false;
+        }
     }
 
     /**

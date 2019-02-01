@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 use App\ArticleSpecie;
 use App\Article;
+use App\TaxonomyRankSpecie;
 
 class ArticleSpecieService extends Controller
 {
@@ -82,6 +83,17 @@ class ArticleSpecieService extends Controller
         return;
     }
 
+    private function findTaxonomyGroups($names) {
+        $species = TaxonomyRankSpecie::whereIn('rank_name', $names);
+
+        if ($names !== null) {
+            return ArticleSpecie::join('article_specie', 'tax.specie_id', '=', 'taxonomy_rank_specie.id')
+            ->whereIn('taxonomy_rank_specie.rank_name', '=', $names)->get();
+        }
+
+        return null;
+    }
+
     /**
      * Update the specified resource in storage.
      *
@@ -91,31 +103,12 @@ class ArticleSpecieService extends Controller
      */
     public function update(Request $request, $id)
     {
-        // \Debugbar::info($request);
-        // \Debugbar::info($request->all());
-
-        $new_animals_config = $request->all();
-        $aux_new_animals_config = array();
-
-        $original_set_animal_ids = ArticleSpecie::where('id', '=', $id)->get()->pluck('animal_id');
-        // \Debugbar::info($original_set_animal_ids);
-
-        foreach ($new_animals_config as $key => $value) {
-            $object = ArticleSpecie::where('id', '=', $id)->where('animal_id', '=', $value['id'])->first();
-            if ($object === NULL) {
-                ArticleSpecie::create(['id' => $id, 'animal_id' => $value['id']]);
-            }
-            if ($original_set_animal_ids->contains($value['id'])) {
-                array_push($aux_new_animals_config, $value['id']);
-            }
+        \Log::info($request);
+        if ($request->has('new_species')) {
+            $this->findTaxonomyGroups($request['new_species']);
         }
-
-        $diff_original_set_animal_ids = $original_set_animal_ids->diff($aux_new_animals_config);
-        // \Debugbar::info($diff_original_set_animal_ids);
-
-        foreach ($diff_original_set_animal_ids as $animal_id) {
-            ArticleSpecie::where('id', '=', $id)->where('animal_id', '=', $animal_id)->delete();
-        }
+        $object = ArticleSpecie::findOrFail($id);
+        $object->update($request->all());
         return;
     }
 

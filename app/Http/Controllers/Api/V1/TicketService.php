@@ -3,9 +3,10 @@ namespace App\Http\Controllers\Api\V1;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use App\SpeciesDetail;
+use Illuminate\Support\Facades\Auth;
+use App\Ticket;
 
-class SpeciesDetailService extends Controller
+class TicketService extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -14,28 +15,7 @@ class SpeciesDetailService extends Controller
      */
     public function index()
     {
-        $objects = SpeciesDetail::orderBy('updated_at', 'DESC')->paginate(15);
-        foreach ($objects as $key => $value) {
-            $value->taxonomyGroup;
-            $value->popularNames;
-        }
-        return $objects;
-    }
-
-    public function animalInfo($id)
-    {
-        $arr = array();
-        $object = SpeciesDetail::where('id', '=', $id)->get();
-        array_push($arr, [
-            'info' => $object,
-            'taxonomy' => $object->faunataxonomy()
-        ]);
-        return $arr;
-    }
-
-    public function parcial()
-    {
-        return SpeciesDetail::all();
+        return Ticket::orderBy('updated_at', 'DESC')->paginate(15);
     }
 
     /**
@@ -45,8 +25,8 @@ class SpeciesDetailService extends Controller
      */
     public function create()
     {
-        //
         return;
+        //
     }
 
     /**
@@ -57,7 +37,7 @@ class SpeciesDetailService extends Controller
      */
     public function store(Request $request)
     {
-        SpeciesDetail::create($request->all());
+        Ticket::create($request->all());
         return;
     }
 
@@ -69,7 +49,7 @@ class SpeciesDetailService extends Controller
      */
     public function show($id)
     {
-        return SpeciesDetail::findOrFail($id);
+        return Ticket::findOrFail($id);
     }
 
     /**
@@ -80,8 +60,8 @@ class SpeciesDetailService extends Controller
      */
     public function edit($id)
     {
-        //
         return;
+        //
     }
 
     /**
@@ -93,7 +73,7 @@ class SpeciesDetailService extends Controller
      */
     public function update(Request $request, $id)
     {
-        $object = SpeciesDetail::findOrFail($id);
+        $object = Ticket::findOrFail($id);
         $object->update($request->all());
         return;
     }
@@ -106,7 +86,7 @@ class SpeciesDetailService extends Controller
      */
     public function destroy($id)
     {
-        $object = SpeciesDetail::findOrFail($id);
+        $object = Ticket::findOrFail($id);
         $object->delete();
         return;
     }

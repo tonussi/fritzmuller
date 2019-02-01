@@ -2,10 +2,10 @@
   <v-container grid-list-xl text-xs-center>
     <v-layout row wrap>
       <v-flex xs4 offset-xs4>
-        <v-card-text style="margin-top: 120px;">
+        <v-card-text style="margin-top: 120px">
 
           <v-card class="pa-4" :title="$t('auth.login')">
-            <v-form @submit.prevent="login" @keydown="form.onKeydown($event)">
+            <v-form @submit.prevent="submit" @keydown="form.onKeydown($event)">
 
               <!-- Email -->
               <div class="form-group row">
@@ -31,24 +31,30 @@
 
               <!-- Remember Me -->
               <div class="form-group row">
-                <div class="col-md-3"/>
-                <div class="col-md-7 d-flex">
-                  <v-checkbox v-model="remember" name="remember" :label="$t('auth.remember_me')">
-                  </v-checkbox>
+                <div class="col-md-3">
+                  <div class="col-md-7 d-flex">
+                    <v-checkbox v-model="remember" name="remember" :label="$t('auth.remember_me')">
+                    </v-checkbox>
+                  </div>
                 </div>
               </div>
 
               <div class="form-group row pt-5 pb-5">
                 <div class="col-md-9 ml-md-auto">
                   <vue-recaptcha
-                    sitekey="6LdgDBYTAAAAAN6RpxiDWiK8GML7LaUdNZHrQLWS"></vue-recaptcha>
+                    ref="recaptcha"
+                    @verify="onCaptchaVerified"
+                    @expired="onCaptchaExpired"
+                    size="invisible"
+                    sitekey="GRECAPTCHA_SITE_KEY">
+                  </vue-recaptcha>
                 </div>
               </div>
 
               <div class="form-group row">
                 <div class="col-md-7 d-flex">
                   <!-- Submit Button -->
-                  <v-btn @click="login" block color="cyan lighten-3">
+                  <v-btn @click="submit" block color="cyan lighten-3">
                     {{ $t('auth.login') }}
                   </v-btn>
                 </div>
@@ -74,7 +80,6 @@
 
 <script>
 import Form from 'vform'
-import VueRecaptcha from 'vue-recaptcha';
 
 export default {
   middleware: 'guest',
@@ -86,19 +91,16 @@ export default {
   data: () => ({
     form: new Form({
       email: '',
-      password: ''
+      password: '',
+      recaptchaToken: null
     }),
     remember: false
   }),
-
-  components: { VueRecaptcha },
 
   methods: {
     async login () {
       // Submit the form.
       const { data } = await this.form.post('/api/login')
-
-      console.log(data)
 
       // Save the token.
       this.$store.dispatch('auth/saveToken', {
@@ -111,7 +113,52 @@ export default {
 
       // Redirect home.
       this.$router.push({ name: 'guestWelcomeIndex' })
+    },
+
+    submit () {
+      this.$refs.recaptcha.execute()
+    },
+
+    onCaptchaVerified (recaptchaToken) {
+      const self = this
+      self.status = "submitting"
+      self.$refs.recaptcha.reset()
+
+      this.form.recaptchaToken = recaptchaToken
+      this.login().then((response) => {
+
+        self.sucessfulServerResponse = response.data.message
+
+      }).catch((err) => {
+
+        self.serverError = getErrorMessage(err)
+
+        // helper to get a displayable message to the user
+
+        function getErrorMessage(err) {
+          let responseBody
+
+          responseBody = err.response
+
+          if (!responseBody) {
+            responseBody = err
+          } else {
+            responseBody = err.response.data || responseBody
+          }
+
+          return responseBody.message || JSON.stringify(responseBody)
+        }
+
+      }).then(() => {
+        self.status = ""
+      })
+    },
+
+    onCaptchaExpired () {
+      this.$refs.recaptcha.reset()
+      this.form.recaptchaToken = null
     }
+
   }
 }
 </script>

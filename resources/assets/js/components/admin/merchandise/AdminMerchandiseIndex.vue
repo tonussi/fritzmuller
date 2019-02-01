@@ -1,7 +1,7 @@
 <template>
   <v-card style="padding-top:60px;">
-    <v-dialog fullscreen transition="dialog-bottom-transition" :overlay="false" scrollable v-model="dialog_merchan" max-width="500px">
-      <v-btn color="primary" dark slot="activator" class="mb-2" @click.native="clean">
+    <v-dialog v-model="dialog_merchan" persistent>
+      <v-btn color="primary" slot="activator" mb-2 @click.native="clean">
         <v-icon>brush</v-icon>
         {{ $t("runningactivities.create") }}
       </v-btn>
@@ -41,9 +41,8 @@
           </v-container>
         </v-card-text>
         <v-card-actions>
-          <v-spacer></v-spacer>
-          <v-btn color="green lighten-2" @click.native="save">{{ $t("messages.ok") }}</v-btn>
-          <v-btn color="blue lighten-2" @click.native="close">{{ $t("messages.cancel") }}</v-btn>
+          <v-btn block color="green lighten-2" @click.native="save">{{ $t("messages.ok") }}</v-btn>
+          <v-btn block color="blue lighten-2" @click.native="close">{{ $t("messages.cancel") }}</v-btn>
         </v-card-actions>
       </v-card>
     </v-dialog>
@@ -64,13 +63,13 @@
       :search="search"
       hide-actions>
       <template slot="items" slot-scope="props">
-        <td class="text-xs-left">{{ props.item.title }}</td>
-        <td class="text-xs-left">{{ props.item.activity_description }}</td>
-        <td class="text-xs-left">{{ props.item.target_url }}</td>
-        <td width="50px" class="text-xs-left">
+        <td class="text-xs-center">{{ props.item.title }}</td>
+        <td class="text-xs-center">{{ props.item.activity_description }}</td>
+        <td class="text-xs-center">{{ props.item.target_url }}</td>
+        <td class="text-xs-center" width="50px">
           <v-img :src="props.item.figure_path" height="60px"></v-img>
         </td>
-        <td class="text-xs-right">
+        <td class="text-xs-center">
           <div v-if="props.item.active">
             <v-icon>far fa-eye</v-icon>
           </div>
@@ -78,7 +77,7 @@
             <v-icon>far fa-eye-slash</v-icon>
           </div>
         </td>
-        <td class="justify-center layout px-0">
+        <td class="text-xs-center">
           <v-btn icon class="mx-0" v-on:click="editItem(props.item, $event)">
             <v-icon color="teal">fas fa-edit</v-icon>
           </v-btn>
@@ -163,31 +162,34 @@ export default {
       headers: [
         {
           text: this.$i18n.t('runningactivities.title'),
-          value: 'title'
+          value: 'title',
+          sortable: true,
+          align: 'center'
         },
         {
           text: this.$i18n.t('runningactivities.activity_description'),
-          value: 'description',
-          sortable: false
+          sortable: false,
+          align: 'center'
         },
         {
           text: this.$i18n.t('runningactivities.link'),
-          value: 'target_url'
+          sortable: false,
+          align: 'center'
         },
         {
           text: this.$i18n.t('runningactivities.figure_path'),
-          value: 'date',
-          sortable: false
+          sortable: false,
+          align: 'center'
         },
         {
           text: this.$i18n.t('runningactivities.active'),
-          value: 'active',
-          sortable: false
+          sortable: false,
+          align: 'center'
         },
         {
           text: this.$i18n.t('messages.actions'),
-          value: 'actions',
-          sortable: false
+          sortable: false,
+          align: 'center'
         }
       ],
       editedItem: {
@@ -236,10 +238,6 @@ export default {
         app.pagination.totalItems = resp.data.total;
         app.pagination.rowsPerPage = resp.data.per_page;
         app.pages = resp.data.last_page;
-        console.log(resp.data);
-      }).catch(function(resp) {
-        console.log(resp);
-        alert(this.$i18n.t('alerts.could_not_load') + ' ' + this.$i18n.t('alerts.merchandises'));
       });
     },
 
@@ -247,9 +245,6 @@ export default {
       var app = this;
       axios.get('/api/v1/merchandise?page=' + page).then(function(resp) {
         app.items = resp.data.data;
-        console.log(app.items);
-      }).catch(error => {
-        console.log(error);
       });
     },
 
@@ -268,8 +263,6 @@ export default {
       if (confirm(this.$i18n.t('messages.sure_delete_question'))) {
         axios.delete('/api/v1/merchandise/' + item.id).then(function (resp) {
           app.items.splice(index, 1);
-        }).catch(function (resp) {
-          alert(this.$i18n.t('alerts.could_not_load') + ' ' + this.$i18n.t('alerts.merchandise'));
         });
       }
     },
@@ -277,7 +270,6 @@ export default {
     close() {
       this.dialog_merchan = false;
       setTimeout(() => {
-        this.clean();
         this.editedIndex = -1;
       }, 300);
       this.initialize();
@@ -301,30 +293,20 @@ export default {
 
     createForm() {
       var app = this;
-      console.log("create");
       axios.post('/api/v1/merchandise', this.editedItem).then(function (resp) {
         app.$router.push({path: '/admin/merchandise'});
-      }).catch(function (resp) {
-        console.log(resp);
-        alert(this.$i18n.t('alerts.could_not_load') + ' ' + this.$i18n.t('alerts.merchandise'));
       });
     },
 
     updateForm(objectId) {
       var app = this;
-      console.log("update");
       axios.patch('/api/v1/merchandise/' + objectId, this.editedItem).then(function (resp) {
         app.$router.replace('/admin/merchandise');
-      }).catch(function (resp) {
-        console.log(resp);
-        alert(this.$i18n.t('alerts.could_not_load') + ' ' + this.$i18n.t('alerts.merchandise'));
       });
     },
 
     setNewFirstLook(item) {
       this.lfm({type: 'image', prefix: '/laravel-filemanager'}, function(url, path) {
-        console.log(url);
-        console.log(path);
         item.figure_path = path;
       });
     },

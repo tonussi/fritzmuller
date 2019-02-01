@@ -29,16 +29,6 @@ class Member extends Model
      */
     protected $fillable = ['project_id', 'member_name', 'member_description', 'grad', 'figure_path', 'created_at', 'updated_at'];
 
-    protected $appends = ['flex', 'show'];
-
-    public function getFlexAttribute() {
-        return 3;
-    }
-
-    public function getShowAttribute() {
-        return false;
-    }
-
     /**
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
