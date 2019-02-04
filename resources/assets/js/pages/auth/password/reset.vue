@@ -45,7 +45,7 @@
                     @verify="onCaptchaVerified"
                     @expired="onCaptchaExpired"
                     size="invisible"
-                    sitekey="GRECAPTCHA_SITE_KEY">
+                    sitekey="6LdbY4oUAAAAAAzA9_VSBIP0usiGqK-gVtG5sziS">
                   </vue-recaptcha>
                 </div>
               </div>

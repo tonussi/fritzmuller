@@ -15,7 +15,7 @@ class ArticleService extends Controller
      */
     public function index()
     {
-        return Article::orderBy('updated_at', 'DESC')->paginate(15);
+        return Article::paginate(15);
     }
 
     public function newest($limit=10)
@@ -25,7 +25,7 @@ class ArticleService extends Controller
         $range_array = array($begin_date, $end_date);
         return Article::whereBetween('publication_date', $range_array)->where('active', '=', true)
         ->select('id', 'publication_date', 'active', 'title', 'price', 'rating', 'subtitle', 'figure_path', 'created_at', 'updated_at')
-        ->limit($limit)->get();
+        ->limit($limit)->orderBy('publication_date', 'DESC')->get();
     }
 
     public function search($value, $limit=20)
