@@ -9,7 +9,7 @@
                 <v-card-text style="margin-top: 120px;">
                   <h1 class="white--text front-text-header">{{item.title}}</h1>
                   <p class="white--text front-text-paragraph">{{item.activity_description}}</p>
-                  <v-btn large color="green lighten-3" :to="{ path: item.target_url }">
+                  <v-btn color="blue lighten-3" :to="{ path: item.target_url }">
                     {{ $t("messages.explore") }}
                     <v-spacer></v-spacer>
                   </v-btn>
@@ -25,7 +25,7 @@
         <v-layout row align-center>
           <v-flex xs12>
             <div style="margin-top:60px" class="text-xs-center">
-              <h2 class="headline">{{ $t('messages.posts') }}</h2>
+              <h2 class="display-3 font-weight-light">{{ $t('messages.posts') }}</h2>
             </div>
           </v-flex>
         </v-layout>
@@ -69,14 +69,19 @@
           </v-layout>
           <v-layout column wrap align-center>
             <v-flex xs12 sm4>
-              <div class="text-xs-center">
-                <v-btn block color="teal lighten-3" @click="loadMoreArticles()">{{ $t("article.loadmore") }}</v-btn>
+              <div class="text-xs-center font-weight-light">
+                <v-btn block color="blue lighten-3" @click="loadMoreArticles()">{{ $t("article.loadmore") }}</v-btn>
               </div>
             </v-flex>
           </v-layout>
         </v-container>
       </v-content>
       <v-content>
+        <v-flex xs12>
+          <div style="margin-top:60px" class="text-xs-center">
+            <h2 class="display-3 font-weight-light">{{ $t('species.species_we_saw') }}</h2>
+          </div>
+        </v-flex>
         <v-container fluid grid-list-md>
           <v-layout row wrap>
             <v-flex d-flex xs12 sm6 md3 v-for="(specie_item, idx) in species" :key="'species__n_' + idx">
@@ -107,8 +112,8 @@
           </v-layout>
           <v-layout column wrap align-center>
             <v-flex xs12 sm4>
-              <div class="text-xs-center">
-                <v-btn block color="teal lighten-3" @click="loadMoreSpecies()">{{ $t("species.loadmore") }}</v-btn>
+              <div class="text-xs-center font-weight-light">
+                <v-btn block color="blue lighten-3" @click="loadMoreSpecies()">{{ $t("species.loadmore") }}</v-btn>
               </div>
             </v-flex>
           </v-layout>

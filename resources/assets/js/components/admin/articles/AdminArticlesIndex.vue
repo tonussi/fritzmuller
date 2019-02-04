@@ -17,13 +17,13 @@
                   <v-flex xs6>
                     <v-subheader>{{ $t("article.rating") }}</v-subheader>
                     <span class="display-3 font-weight-light" v-text="editedItem.rating"></span>
-                    <v-slider :min="1" :max="5" v-model="editedItem.rating"></v-slider>
+                    <v-slider min="1" max="5" v-model="editedItem.rating"></v-slider>
                   </v-flex>
                   <v-flex xs6>
                     <v-subheader>{{ $t("messages.donate") }}</v-subheader>
                     <span class="display-3 font-weight-light">{{editedItem.price | currencyi18n}}</span>
-                    <v-slider :min="0" :max="60" v-model="price_fraction_left_part"></v-slider>
-                    <v-slider :min="0" :max="99" v-model="price_fraction_right_part"></v-slider>
+                    <v-slider min="0" max="60" v-model="price_fraction_left_part"></v-slider>
+                    <v-slider min="0" max="99" v-model="price_fraction_right_part"></v-slider>
                   </v-flex>
                   <v-flex xs6>
                     <v-subheader>{{ $t("article.title") }}</v-subheader>
@@ -341,10 +341,10 @@ export default {
       val && this.querySpecieRanks(val)
     },
     price_fraction_left_part(val) {
-      val && this.buildDonationPrice(this.price_fraction_left_part, this.price_fraction_right_part)
+      val && this.buildDonationPrice(val, this.price_fraction_right_part)
     },
     price_fraction_right_part(val) {
-      val && this.buildDonationPrice(this.price_fraction_left_part, this.price_fraction_right_part)
+      val && this.buildDonationPrice(this.price_fraction_left_part, val)
     }
   },
 
@@ -367,7 +367,11 @@ export default {
     },
 
     buildDonationPrice(left, right) {
-      this.editedItem.price = parseFloat(`${left}.${right}`);
+      if (right < 10) {
+        this.editedItem.price = left + (right/10);
+      } else {
+        this.editedItem.price = left + (right/100);
+      }
     },
 
     querySelections(v) {
