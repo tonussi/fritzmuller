@@ -17,12 +17,13 @@
                   <v-flex xs6>
                     <v-subheader>{{ $t("article.rating") }}</v-subheader>
                     <span class="display-3 font-weight-light" v-text="editedItem.rating"></span>
-                    <v-slider min="1" max="5" v-model="editedItem.rating"></v-slider>
+                    <v-slider min="0" max="5" v-model="editedItem.rating"></v-slider>
                   </v-flex>
                   <v-flex xs6>
                     <v-subheader>{{ $t("messages.donate") }}</v-subheader>
                     <span class="display-3 font-weight-light">{{editedItem.price | currencyi18n}}</span>
-                    <v-slider min="0" max="60" v-model="price_fraction_left_part"></v-slider>
+                    <v-text-field v-model="editedItem.price"></v-text-field>
+                    <v-slider min="0" max="99" v-model="price_fraction_left_part"></v-slider>
                     <v-slider min="0" max="99" v-model="price_fraction_right_part"></v-slider>
                   </v-flex>
                   <v-flex xs6>
