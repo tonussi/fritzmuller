@@ -14,23 +14,6 @@ class CatalogOfLifeService extends Controller
         return json_encode($xml);
     }
 
-    // public function index($taxon, $limit = 10)
-    // {
-    //     $aux = explode(" ", $taxon);
-    //     $matches_more_info = array();
-    //     $matches_photos = array();
-    //     $url = "http://www.catalogueoflife.org/col/search/all/key/" . urlencode($aux[0]) . "/fossil/1/match/1";
-    //     $str = $this->get_remote_data($url);
-    //     $re_more_info = '/\/col\/details\/species\/id\/([a-zA-Z0-9\-]+)\/([a-zA-Z0-9\-]+)/m';
-    //     preg_match_all($re_more_info, $str, $matches_more_info, PREG_OFFSET_CAPTURE);
-    //     $matches_more_info = array_slice($matches_more_info[0], 0, $limit);
-    //     $arr = array();
-    //     foreach ($matches_more_info as $key => $value) {
-    //         array_push($arr, ['info' => 'http://www.catalogueoflife.org' . $matches_more_info[$key][0]]);
-    //     }
-    //     return $arr;
-    // }
-
     public function get_remote_data($url, $post_paramtrs = false)
     {
         $curl = curl_init();
