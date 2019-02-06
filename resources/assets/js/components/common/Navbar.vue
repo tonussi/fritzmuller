@@ -135,12 +135,20 @@
             {{ $t('messages.dashboard') }}
           </v-list-tile-content>
         </v-list-tile>
-        <v-list-tile :to="{ name: 'guestArticlesIndex' }">
+        <v-list-tile :to="{ name: 'guestArticleSearchIndex' }">
           <v-list-tile-avatar>
             <v-icon>explore</v-icon>
           </v-list-tile-avatar>
           <v-list-tile-content>
             {{ $t('messages.search_articles') }}
+          </v-list-tile-content>
+        </v-list-tile>
+        <v-list-tile :to="{ name: 'guestSpecieSearchIndex' }">
+          <v-list-tile-avatar>
+            <v-icon>explore</v-icon>
+          </v-list-tile-avatar>
+          <v-list-tile-content>
+            {{ $t('messages.search_species') }}
           </v-list-tile-content>
         </v-list-tile>
         <v-list-tile :to="{ name: 'guestProjectsIndex' }">
@@ -166,18 +174,25 @@
 </template>
 
 <script>
-  export default {
-    data: () => ({
-      LeftDrawer: false,
-      RightDrawer: false,
-      NightMode: false
-    }),
+import nightmanager from '../../plugins/nightmanager';
 
-    watch: {
-      NightMode (val) {
-        this.$root.$emit("NightModeCangeMessage", val);
-        console.log("Emit Information");
-      }
+export default {
+  data: () => ({
+    LeftDrawer: false,
+    RightDrawer: false,
+    NightMode: false
+  }),
+
+  created() {
+    console.log(nightmanager.getSystemNightMode());
+    this.NightMode = nightmanager.getSystemNightMode();
+  },
+
+  watch: {
+    NightMode (val) {
+      nightmanager.setSystemNightMode(val);
+      this.$root.$emit("NightModeChangeMessage", val);
     }
   }
+}
 </script>

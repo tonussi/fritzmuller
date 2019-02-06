@@ -23,6 +23,7 @@ return [
     'dashboard' => 'Home',
     'admin' => 'Admin Dashboard',
     'search_articles' => 'Search Articles',
+    'search_species' => 'Search Species',
     'facebook' => 'Our Facebook Page',
     'team' => 'Our Team',
     'projects' => 'Projects',

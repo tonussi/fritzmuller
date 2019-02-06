@@ -3,28 +3,60 @@
     <v-container fluid grid-list-md>
       <v-card-text>
         <v-container fluid>
-          <v-layout row wrap>
-            <v-flex xs12 sm12>
+
+          <v-layout>
+
+            <v-flex xs6>
               <v-text-field v-model="contentquery" type="text" :label="$t('messages.search_by_title_content')"></v-text-field>
             </v-flex>
-            <v-flex xs12 sm12>
+
+            <v-flex xs6>
+              <v-btn color="primary" large @click="search()" prepend-icon="search">
+                <v-icon>search</v-icon>
+                {{ $t("messages.execute_search") }}
+              </v-btn>
+            </v-flex>
+
+          </v-layout>
+
+          <v-layout>
+
+            <v-flex xs6>
               <v-expansion-panel>
-                <v-expansion-panel-content class="red lighten-3">
+                <v-expansion-panel-content>
                   <div slot="header">
                     {{ $t('messages.search_by_species_taxanomy') }}
                   </div>
                   <v-card-text>
                     <v-checkbox v-model="byTaxanomy" :label="$t('messages.search_by_flora_taxonomy')"></v-checkbox>
-                    <v-text-field v-model="taxonomyQuery.kingdom" type="text" :label="$t('species.search_by_taxa_kingdom')"></v-text-field>
-                    <v-text-field v-model="taxonomyQuery.phylum" type="text" :label="$t('species.search_by_taxa_phylum')"></v-text-field>
-                    <v-text-field v-model="taxonomyQuery.class" type="text" :label="$t('species.search_by_taxa_class')"></v-text-field>
-                    <v-text-field v-model="taxonomyQuery.order" type="text" :label="$t('species.search_by_taxa_order')"></v-text-field>
-                    <v-text-field v-model="taxonomyQuery.family" type="text" :label="$t('species.search_by_taxa_family')"></v-text-field>
-                    <v-text-field v-model="taxonomyQuery.genus" type="text" :label="$t('species.search_by_taxa_genus')"></v-text-field>
-                    <v-text-field v-model="taxonomyQuery.specie" type="text" :label="$t('species.search_by_taxa_specie')"></v-text-field>
+                    <v-text-field v-model="taxonomyQuery.kingdom"
+                      type="text" :label="$t('species.search_by_taxa_kingdom')">
+                    </v-text-field>
+                    <v-text-field v-model="taxonomyQuery.phylum"
+                      type="text" :label="$t('species.search_by_taxa_phylum')">
+                    </v-text-field>
+                    <v-text-field v-model="taxonomyQuery.class"
+                      type="text" :label="$t('species.search_by_taxa_class')">
+                    </v-text-field>
+                    <v-text-field v-model="taxonomyQuery.order"
+                      type="text" :label="$t('species.search_by_taxa_order')">
+                    </v-text-field>
+                    <v-text-field v-model="taxonomyQuery.family"
+                      type="text" :label="$t('species.search_by_taxa_family')">
+                    </v-text-field>
+                    <v-text-field v-model="taxonomyQuery.genus"
+                      type="text" :label="$t('species.search_by_taxa_genus')">
+                    </v-text-field>
+                    <v-text-field v-model="taxonomyQuery.specie"
+                      type="text" :label="$t('species.search_by_taxa_specie')">
+                    </v-text-field>
                   </v-card-text>
                 </v-expansion-panel-content>
-                <v-expansion-panel-content class="blue lighten-3">
+              </v-expansion-panel>
+            </v-flex>
+            <v-flex xs6>
+              <v-expansion-panel>
+                <v-expansion-panel-content>
                   <div slot="header">
                     {{ $t('messages.search_between_dates') }}
                   </div>
@@ -76,14 +108,9 @@
                 </v-expansion-panel-content>
               </v-expansion-panel>
             </v-flex>
-            <v-flex xs12 sm12>
-              <v-btn block color="green lighten-3" @click="search()" prepend-icon="search">
-                {{ $t("messages.execute_search") }}
-                <v-spacer></v-spacer>
-                <v-icon>search</v-icon>
-              </v-btn>
-            </v-flex>
+
           </v-layout>
+
         </v-container>
       </v-card-text>
       <v-content>
@@ -98,21 +125,21 @@
                     </v-flex>
                     <v-flex xs6>
                       <v-card-title primary-title>
-                        <h2 class="headline" v-text="post.title"></h2>
+                        <p v-if="post.taxonomy_group !== undefined"><b>{{ post.taxonomy_group.taxonomy_rank_specie.rank_name }}</b></p>
                       </v-card-title>
                       <v-card-title>
                         <p class="grey--text">{{ post.subtitle }}</p>
                       </v-card-title>
                       <v-card-title>
-                        <v-badge right color="cyan">
+                        <v-badge right color="orange">
                           <v-icon :title="$t('messages.active_and_published')" slot="badge" small>done</v-icon>
-                          <span>{{ post.publication_date | datei18n }}</span>
+                          <span>{{ post.created_at | datei18n }}</span>
                         </v-badge>
                       </v-card-title>
                     </v-flex>
                   </v-layout>
                   <v-card-actions>
-                    <v-btn flat color="cyan" :to="{ path: '/guest/articles/read/' + post.id }">
+                    <v-btn flat color="cyan" :to="{ path: '/guest/species/read/' + post.id }">
                       {{ $t("article.readit") }}
                     </v-btn>
                     <v-spacer></v-spacer>
@@ -177,11 +204,8 @@ export default {
 
     initialize() {
       var app = this;
-      axios.get('/api/v1/articles/newest/5').then(function(resp) {
+      axios.get('/api/v1/species/newest/5').then(function(resp) {
         app.articles = resp.data;
-      }).catch(function(resp) {
-        console.log(resp);
-        alert(this.$i18n.t('alerts.could_not_load') + ' ' + this.$i18n.t('alerts.articles'));
       });
     },
 
@@ -195,28 +219,17 @@ export default {
       this.loading = true;
       // Making a get request to our API and passing the query to it.
       if (app.byPublicationDate && app.begin_publication_date !== undefined && app.end_publication_date !== undefined) {
-        axios.get('/api/v1/articles/advanced/begindate/' + app.begin_publication_date + '/enddate/' + app.end_publication_date).then(function(resp) {
+        axios.get('/api/v1/species/advanced/begindate/' + app.begin_publication_date + '/enddate/' + app.end_publication_date).then(function(resp) {
           app.articles = resp.data;
-        }).catch(function(resp) {
-          console.log(resp);
-          alert(this.$i18n.t('alerts.could_not_load') + ' ' + this.$i18n.t('alerts.articles'));
         });
       } else {
         if (app.contentquery == '') {
-          axios.get('/api/v1/articles/newest/5').then(function(resp) {
+          axios.get('/api/v1/species/newest/5').then(function(resp) {
             app.articles = resp.data;
-          }).catch(function(resp) {
-            console.log(resp);
-            alert(this.$i18n.t('alerts.could_not_load') + ' ' + this.$i18n.t('alerts.articles'));
           });
         } else {
-          console.log('http://127.0.0.1:8000' + '/api/v1/articles/search/' + this.contentquery);
-          axios.get('/api/v1/articles/search/' + this.contentquery).then(function(response) {
-            console.log(response);
+          axios.get('/api/v1/species/search/' + this.contentquery).then(function(response) {
             app.articles = response.data;
-          }).catch(function(response) {
-            console.log(response);
-            alert(this.$i18n.t('alerts.could_not_load') + ' ' + this.$i18n.t('alerts.articles'));
           });
         }
       }

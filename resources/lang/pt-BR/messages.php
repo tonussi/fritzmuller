@@ -23,6 +23,7 @@ return [
     'dashboard' => 'Início',
     'admin' => 'Painel do Admin',
     'search_articles' => 'Procurar Artigos',
+    'search_species' => 'Procurar Espécies',
     'facebook' => 'Nosso Facebook',
     'team' => 'Nossa Equipe',
     'projects' => 'Projetos',

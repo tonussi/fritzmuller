@@ -29,7 +29,7 @@ var getSystemCurrency = function() {
 }
 
 var setSystemCurrency = function(v) {
-  return localStorage.setItem('currency', v);
+  localStorage.setItem('currency', v);
 }
 
 const currencymanager = {

@@ -52,6 +52,14 @@ class SpecieDetailService extends Controller
         return $objects;
     }
 
+    public function advanced($begindate, $enddate)
+    {
+        $formated_begin_date = (new \DateTime($begindate))->format('Y-m-d');
+        $formated_end_date = (new \DateTime($enddate))->format('Y-m-d');
+        $range_array = array($formated_begin_date, $formated_end_date);
+        return SpecieDetail::whereBetween('created_at', $range_array)->get();
+    }
+
     public function search($value)
     {
         return TaxonomyGroup::join('species_detail', 'taxonomy_group.id', '=', 'species_detail.taxonomy_group_id')

@@ -97,6 +97,16 @@ Route::group([
     'namespace' => 'Api\V1',
     'as' => 'api.'
 ], function () {
+    Route::get('species/advanced/begindate/{begindate}/enddate/{enddate}', 'SpecieDetailService@advanced', [
+        'except' => [ 'create', 'edit', 'update', 'store', 'delete' ]
+    ]);
+});
+
+Route::group([
+    'prefix' => '/v1',
+    'namespace' => 'Api\V1',
+    'as' => 'api.'
+], function () {
     Route::get('species/read/{id}', 'SpecieDetailService@byid', [
         'except' => [ 'create', 'edit', 'update', 'store', 'delete' ]
     ]);

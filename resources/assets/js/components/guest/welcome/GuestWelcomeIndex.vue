@@ -92,7 +92,7 @@
                   </v-flex>
                   <v-flex xs6>
                     <v-card-title primary-title>
-                      <p v-if="taxonomy_group !== null"><b>{{ specie_item.taxonomy_group.taxonomy_rank_specie.rank_name }}</b></p>
+                      <p v-if="specie_item.taxonomy_group !== undefined"><b>{{ specie_item.taxonomy_group.taxonomy_rank_specie.rank_name }}</b></p>
                     </v-card-title>
                     <v-card-title>
                       <v-badge right color="orange">

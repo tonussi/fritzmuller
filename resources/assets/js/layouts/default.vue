@@ -25,7 +25,7 @@ export default {
   },
 
   mounted() {
-    this.$root.$on("NightModeCangeMessage", (message) => {
+    this.$root.$on("NightModeChangeMessage", (message) => {
       console.log('Receive emission');
       this.NightMode = message;
     });

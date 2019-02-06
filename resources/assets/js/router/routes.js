@@ -17,7 +17,9 @@ import AdminMembersIndex from '../components/admin/projects/AdminMembersIndex.vu
 import GuestMembersIndex from '../components/guest/projects/GuestMembersIndex.vue';
 
 import AdminArticlesIndex from '../components/admin/articles/AdminArticlesIndex.vue';
-import GuestArticlesIndex from '../components/guest/articles/GuestArticlesIndex.vue';
+import GuestArticleSearchIndex from '../components/guest/articles/GuestArticleSearchIndex.vue';
+import GuestSpecieSearchIndex from '../components/guest/articles/GuestSpecieSearchIndex.vue';
+
 import GuestReadArticleIndex from '../components/guest/articles/GuestReadArticleIndex.vue';
 
 import AdminSpecieDetailIndex from '../components/admin/species/AdminSpecieDetailIndex.vue';
@@ -34,13 +36,15 @@ import GuestReadSpecieIndex from '../components/guest/species/GuestReadSpecieInd
 export default [
   { path: '/admin/tickets', name: 'adminTicketsIndex', component: AdminTicketsIndex },
   { path: '/admin/articles', name: 'adminArticlesIndex', component: AdminArticlesIndex },
-  { path: '/guest/articles', name: 'guestArticlesIndex', component: GuestArticlesIndex },
-  { path: '/guest/articles/read/:id', name: 'guestReadArticleIndex', component: GuestReadArticleIndex },
   { path: '/admin/species', name: 'adminSpecieDetailIndex', component: AdminSpecieDetailIndex },
   { path: '/admin/taxonomy', name: 'adminTaxonomyGroupIndex', component: AdminTaxonomyGroupIndex },
   { path: '/admin/merchandise', name: 'adminMerchandiseIndex', component: AdminMerchandiseIndex },
   { path: '/admin/projects', name: 'adminProjectsIndex', component: AdminProjectsIndex },
   { path: '/admin/members', name: 'adminMembersIndex', component: AdminMembersIndex },
+
+  { path: '/guest/articles', name: 'guestArticleSearchIndex', component: GuestArticleSearchIndex },
+  { path: '/guest/species', name: 'guestSpecieSearchIndex', component: GuestSpecieSearchIndex },
+  { path: '/guest/articles/read/:id', name: 'guestReadArticleIndex', component: GuestReadArticleIndex },
   { path: '/guest/projects', name: 'guestProjectsIndex', component: GuestProjectsIndex },
   { path: '/guest/members', name: 'guestMembersIndex', component: GuestMembersIndex },
   { path: '/guest/species/read/:id', name: 'guestReadSpecieIndex', component: GuestReadSpecieIndex },

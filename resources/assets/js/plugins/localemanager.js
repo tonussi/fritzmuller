@@ -21,7 +21,7 @@ var getSystemLocale = function() {
 }
 
 var setSystemLocale = function(v) {
-  return localStorage.setItem('locale', v);
+  localStorage.setItem('locale', v);
 }
 
 const localemanage = {
