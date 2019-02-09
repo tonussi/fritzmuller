@@ -12,7 +12,7 @@ class SpecieDetailSeeder extends Seeder
     {
         $this->faker = FactoryFaker::create();
         $this->createSpecieDetails();
-        $this->speciesDetails();
+        $this->specieDetails();
     }
 
     private function createSpecieDetails()
@@ -29,7 +29,7 @@ class SpecieDetailSeeder extends Seeder
         }
     }
 
-    private function speciesDetails()
+    private function specieDetails()
     {
         $arr_b = SpecieDetail::all()->pluck('id')->toArray();
         for ($i = 0; $i < count($arr_b); $i++) {

@@ -9,7 +9,7 @@ tag,\
 project,\
 member,\
 merchandise,\
-species_detail,\
+specie_detail,\
 popular_name,\
 taxonomy_rank_family,\
 taxonomy_rank_genus,\

@@ -1,6 +1,6 @@
 <?php
 return [
-    'title' => 'Imagens de splink.org.br',
+    'title' => 'Imagens',
     'load' => 'Carregar Imagens',
     'viewer' => 'Abrir Splink Viewer',
     'show_taxonomy' => 'Mostrar Taxonomia',

@@ -25,7 +25,7 @@ class ArticleSpecieService extends Controller
         $article = Article::findOrFail($id);
         $as = $article->articleSpecies;
         foreach ($as as $key => $value) {
-            $tax = $value->speciesDetail->taxonomyGroup;
+            $tax = $value->specieDetail->taxonomyGroup;
             $tax->taxonomyRankKingdom;
             $tax->taxonomyRankPhylum;
             $tax->taxonomyRankClass;

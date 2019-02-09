@@ -180,9 +180,9 @@ updated_at timestamp DEFAULT CURRENT_TIMESTAMP NOT NULL,
 PRIMARY KEY (id)) ENGINE = InnoDB;
 
 ALTER TABLE article_specie
-ADD CONSTRAINT fk_articlespecie_speciesdetail_id
+ADD CONSTRAINT fk_articlespecie_speciedetail_id
 FOREIGN KEY (species_id)
-REFERENCES species_detail (id)
+REFERENCES specie_detail (id)
 ON DELETE CASCADE ON UPDATE CASCADE;
 
 ALTER TABLE article_specie

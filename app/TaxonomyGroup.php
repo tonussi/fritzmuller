@@ -22,7 +22,7 @@ use Illuminate\Database\Eloquent\Model;
  * @property TaxonomyRankOrder $taxonomyRankOrder
  * @property TaxonomyRankPhylum $taxonomyRankPhylum
  * @property TaxonomyRankSpecie $taxonomyRankSpecie
- * @property SpecieDetail[] $speciesDetails
+ * @property SpecieDetail[] $specieDetails
  */
 class TaxonomyGroup extends Model
 {
@@ -97,7 +97,7 @@ class TaxonomyGroup extends Model
     /**
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
-    public function speciesDetails()
+    public function specieDetails()
     {
         return $this->hasMany('App\SpecieDetail');
     }

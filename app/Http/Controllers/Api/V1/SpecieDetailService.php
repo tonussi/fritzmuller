@@ -62,7 +62,7 @@ class SpecieDetailService extends Controller
 
     public function search($value)
     {
-        return TaxonomyGroup::join('species_detail', 'taxonomy_group.id', '=', 'species_detail.taxonomy_group_id')
+        return TaxonomyGroup::join('specie_detail', 'taxonomy_group.id', '=', 'specie_detail.taxonomy_group_id')
         ->join('taxonomy_rank_specie', 'taxonomy_group.specie_id', '=', 'taxonomy_rank_specie.id')
         ->where('taxonomy_rank_specie.rank_name', 'LIKE', '%' . $value . '%')->get();
     }

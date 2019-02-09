@@ -113,9 +113,9 @@
                     :key="'current_specie_idx_' + idx">
                     <v-chip color="cyan lighten-4">
                       <v-avatar>
-                        <img :src="data.species_detail.figure_path">
+                        <img :src="data.specie_detail.figure_path">
                       </v-avatar>
-                      <span>{{data.species_detail.taxonomy_group.taxonomy_rank_specie.rank_name}}</span>
+                      <span>{{data.specie_detail.taxonomy_group.taxonomy_rank_specie.rank_name}}</span>
                     </v-chip>
                   </v-flex>
                 </v-layout>

@@ -33107,7 +33107,7 @@
 							"_parent": {
 								"$ref": "AAAAAAFkiQt8AdGcPdM="
 							},
-							"name": "species_detail_id",
+							"name": "specie_detail_id",
 							"type": "INTEGER",
 							"length": 0,
 							"primaryKey": false,

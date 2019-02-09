@@ -174,7 +174,7 @@ export default {
             "editing": "Editing Taxonomy"
         },
         "linkedata": {
-            "title": "Imagens from splink.org.br",
+            "title": "Imagens",
             "load": "Load Imagens",
             "viewer": "Open Splink Viewer",
             "show_taxonomy": "Show Taxonomy",
@@ -548,7 +548,7 @@ export default {
             "editing": "Editando Taxonomia"
         },
         "linkedata": {
-            "title": "Imagens de splink.org.br",
+            "title": "Imagens",
             "load": "Carregar Imagens",
             "viewer": "Abrir Splink Viewer",
             "show_taxonomy": "Mostrar Taxonomia",

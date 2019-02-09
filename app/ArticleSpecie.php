@@ -11,7 +11,7 @@ use Illuminate\Database\Eloquent\Model;
  * @property string $created_at
  * @property string $updated_at
  * @property Article $article
- * @property SpecieDetail $speciesDetail
+ * @property SpecieDetail $specieDetail
  */
 class ArticleSpecie extends Model
 {
@@ -38,7 +38,7 @@ class ArticleSpecie extends Model
     /**
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
-    public function speciesDetail()
+    public function specieDetail()
     {
         return $this->belongsTo('App\SpecieDetail', 'species_id');
     }
