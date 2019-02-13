@@ -3,6 +3,7 @@ return [
     /*
      * Articles Session
      */
+    'id' => 'Article\'s Identifier',
     'search_helper' => 'Search for your article',
     'normal_session' => 'Reader\'s session',
     'admin_session' => 'Admin\'s Session',

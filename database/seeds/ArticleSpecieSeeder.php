@@ -24,7 +24,7 @@ class ArticleSpecieSeeder extends Seeder
             $b_id = $this->faker->randomElement($arr_b);
             ArticleSpecie::create([
                 'article_id' => $a_id,
-                'species_id' => $b_id,
+                'specie_id' => $b_id,
             ]);
         }
     }

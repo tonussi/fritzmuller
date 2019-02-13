@@ -83,17 +83,6 @@ class ArticleSpecieService extends Controller
         return;
     }
 
-    private function findTaxonomyGroups($names) {
-        $species = TaxonomyRankSpecie::whereIn('rank_name', $names);
-
-        if ($names !== null) {
-            return ArticleSpecie::join('article_specie', 'tax.specie_id', '=', 'taxonomy_rank_specie.id')
-            ->whereIn('taxonomy_rank_specie.rank_name', '=', $names)->get();
-        }
-
-        return null;
-    }
-
     /**
      * Update the specified resource in storage.
      *
@@ -103,10 +92,7 @@ class ArticleSpecieService extends Controller
      */
     public function update(Request $request, $id)
     {
-        \Log::info($request);
-        if ($request->has('new_species')) {
-            $this->findTaxonomyGroups($request['new_species']);
-        }
+        \Log::info("ArticleSpeciesServiceUpdate");
         $object = ArticleSpecie::findOrFail($id);
         $object->update($request->all());
         return;

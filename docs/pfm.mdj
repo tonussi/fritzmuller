@@ -31710,7 +31710,7 @@
 							"_parent": {
 								"$ref": "AAAAAAFiki+YlLnEXuY="
 							},
-							"name": "species_id",
+							"name": "specie_id",
 							"type": "INTEGER",
 							"length": 0,
 							"primaryKey": false,

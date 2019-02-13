@@ -102,7 +102,7 @@ PRIMARY KEY (id)) ENGINE = InnoDB;
 
 CREATE TABLE article_specie (
 id integer NOT NULL AUTO_INCREMENT,
-species_id integer NOT NULL,
+specie_id integer NOT NULL,
 article_id integer NOT NULL,
 created_at timestamp DEFAULT CURRENT_TIMESTAMP NOT NULL,
 updated_at timestamp DEFAULT CURRENT_TIMESTAMP NOT NULL,
@@ -181,7 +181,7 @@ PRIMARY KEY (id)) ENGINE = InnoDB;
 
 ALTER TABLE article_specie
 ADD CONSTRAINT fk_articlespecie_speciedetail_id
-FOREIGN KEY (species_id)
+FOREIGN KEY (specie_id)
 REFERENCES specie_detail (id)
 ON DELETE CASCADE ON UPDATE CASCADE;
 

@@ -1,5 +1,5 @@
 <template>
-  <v-div>
+  <div>
     <v-dialog v-model="taxonomy_dialog" max-width="590">
       <v-card>
         <v-card-text>
@@ -193,7 +193,7 @@
           <div id="disqus_thread"></div>
         </v-tab-item>
       </v-tabs>
-  </v-div>
+  </div>
 </template>
 
 <script>

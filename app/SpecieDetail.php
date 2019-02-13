@@ -42,6 +42,6 @@ class SpecieDetail extends Model
      */
     public function articleSpecies()
     {
-        return $this->hasMany('App\ArticleSpecie', 'species_id');
+        return $this->hasMany('App\ArticleSpecie', 'specie_id');
     }
 }

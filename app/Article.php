@@ -42,12 +42,4 @@ class Article extends Model
     {
         return $this->hasMany('App\ArticleSpecie');
     }
-
-    /**
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany
-     */
-    public function articleTags()
-    {
-        return $this->hasMany('App\ArticleTag');
-    }
 }

@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 /**
  * @property int $id
- * @property int $species_id
+ * @property int $specie_id
  * @property int $article_id
  * @property string $created_at
  * @property string $updated_at
@@ -25,7 +25,7 @@ class ArticleSpecie extends Model
     /**
      * @var array
      */
-    protected $fillable = ['species_id', 'article_id', 'created_at', 'updated_at'];
+    protected $fillable = ['specie_id', 'article_id', 'created_at', 'updated_at'];
 
     /**
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
@@ -40,6 +40,6 @@ class ArticleSpecie extends Model
      */
     public function specieDetail()
     {
-        return $this->belongsTo('App\SpecieDetail', 'species_id');
+        return $this->belongsTo('App\SpecieDetail', 'specie_id');
     }
 }

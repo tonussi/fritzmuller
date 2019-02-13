@@ -246,6 +246,7 @@ export default {
             "datetime": "MMMM Do YYYY"
         },
         "article": {
+            "id": "Article's Identifier",
             "search_helper": "Search for your article",
             "normal_session": "Reader's session",
             "admin_session": "Admin's Session",
@@ -620,6 +621,7 @@ export default {
             "datetime": "LL"
         },
         "article": {
+            "id": "Identificador do Artigo",
             "search_helper": "Procure por seus artigos",
             "normal_session": "Sessão do Leitor",
             "admin_session": "Sessão do Admininistrador",

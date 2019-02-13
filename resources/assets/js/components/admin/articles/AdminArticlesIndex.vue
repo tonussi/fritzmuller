@@ -146,6 +146,7 @@
       :search="search"
       hide-actions>
       <template slot="items" slot-scope="props">
+        <td class="text-xs-center">{{ props.item.id }}</td>
         <td class="text-xs-center">{{ props.item.title }}</td>
         <td class="text-xs-center">{{ props.item.subtitle }}</td>
         <td class="text-xs-center">{{ props.item.article_content.slice(0, 50) + ' ...' }}</td>
@@ -255,6 +256,12 @@ export default {
         }
       },
       headers: [
+        {
+          text: this.$i18n.t('article.id'),
+          value: 'id',
+          sortable: true,
+          align: 'center'
+        },
         {
           text: this.$i18n.t('article.title'),
           value: 'title',

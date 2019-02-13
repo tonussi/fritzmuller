@@ -5,6 +5,9 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 use App\Article;
+use App\ArticleSpecie;
+use App\SpecieDetail;
+use App\TaxonomyGroup;
 
 class ArticleService extends Controller
 {
@@ -90,6 +93,22 @@ class ArticleService extends Controller
         return;
     }
 
+    private function findTaxonomyGroups($names) {
+        if ($names !== null) {
+            return SpecieDetail::join('taxonomy_group', 'specie_detail.taxonomy_group_id', '=', 'taxonomy_group.id')
+            ->join('taxonomy_rank_specie', 'taxonomy_group.specie_id', '=', 'taxonomy_rank_specie.id')
+            ->join('article_specie', 'article_specie.specie_id', '<>', 'taxonomy_rank_specie.id')
+            ->whereIn('taxonomy_rank_specie.rank_name', array_values($names))->get();
+        }
+        return null;
+    }
+
+    public function compareTaxonomyIdsWithin($a, $b)
+    {
+        if ($a->id === $b->id) return 0;
+        return ($a->id > $b->id) ? 1 : -1;
+    }
+
     /**
      * Update the specified resource in storage.
      *
@@ -99,7 +118,15 @@ class ArticleService extends Controller
      */
     public function update(Request $request, $id)
     {
+        \Log::info("ArticleServiceUpdate");
         \Log::info($request);
+
+        if ($request->has('new_species')) {
+            $taxonomyGroupFound = $this->findTaxonomyGroups($request['new_species']);
+        }
+
+        \Log::info($taxonomyGroupFound);
+
         $object = Article::findOrFail($id);
         $object->update($request->all());
         return;
