@@ -95,9 +95,10 @@ class ArticleService extends Controller
 
     private function findTaxonomyGroups($names) {
         if ($names !== null) {
-            return SpecieDetail::join('taxonomy_group', 'specie_detail.taxonomy_group_id', '=', 'taxonomy_group.id')
+            return SpecieDetail::
+            join('taxonomy_group', 'specie_detail.taxonomy_group_id', '=', 'taxonomy_group.id')
             ->join('taxonomy_rank_specie', 'taxonomy_group.specie_id', '=', 'taxonomy_rank_specie.id')
-            ->join('article_specie', 'article_specie.specie_id', '<>', 'taxonomy_rank_specie.id')
+            // ->join('article_specie', 'article_specie.specie_id', '<>', 'specie_detail.id')
             ->whereIn('taxonomy_rank_specie.rank_name', array_values($names))->get();
         }
         return null;
@@ -118,14 +119,13 @@ class ArticleService extends Controller
      */
     public function update(Request $request, $id)
     {
-        \Log::info("ArticleServiceUpdate");
-        \Log::info($request);
-
         if ($request->has('new_species')) {
             $taxonomyGroupFound = $this->findTaxonomyGroups($request['new_species']);
         }
 
-        \Log::info($taxonomyGroupFound);
+        foreach ($taxonomyGroupFound->pluck("id") as $specie_id) {
+            ArticleSpecie::updateOrCreate(['specie_id' => $specie_id, 'article_id' => $id]);
+        }
 
         $object = Article::findOrFail($id);
         $object->update($request->all());

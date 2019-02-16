@@ -76,14 +76,14 @@
       <v-layout row wrap justify-space-between>
         <v-flex xs12 align-end flexbox>
           <v-subheader>{{ $t("article.title") }}</v-subheader>
-          <span class="display-3">{{readableItem.title}}</span>
+          <span class="article-header display-3">{{readableItem.title}}</span>
         </v-flex>
         <v-flex xs12 align-end flexbox>
-          <v-subheader>{{ $t("article.subtitle") }}</v-subheader>
+          <v-subheader class="article-header">{{ $t("article.subtitle") }}</v-subheader>
           <h2>{{readableItem.subtitle}}</h2>
         </v-flex>
         <v-flex xs12 align-end flexbox>
-          <v-subheader>{{ $t("article.publication_date") }}</v-subheader>
+          <v-subheader class="article-info">{{ $t("article.publication_date") }}</v-subheader>
           <h3>{{readableItem.publication_date | datei18n }}</h3>
           <!-- <v-date-picker :locale="applocale" v-model="readableItem.publication_date" readonly></v-date-picker> -->
         </v-flex>
@@ -112,7 +112,7 @@
         <v-flex xs12 align-end flexbox>
           <v-subheader>{{ $t("article.content") }}</v-subheader>
           <v-card-text id="pdf" ref="pdf" style="padding:55px;">
-            <div id="adjustfont" v-html="readableItem.article_content"></div>
+            <article id="adjustfont" v-html="readableItem.article_content"></article>
           </v-card-text>
         </v-flex>
       </v-layout>
