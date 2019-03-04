@@ -201,6 +201,7 @@
 import * as jsPDF from 'jspdf';
 import moment from 'moment';
 import utils from '../../../plugins/utils';
+import localemanager from '../../../plugins/localemanager';
 
 export default {
   data () {
@@ -243,7 +244,7 @@ export default {
         height: 540
       };
 
-      let pdfName = item.taxonomy_group.taxonomy_rank_specie.rank_name.replace(" ", "_").toLowerCase();
+      let pdfName = item.taxonomy_group.taxonomy_rank_specie.rank_name.replace(/\s/g, '_').toLowerCase();
       let options = {orientation: 'l', unit: 'px', format: 'a3'};
       let doc = new jsPDF(options);
 
@@ -270,7 +271,7 @@ export default {
       doc.text(margins.right, margins.height - 50, item.taxonomy_group.taxonomy_rank_specie.rank_name);
 
       doc.setFontType("italic");
-      let specie_created_at = moment(String(item.created_at), "YYYY-MM-DD").locale(document.documentElement.lang);
+      let specie_created_at = moment(String(item.created_at), "YYYY-MM-DD").locale(localemanager.getSystemLocale());
 
       doc.text(margins.right, margins.height - 20, specie_created_at.format('LL'));
 
@@ -279,7 +280,8 @@ export default {
       doc.fromHTML(item.specie_description, margins.left, margins.top, {
         width: margins.width
       }, function(cb) {
-         doc.save(pdfName + '_' + specie_created_at.format('YYYYMMDD') + '.pdf');
+        let aux = pdfName + '_' + specie_created_at.format('YYYYMMDD') + '_' + localemanager.getSystemLocale().replace('-', '').toLowerCase() + '.pdf';
+        doc.save(aux);
       }, margins);
     },
 

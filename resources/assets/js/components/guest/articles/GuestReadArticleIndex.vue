@@ -210,6 +210,7 @@
 import * as jsPDF from 'jspdf';
 import moment from 'moment';
 import utils from '../../../plugins/utils';
+import localemanager from '../../../plugins/localemanager';
 
 export default {
   data () {
@@ -253,7 +254,7 @@ export default {
         height: 540
       };
 
-      let pdfName = item.title.replace(" ", "_").toLowerCase();
+      let pdfName = item.title.replace(/\s/g, '_').toLowerCase();
       let options = {orientation: 'l', unit: 'px', format: 'a3'};
       let doc = new jsPDF(options);
 
@@ -277,7 +278,7 @@ export default {
 
       doc.setFontType("italic");
 
-      let publication_date = moment(String(item.publication_date), "YYYY-MM-DD").locale(document.documentElement.lang);
+      let publication_date = moment(String(item.publication_date), "YYYY-MM-DD").locale(localemanager.getSystemLocale());
       doc.text(margins.right, margins.height - 10, publication_date.format("LL"));
 
       doc.addPage();
@@ -285,7 +286,8 @@ export default {
       doc.fromHTML(item.article_content, margins.left, margins.top, {
         width: margins.width
       }, function(cb) {
-         doc.save(pdfName + '_' + publication_date.format("YYYYMMDD") + '.pdf');
+        let aux = pdfName + '_' + publication_date.format("YYYYMMDD") + '_' + localemanager.getSystemLocale().replace('-', '').toLowerCase() + '.pdf';
+        doc.save(aux);
       }, margins);
     },
 
