@@ -1,5 +1,5 @@
 <template>
-  <v-card style="margin:60px;">
+  <div>
     <v-dialog v-model="taxonomy_dialog" max-width="590">
       <v-card>
         <v-card-text>
@@ -66,7 +66,6 @@
         </v-card-actions>
       </v-card>
     </v-dialog>
-    <v-container fluid grid-list-md>
       <v-layout row justify-space-between>
         <v-flex xs12 align-end flexbox>
           <v-img :src="readableItem.figure_path" height="600px"></v-img>
@@ -90,10 +89,6 @@
           <v-btn @click="pdf(readableItem)">{{ $t("article.get_pdf") }}</v-btn>
         </v-flex>
         <v-flex xs12 align-end flexbox>
-          <v-subheader>{{ $t("article.rating") }}</v-subheader>
-          <v-rating v-model="readableItem.rating"></v-rating>
-        </v-flex>
-        <v-flex xs12 align-end flexbox>
           <v-subheader>{{ $t('messages.increase_font_size') + ' or ' + $t('messages.decrease_font_size') }}</v-subheader>
           <v-btn @click="increaseFontSize('adjustfont', 1)" icon :title="$t('messages.increase_font_size')">
             <v-icon>fas fa-plus</v-icon>
@@ -110,7 +105,7 @@
         <v-flex xs12 align-end flexbox>
           <v-subheader>{{ $t("article.content") }}</v-subheader>
           <v-card-text id="pdf" ref="pdf" style="padding:55px;">
-            <div id="adjustfont" v-html="readableItem.specie_description"></div>
+            <article id="adjustfont" v-html="readableItem.specie_description"></article>
           </v-card-text>
         </v-flex>
       </v-layout>
@@ -119,24 +114,47 @@
       <v-tabs v-model="activetab" icons-and-text centered>
         <v-tabs-slider color="yellow"></v-tabs-slider>
         <v-tab href="#tab-1">
-          {{ $t("linkedata.title") }}
-          <v-icon>blur_on</v-icon>
-        </v-tab>
-        <v-tab href="#tab-2">
           {{ $t("article.species") }}
           <v-icon>search</v-icon>
+        </v-tab>
+        <v-tab href="#tab-2">
+          {{ $t("linkedata.title") }}
+          <v-icon>blur_on</v-icon>
         </v-tab>
         <v-tab href="#tab-3">
           {{ $t("article.comments") }}
           <v-icon>people</v-icon>
         </v-tab>
         <v-tab-item value="tab-1">
+          <v-card>
+              <v-container>
+                <v-layout wrap>
+                  <v-flex x6 pa-3>
+                    <v-card row wrap>
+                      <v-img :src="readableItem.figure_path" height="200px"></v-img>
+                      <v-card-actions>
+                        <v-list>
+                          <v-list-tile-action>
+                            <v-chip @click="getPicturesFor(readableItem.taxonomy_group)" outline label color="red"><v-icon left>fas fa-images</v-icon>{{ $t("linkedata.load") }}</v-chip>
+                          </v-list-tile-action>
+                          <v-list-tile-action>
+                            <v-chip @click.native.stop="taxonomy_dialog = true" @click.exact="showTaxonomy(readableItem.taxonomy_group)" outline label color="blue"><v-icon left>fas fa-info</v-icon>{{ $t("linkedata.show_taxonomy") }}</v-chip>
+                          </v-list-tile-action>
+                        </v-list>
+                      </v-card-actions>
+                    </v-card>
+                  </v-flex>
+                </v-layout>
+              </v-container>
+          </v-card>
+        </v-tab-item>
+        <v-tab-item value="tab-2">
           <v-card flat>
             <v-container>
               <v-subheader>Animalia</v-subheader>
               <v-divider></v-divider>
-              <v-layout row wrap>
-                <v-flex d-flex xs12 sm6 md3 v-for="(item, i3) in linkedata.Animalia" :key="'specie_pictures___' + (i3 + 1)">
+              <v-layout wrap>
+                <v-flex x6 pa-3 v-for="(item, i3) in linkedata.Animalia" :key="'specie_pictures___' + (i3 + 1)">
                   <v-card>
                     <a target="_blank" :href="item.img">
                       <v-img :src="item.img" height="300px"></v-img>
@@ -149,8 +167,8 @@
               </v-layout>
               <v-subheader>Plantae</v-subheader>
               <v-divider></v-divider>
-              <v-layout row wrap>
-                <v-flex d-flex xs12 sm6 md3 v-for="(item, i5) in linkedata.Plantae" :key="'specie_pictures___' + (i5 + 1)">
+              <v-layout wrap>
+                <v-flex x6 pa-3 v-for="(item, i5) in linkedata.Plantae" :key="'specie_pictures___' + (i5 + 1)">
                   <v-card>
                     <a target="_blank" :href="item.img">
                       <v-img :src="item.img" height="300px"></v-img>
@@ -164,36 +182,11 @@
             </v-container>
           </v-card>
         </v-tab-item>
-        <v-tab-item value="tab-2">
-          <v-card flat>
-            <v-layout>
-              <v-container>
-                <v-layout row wrap>
-                  <v-card row wrap>
-                    <v-img :src="readableItem.figure_path" height="200px"></v-img>
-                    <v-card-actions>
-                      <v-list>
-                        <v-list-tile-action>
-                          <v-btn class="pa-3" color="red lighten-3" @click="getPicturesFor(readableItem.taxonomy_group)">{{ $t("linkedata.load") }}</v-btn>
-                        </v-list-tile-action>
-                        <v-spacer class="pb-3 pt-3"></v-spacer>
-                        <v-list-tile-action>
-                          <v-btn class="pa-3" color="green lighten-3" @click.native.stop="taxonomy_dialog = true" @click.exact="showTaxonomy(readableItem.taxonomy_group)">{{ $t("linkedata.show_taxonomy") }}</v-btn>
-                        </v-list-tile-action>
-                      </v-list>
-                    </v-card-actions>
-                  </v-card>
-                </v-layout>
-              </v-container>
-            </v-layout>
-          </v-card>
-        </v-tab-item>
         <v-tab-item value="tab-3">
           <div id="disqus_thread"></div>
         </v-tab-item>
       </v-tabs>
-    </v-container>
-  </v-card>
+  </div>
 </template>
 
 <script>
@@ -327,9 +320,6 @@ export default {
       console.log('/api/v1/splink/' + specie + '/2/10')
       axios.get('/api/v1/splink/' + specie + '/2/10').then(function(resp) {
         app.linkedata.Plantae = resp.data;
-      }).catch(function(resp) {
-        console.log(resp);
-        alert(this.$i18n.t('alerts.could_not_load') + ' ' + this.$i18n.t('alerts.article'));
       });
     },
 
@@ -338,14 +328,11 @@ export default {
       console.log('/api/v1/arkive/' + specie + '/10')
       axios.get('/api/v1/arkive/' + specie + '/10').then(function(resp) {
         app.linkedata.Animalia = resp.data;
-      }).catch(function(resp) {
-        console.log(resp);
-        alert(this.$i18n.t('alerts.could_not_load') + ' ' + this.$i18n.t('alerts.article'));
       });
     },
 
     goToLinkedDataTab() {
-      this.activetab = 'tab-1';
+      this.activetab = 'tab-2';
     },
 
     startDisqus() {
