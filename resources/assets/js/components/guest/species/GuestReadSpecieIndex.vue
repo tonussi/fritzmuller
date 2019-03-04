@@ -125,35 +125,35 @@
         </v-tab>
         <v-tab-item value="tab-1">
           <v-card>
-              <v-container>
-                <v-layout wrap>
-                  <v-flex x6 pa-3>
-                    <v-card row wrap>
-                      <v-img :src="readableItem.figure_path" height="200px"></v-img>
-                      <v-card-actions>
-                        <v-list>
-                          <v-list-tile>
-                            <v-chip @click="getPicturesFor(readableItem.taxonomy_group)" outline label color="red"><v-icon left>fas fa-images</v-icon>{{ $t("linkedata.load") }}</v-chip>
-                          </v-list-tile>
-                          <v-list-tile>
-                            <v-chip @click.native.stop="taxonomy_dialog = true" @click.exact="showTaxonomy(readableItem.taxonomy_group)" outline label color="blue"><v-icon left>fas fa-info</v-icon>{{ $t("linkedata.show_taxonomy") }}</v-chip>
-                          </v-list-tile>
-                          <v-list-tile>
-                            <v-btn
-                              target="_blank"
-                              :href="'https://www.iucnredlist.org/search?query=' + readableItem.taxonomy_group.taxonomy_rank_specie.rank_name.replace(' ', '+')"
-                              outline label color="green">
-                              <v-icon left>fas fa-dove</v-icon>
-                              <v-icon left>fab fa-pagelines</v-icon>
-                              {{ $t("linkedata.red_list") }}
-                            </v-btn>
-                          </v-list-tile>
-                        </v-list>
-                      </v-card-actions>
-                    </v-card>
-                  </v-flex>
-                </v-layout>
-              </v-container>
+            <v-container>
+              <v-layout>
+                <v-flex d-flex xs12 sm6 md3 pa-3>
+                  <v-card>
+                    <v-img :src="readableItem.figure_path" aspect-ratio="1.30"></v-img>
+                    <v-card-actions>
+                      <v-list>
+                        <v-list-tile>
+                          <v-chip @click="getPicturesFor(readableItem.taxonomy_group)" outline label color="red"><v-icon left>fas fa-images</v-icon>{{ $t("linkedata.load") }}</v-chip>
+                        </v-list-tile>
+                        <v-list-tile>
+                          <v-chip @click.native.stop="taxonomy_dialog = true" @click.exact="showTaxonomy(readableItem.taxonomy_group)" outline label color="blue"><v-icon left>fas fa-info</v-icon>{{ $t("linkedata.show_taxonomy") }}</v-chip>
+                        </v-list-tile>
+                        <v-list-tile>
+                          <v-btn
+                            target="_blank"
+                            :href="'https://www.iucnredlist.org/search?query=' + readableItem.taxonomy_group.taxonomy_rank_specie.rank_name.replace(' ', '+')"
+                            outline label color="green">
+                            <v-icon left>fas fa-dove</v-icon>
+                            <v-icon left>fab fa-pagelines</v-icon>
+                            {{ $t("linkedata.red_list") }}
+                          </v-btn>
+                        </v-list-tile>
+                      </v-list>
+                    </v-card-actions>
+                  </v-card>
+                </v-flex>
+              </v-layout>
+            </v-container>
           </v-card>
         </v-tab-item>
         <v-tab-item value="tab-2">
@@ -162,7 +162,7 @@
               <v-subheader>Animalia</v-subheader>
               <v-divider></v-divider>
               <v-layout wrap>
-                <v-flex x6 pa-3 v-for="(item, i3) in linkedata.Animalia" :key="'specie_pictures___' + (i3 + 1)">
+                <v-flex xs6 pa-3 v-for="(item, i3) in linkedata.Animalia" :key="'specie_pictures___' + (i3 + 1)">
                   <v-card>
                     <a target="_blank" :href="item.img">
                       <v-img :src="item.img" height="300px"></v-img>
@@ -176,7 +176,7 @@
               <v-subheader>Plantae</v-subheader>
               <v-divider></v-divider>
               <v-layout wrap>
-                <v-flex x6 pa-3 v-for="(item, i5) in linkedata.Plantae" :key="'specie_pictures___' + (i5 + 1)">
+                <v-flex xs6 pa-3 v-for="(item, i5) in linkedata.Plantae" :key="'specie_pictures___' + (i5 + 1)">
                   <v-card>
                     <a target="_blank" :href="item.img">
                       <v-img :src="item.img" height="300px"></v-img>

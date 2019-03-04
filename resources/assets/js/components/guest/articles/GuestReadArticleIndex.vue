@@ -135,10 +135,10 @@
         <v-tab-item value="tab-1">
           <v-card>
             <v-container>
-              <v-layout wrap>
-                <v-flex x6 pa-3 v-for="(item, i) in species" :key="'specie___' + i">
-                  <v-card row wrap>
-                    <v-img :src="item.specie_detail.figure_path" height="200px"></v-img>
+              <v-layout>
+                <v-flex d-flex xs12 sm6 md3 pa-3 v-for="(item, i) in species" :key="'specie___' + i">
+                  <v-card>
+                    <v-img :src="item.specie_detail.figure_path" aspect-ratio="1.30"></v-img>
                     <v-card-actions>
                       <v-list>
                         <v-list-tile>
@@ -171,7 +171,7 @@
               <v-subheader>Animalia</v-subheader>
               <v-divider></v-divider>
               <v-layout wrap>
-                <v-flex x6 pa-3 v-for="(item, i3) in linkedata.Animalia" :key="'specie_pictures___' + (i3 + 1)">
+                <v-flex xs6 pa-3 v-for="(item, i3) in linkedata.Animalia" :key="'specie_pictures___' + (i3 + 1)">
                   <v-card>
                     <a target="_blank" :href="item.img">
                       <v-img :src="item.img" height="300px"></v-img>
@@ -185,7 +185,7 @@
               <v-subheader>Plantae</v-subheader>
               <v-divider></v-divider>
               <v-layout wrap>
-                <v-flex x6 pa-3 v-for="(item, i5) in linkedata.Plantae" :key="'specie_pictures___' + (i5 + 1)">
+                <v-flex xs6 pa-3 v-for="(item, i5) in linkedata.Plantae" :key="'specie_pictures___' + (i5 + 1)">
                   <v-card>
                     <a target="_blank" :href="item.img">
                       <v-img :src="item.img" height="300px"></v-img>
