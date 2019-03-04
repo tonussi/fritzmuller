@@ -216,12 +216,9 @@ export default {
       species: [],
       activetab: 'linkedata_0',
       readableItem: {
-        title: '',
-        subtitle: '',
-        article_content: '',
-        publication_date: '',
-        figure_path: '',
-        active: false,
+        taxonomy_group: {
+          taxonomy_rank_specie: {}
+        },
         modal_date_check: false
       }
     }
@@ -246,11 +243,11 @@ export default {
         height: 540
       };
 
-      let pdfName = item.title;
-      var options = {orientation: 'l', unit: 'px', format: 'a3'};
-      var doc = new jsPDF(options);
+      let pdfName = item.title.replace(" ", "_").toLowerCase();
+      let options = {orientation: 'l', unit: 'px', format: 'a3'};
+      let doc = new jsPDF(options);
 
-      var img = new Image();
+      let img = new Image();
       img.src = item.figure_path;
 
       try {
@@ -262,19 +259,23 @@ export default {
       doc.addPage();
 
       doc.setFontSize(52);
+      doc.setFontType("bold");
       doc.text(margins.right, margins.height - 80, item.title);
       doc.setFontSize(22);
       doc.text(margins.right, margins.height - 40, item.subtitle);
       doc.setFontSize(12);
+
       doc.setFontType("italic");
-      doc.text(margins.right, margins.height - 10, moment(String(item.publication_date), "YYYY-MM-DD").locale(document.documentElement.lang).format('LL'));
+
+      let publication_date = moment(String(item.publication_date), "YYYY-MM-DD").locale(document.documentElement.lang);
+      doc.text(margins.right, margins.height - 10, publication_date.format("LL"));
 
       doc.addPage();
 
       doc.fromHTML(item.article_content, margins.left, margins.top, {
         width: margins.width
       }, function(cb) {
-         doc.save(item.title + '_' + item.publication_date + '.pdf');
+         doc.save(pdfName + '_' + publication_date.format("YYYYMMDD") + '.pdf');
       }, margins);
     },
 

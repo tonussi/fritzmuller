@@ -79,16 +79,12 @@
           <span class="display-3">{{readableItem.taxonomy_group.taxonomy_rank_specie.rank_name}}</span>
         </v-flex>
         <v-flex xs12 align-end flexbox>
-          <v-subheader>{{ $t("article.subtitle") }}</v-subheader>
-          <h2>{{readableItem.subtitle}}</h2>
-        </v-flex>
-        <v-flex xs12 align-end flexbox>
           <v-subheader>{{ $t("species.created_at") }}</v-subheader>
           <h3>{{readableItem.created_at | datei18n }}</h3>
         </v-flex>
         <v-flex xs12 align-end flexbox>
           <v-subheader>{{ $t("article.pdf_session") }}</v-subheader>
-          <v-btn @click="pdf(readableItem)">{{ $t("article.get_pdf") }}</v-btn>
+          <v-btn color="primary" @click="pdf(readableItem)">{{ $t("article.get_pdf") }}</v-btn>
         </v-flex>
         <v-flex xs12 align-end flexbox>
           <v-subheader>{{ $t('messages.increase_font_size') + ' or ' + $t('messages.decrease_font_size') }}</v-subheader>
@@ -237,11 +233,11 @@ export default {
         height: 540
       };
 
-      let pdfName = item.title;
-      var options = {orientation: 'l', unit: 'px', format: 'a3'};
-      var doc = new jsPDF(options);
+      let pdfName = item.taxonomy_group.taxonomy_rank_specie.rank_name.replace(" ", "_").toLowerCase();
+      let options = {orientation: 'l', unit: 'px', format: 'a3'};
+      let doc = new jsPDF(options);
 
-      var img = new Image();
+      let img = new Image();
       img.src = item.figure_path;
 
       try {
@@ -252,20 +248,28 @@ export default {
 
       doc.addPage();
 
-      doc.setFontSize(52);
-      doc.text(margins.right, margins.height - 80, item.title);
-      doc.setFontSize(22);
-      doc.text(margins.right, margins.height - 40, item.subtitle);
       doc.setFontSize(12);
+      doc.setFontType("bold");
+
+      doc.text(margins.right, margins.height - 110, item.taxonomy_group.taxonomy_rank_kingdom.rank_name);
+      doc.text(margins.right, margins.height - 100, item.taxonomy_group.taxonomy_rank_phylum.rank_name);
+      doc.text(margins.right, margins.height - 90, item.taxonomy_group.taxonomy_rank_class.rank_name);
+      doc.text(margins.right, margins.height - 80, item.taxonomy_group.taxonomy_rank_order.rank_name);
+      doc.text(margins.right, margins.height - 70, item.taxonomy_group.taxonomy_rank_family.rank_name);
+      doc.text(margins.right, margins.height - 60, item.taxonomy_group.taxonomy_rank_genus.rank_name);
+      doc.text(margins.right, margins.height - 50, item.taxonomy_group.taxonomy_rank_specie.rank_name);
+
       doc.setFontType("italic");
-      doc.text(margins.right, margins.height - 10, moment(String(item.publication_date), "YYYY-MM-DD").locale(document.documentElement.lang).format('LL'));
+      let specie_created_at = moment(String(item.created_at), "YYYY-MM-DD").locale(document.documentElement.lang);
+
+      doc.text(margins.right, margins.height - 20, specie_created_at.format('LL'));
 
       doc.addPage();
 
-      doc.fromHTML(item.article_content, margins.left, margins.top, {
+      doc.fromHTML(item.specie_description, margins.left, margins.top, {
         width: margins.width
       }, function(cb) {
-         doc.save(item.title + '_' + item.publication_date + '.pdf');
+         doc.save(pdfName + '_' + specie_created_at.format('YYYYMMDD') + '.pdf');
       }, margins);
     },
 
