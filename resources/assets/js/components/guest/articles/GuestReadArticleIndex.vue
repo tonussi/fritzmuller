@@ -141,12 +141,22 @@
                     <v-img :src="item.specie_detail.figure_path" height="200px"></v-img>
                     <v-card-actions>
                       <v-list>
-                        <v-list-tile-action>
+                        <v-list-tile>
                           <v-chip @click="getPicturesFor(item.specie_detail.taxonomy_group)" outline label color="red"><v-icon left>fas fa-images</v-icon>{{ $t("linkedata.load") }}</v-chip>
-                        </v-list-tile-action>
-                        <v-list-tile-action>
+                        </v-list-tile>
+                        <v-list-tile>
                           <v-chip @click.native.stop="taxonomy_dialog = true" @click.exact="showTaxonomy(item.specie_detail.taxonomy_group)" outline label color="blue"><v-icon left>fas fa-info</v-icon>{{ $t("linkedata.show_taxonomy") }}</v-chip>
-                        </v-list-tile-action>
+                        </v-list-tile>
+                        <v-list-tile>
+                          <v-btn
+                            target="_blank"
+                            :href="'https://www.iucnredlist.org/search?query=' + item.specie_detail.taxonomy_group.taxonomy_rank_specie.rank_name.replace(' ', '+')"
+                            outline label color="green">
+                            <v-icon left>fas fa-dove</v-icon>
+                            <v-icon left>fab fa-pagelines</v-icon>
+                            {{ $t("linkedata.red_list") }}
+                          </v-btn>
+                        </v-list-tile>
                       </v-list>
                     </v-card-actions>
                   </v-card>
