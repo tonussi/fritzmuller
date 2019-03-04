@@ -1,68 +1,70 @@
 <template>
   <div>
-    <v-dialog v-model="taxonomy_dialog" max-width="590">
+    <v-dialog v-model="taxonomy_dialog" width="500">
       <v-card>
         <v-card-text>
           <v-layout row>
-            <v-flex xs4>
-              <v-subheader>{{ $t('taxonomy.kingdom') }}:</v-subheader>
+            <v-flex xs6>
+              <h3>{{ $t('taxonomy.kingdom') }}:</h3>
             </v-flex>
-            <v-flex xs8>
-              <v-chip label color="green lighten-2">{{ taxonomy_info_display.kingdom }}</v-chip>
-            </v-flex>
-          </v-layout>
-          <v-layout row>
-            <v-flex xs4>
-              <v-subheader>{{ $t('taxonomy.phylum') }}:</v-subheader>
-            </v-flex>
-            <v-flex xs8>
-              <v-chip label color="green lighten-2">{{ taxonomy_info_display.phylum }}</v-chip>
+            <v-flex xs6>
+              <p color="green lighten-2">{{ taxonomy_info_display.kingdom }}</p>
             </v-flex>
           </v-layout>
           <v-layout row>
-            <v-flex xs4>
-              <v-subheader>{{ $t('taxonomy.class') }}:</v-subheader>
+            <v-flex xs6>
+              <h3>{{ $t('taxonomy.phylum') }}:</h3>
             </v-flex>
-            <v-flex xs8>
-              <v-chip label color="green lighten-2">{{ taxonomy_info_display.class }}</v-chip>
-            </v-flex>
-          </v-layout>
-          <v-layout row>
-            <v-flex xs4>
-              <v-subheader>{{ $t('taxonomy.order') }}:</v-subheader>
-            </v-flex>
-            <v-flex xs8>
-              <v-chip label color="green lighten-2">{{ taxonomy_info_display.order }}</v-chip>
+            <v-flex xs6>
+              <p color="green lighten-2">{{ taxonomy_info_display.phylum }}</p>
             </v-flex>
           </v-layout>
           <v-layout row>
-            <v-flex xs4>
-              <v-subheader>{{ $t('taxonomy.family') }}:</v-subheader>
+            <v-flex xs6>
+              <h3>{{ $t('taxonomy.class') }}:</h3>
             </v-flex>
-            <v-flex xs8>
-              <v-chip label color="green lighten-2">{{ taxonomy_info_display.family }}</v-chip>
-            </v-flex>
-          </v-layout>
-          <v-layout row>
-            <v-flex xs4>
-              <v-subheader>{{ $t('taxonomy.genus') }}:</v-subheader>
-            </v-flex>
-            <v-flex xs8>
-              <v-chip label color="green lighten-2">{{ taxonomy_info_display.genus }}</v-chip>
+            <v-flex xs6>
+              <p color="green lighten-2">{{ taxonomy_info_display.class }}</p>
             </v-flex>
           </v-layout>
           <v-layout row>
-            <v-flex xs4>
-              <v-subheader>{{ $t('taxonomy.species') }}:</v-subheader>
+            <v-flex xs6>
+              <h3>{{ $t('taxonomy.order') }}:</h3>
             </v-flex>
-            <v-flex xs8>
-              <v-chip label color="green lighten-2">{{ taxonomy_info_display.specie }}</v-chip>
+            <v-flex xs6>
+              <p color="green lighten-2">{{ taxonomy_info_display.order }}</p>
+            </v-flex>
+          </v-layout>
+          <v-layout row>
+            <v-flex xs6>
+              <h3>{{ $t('taxonomy.family') }}:</h3>
+            </v-flex>
+            <v-flex xs6>
+              <p color="green lighten-2">{{ taxonomy_info_display.family }}</p>
+            </v-flex>
+          </v-layout>
+          <v-layout row>
+            <v-flex xs6>
+              <h3>{{ $t('taxonomy.genus') }}:</h3>
+            </v-flex>
+            <v-flex xs6>
+              <p color="green lighten-2">{{ taxonomy_info_display.genus }}</p>
+            </v-flex>
+          </v-layout>
+          <v-layout row>
+            <v-flex xs6>
+              <h3>{{ $t('taxonomy.species') }}:</h3>
+            </v-flex>
+            <v-flex xs6>
+              <p color="green lighten-2">{{ taxonomy_info_display.specie }}</p>
             </v-flex>
           </v-layout>
         </v-card-text>
         <v-card-actions>
           <v-spacer></v-spacer>
-          <v-btn color="green darken-1" flat="flat" @click.native="taxonomy_dialog = false">Cool!</v-btn>
+          <v-btn color="green darken-1" flat="flat" @click.native="taxonomy_dialog = false">
+            <v-icon>fas fa-window-close</v-icon>
+          </v-btn>
         </v-card-actions>
       </v-card>
     </v-dialog>
