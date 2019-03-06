@@ -424,6 +424,7 @@ export default {
 
     editItem(item) {
       this.editedIndex = this.items.indexOf(item);
+      this.catalog_of_life_link = '';
       Object.assign(this.editedItem, item);
       this.dialog_editing_taxonomy = true;
     },
