@@ -349,7 +349,7 @@ export default {
       if (item.taxonomy_rank_kingdom.rank_name === 'Plantae') {
         this.getSplinkContent(item.taxonomy_rank_specie.rank_name);
       } else if (item.taxonomy_rank_kingdom.rank_name === 'Animalia') {
-        this.getArkiveContent(item.taxonomy_rank_specie.rank_name);
+        this.getBritannicaContent(item.taxonomy_rank_specie.rank_name);
       }
       this.goToLinkedDataTab();
     },
@@ -365,10 +365,10 @@ export default {
       });
     },
 
-    getArkiveContent(specie) {
+    getBritannicaContent(specie) {
       var app = this;
-      console.log('/api/v1/arkive/' + specie + '/10')
-      axios.get('/api/v1/arkive/' + specie + '/10').then(function(resp) {
+      console.log('/api/v1/britannica/' + specie + '/10')
+      axios.get('/api/v1/britannica/' + specie + '/10').then(function(resp) {
         app.linkedata.Animalia = resp.data;
       }).catch(function(resp) {
         console.log(resp);

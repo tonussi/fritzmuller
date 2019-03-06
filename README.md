@@ -16,7 +16,7 @@ Projeto educacional para auxiliar Maria Cristina P. T.
 ## Work in Progress
 
 - Taxonomia dos Animais e Plantas.
-- Listagens de imagens Splink e Arkive.
+- Listagens de imagens Splink e Britannica.
 
 ## Instalação
 

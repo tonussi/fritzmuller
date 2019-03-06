@@ -317,7 +317,7 @@ Route::group([
     'namespace' => 'Api\V1',
     'as' => 'api.'
 ], function () {
-    Route::get('arkive/{taxon}/{limit}', 'ArkiveService@index', [
+    Route::get('britannica/{taxon}/{limit}', 'BritannicaService@index', [
         'except' => [ 'create', 'edit', 'update', 'store', 'delete' ]
     ]);
 });
