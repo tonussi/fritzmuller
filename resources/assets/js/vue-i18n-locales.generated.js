@@ -179,7 +179,8 @@ export default {
             "viewer": "Open Splink Viewer",
             "show_taxonomy": "Show Taxonomy",
             "info": "Go to original source",
-            "red_list": "IUCN Red List Data"
+            "red_list": "IUCN Red List Data",
+            "mol": "Map of Life"
         },
         "admin": {
             "manage": "Manage this",
@@ -555,7 +556,8 @@ export default {
             "viewer": "Abrir Splink Viewer",
             "show_taxonomy": "Mostrar Taxonomia",
             "info": "Ir para fonte original",
-            "red_list": "IUCN Red List Data"
+            "red_list": "IUCN Lista Vermelha",
+            "mol": "Mapa da Vida"
         },
         "admin": {
             "manage": "Administrar isso",

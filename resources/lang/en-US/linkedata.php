@@ -5,5 +5,6 @@ return [
     'viewer' => 'Open Splink Viewer',
     'show_taxonomy' => 'Show Taxonomy',
     'info' => 'Go to original source',
-    'red_list' => 'IUCN Red List Data'
+    'red_list' => 'IUCN Red List Data',
+    'mol' => 'Map of Life'
 ];

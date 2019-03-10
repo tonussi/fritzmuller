@@ -148,6 +148,15 @@
                             {{ $t("linkedata.red_list") }}
                           </v-btn>
                         </v-list-tile>
+                        <v-list-tile>
+                          <v-btn
+                            target="_blank"
+                            :href="'https://mol.org/species/' + readableItem.taxonomy_group.taxonomy_rank_specie.rank_name"
+                            outline label color="black">
+                            <v-icon left>fas fa-map</v-icon>
+                            {{ $t("linkedata.mol") }}
+                          </v-btn>
+                        </v-list-tile>
                       </v-list>
                     </v-card-actions>
                   </v-card>
