@@ -2,9 +2,8 @@
 
 Projeto educacional para auxiliar Maria Cristina P. T.
 
-- [Github](https://github.com/tonussi/fritzmuller)
+- [Github](https://github.com/tonussi/fritzmuller/)
 - [App em Produção](https://fritzmuller.org/)
-- https://img.shields.io/badge/Slack-Got%20Any%20Questions%3F-Red.svg
 - [![Join us on Slack!](https://img.shields.io/badge/Slack-Got%20Any%20Questions%3F-Red.svg)](https://projetofritzmller.slack.com/)  
 
 <img src="fritzmuller.jpg" height="250px"></img>
